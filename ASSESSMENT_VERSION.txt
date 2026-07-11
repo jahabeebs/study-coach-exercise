@@ -1,0 +1,4 @@
+Study Coach assessment version
+content: 8091c93c0c34
+built-from: 13a8d7e
+packaged: 2026-07-11T00:46:04+00:00

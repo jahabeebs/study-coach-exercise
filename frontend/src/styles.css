@@ -1,0 +1,78 @@
+:root {
+  --ink: #1a2233;
+  --muted: #5b6577;
+  --line: #dde3ec;
+  --accent: #2456c4;
+  --accent-soft: #e8effc;
+  --bg: #f7f9fc;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.app { max-width: 760px; margin: 0 auto; padding: 1rem; }
+
+header { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+header h1 { font-size: 1.4rem; margin: 0.5rem 0; }
+header .course { color: var(--muted); font-size: 0.9rem; flex: 1; }
+header nav { display: flex; gap: 0.5rem; }
+header nav button {
+  border: 1px solid var(--line);
+  background: white;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+header nav button.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.chat { margin-top: 1rem; }
+.empty { color: var(--muted); padding: 3rem 1rem; text-align: center; }
+
+.messages { display: flex; flex-direction: column; gap: 0.6rem; padding-bottom: 1rem; }
+.message { padding: 0.7rem 1rem; border-radius: 12px; max-width: 85%; }
+.message p { margin: 0; line-height: 1.45; }
+.message.user { background: var(--accent); color: white; align-self: flex-end; }
+.message.assistant { background: white; border: 1px solid var(--line); align-self: flex-start; }
+.message.error { background: #fdecea; color: #8c2f27; align-self: flex-start; }
+.message.thinking { color: var(--muted); font-style: italic; }
+
+.sources { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.55rem; }
+.chip {
+  font-size: 0.75rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  white-space: nowrap;
+}
+
+form { display: flex; gap: 0.5rem; position: sticky; bottom: 0; padding: 0.75rem 0; background: var(--bg); }
+form input {
+  flex: 1;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+form button, .quiz button {
+  padding: 0.65rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+form button:disabled, .quiz button:disabled { opacity: 0.45; cursor: default; }
+
+.quiz-placeholder { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; margin-top: 1rem; }
+.quiz fieldset { background: white; border: 1px solid var(--line); border-radius: 12px; margin: 0.75rem 0; padding: 1rem; }
+.quiz legend { font-weight: 600; padding: 0 0.4rem; }
+.quiz label { display: block; padding: 0.3rem 0.2rem; cursor: pointer; }
+.quiz-result { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 1rem; }

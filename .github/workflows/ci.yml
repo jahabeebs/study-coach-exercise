@@ -1,0 +1,31 @@
+# Runs your test suite automatically on every push. No API key is used or
+# needed here — the suite is designed to run without one. (Evals are run
+# locally with your own key; commit the reports as described in TASKS.md.)
+#
+# You can watch the result in the "Actions" tab of this repo.
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+# No secrets are exposed to this workflow by design.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run backend tests (no API key required)
+        working-directory: backend
+        env:
+          # Guard: make sure nothing in the suite quietly reaches a real model.
+          ANTHROPIC_API_KEY: ""
+        run: uv run pytest -q
