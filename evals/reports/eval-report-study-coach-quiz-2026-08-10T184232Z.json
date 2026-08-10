@@ -1,0 +1,224 @@
+{
+  "run_at": "2026-08-10T18:42:32+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-quiz",
+  "summary": {
+    "cases": 2,
+    "assertions_passed": 9,
+    "assertions_total": 10
+  },
+  "cases": [
+    {
+      "case": "computer_hardware",
+      "question": "computer hardware",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "computer hardware",
+        "questions": [
+          {
+            "question": "What is the correct order of the steps a CPU repeatedly performs in its core cycle?",
+            "options": [
+              "Fetch, decode, execute",
+              "Fetch, execute, decode",
+              "Decode, fetch, execute",
+              "Execute, decode, fetch"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#the-central-processing-unit"
+          },
+          {
+            "question": "According to Moore's Law, how often did the number of transistors on a chip roughly double?",
+            "options": [
+              "Every eighteen months",
+              "Every two years",
+              "Every four years",
+              "Every five years"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#moores-law"
+          },
+          {
+            "question": "What is the primary role of device drivers?",
+            "options": [
+              "They bring data into the computer through input devices",
+              "They present results through output devices like monitors",
+              "They let the operating system communicate with specific hardware",
+              "They provide standardized connections for peripherals through ports"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#input-and-output-devices"
+          },
+          {
+            "question": "Which type of storage retains its contents when power is removed?",
+            "options": [
+              "Registers",
+              "Random access memory (RAM)",
+              "Cache memory",
+              "Solid-state drives (SSDs)"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "What were GPUs originally created to do?",
+            "options": [
+              "Train machine learning models",
+              "Perform scientific computing",
+              "Perform many simple calculations for general-purpose tasks",
+              "Render images and video"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#the-graphics-processing-unit"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt explicitly names the cycle in the order fetch \u2192 decode \u2192 execute, directly supporting this option as correct.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt establishes the order as fetch \u2192 decode \u2192 execute, not fetch \u2192 execute \u2192 decode, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt places fetch first and decode second, ruling out decode \u2192 fetch \u2192 execute.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt places fetch first, not execute, directly contradicting the execute \u2192 decode \u2192 fetch ordering.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests knowledge of CPU operation, a core subtopic of computer hardware, and the cited excerpt explicitly describes the fetch-decode-execute cycle.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt states the doubling period was every two years, not every eighteen months, directly contradicting this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt explicitly states the doubling occurred roughly every two years, directly supporting this option as correct.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt specifies every two years, not every four years, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt specifies every two years, not every five years, directly contradicting this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question tests Moore's Law, which the cited excerpt explicitly presents as a hardware-related observation about transistor density growth, a subtopic of computer hardware.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Input devices bring data into the computer: keyboards, mice, touchscreens, cameras, and microphones.\", \"explanation\": \"The excerpt assigns the role of bringing data into the computer to input devices, not to device drivers, making this option inapplicable to the question about drivers.\", \"option_index\": 0, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Output devices present results: monitors, speakers, and printers.\", \"explanation\": \"The excerpt assigns presenting results to output devices, not to device drivers, making this option inapplicable.\", \"option_index\": 1, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Device drivers are software components that let the operating system communicate with specific hardware.\", \"explanation\": \"The excerpt directly defines device drivers as components that let the OS communicate with specific hardware, supporting this option as correct.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Ports such as USB provide standardized connections for peripherals.\", \"explanation\": \"The excerpt assigns providing standardized connections for peripherals to ports (e.g., USB), not to device drivers, making this option inapplicable.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question tests knowledge of device drivers, a hardware-related concept explicitly covered in the cited excerpt under input/output devices \u2014 a clear subtopic of computer hardware.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt describes registers by speed and size, not persistence. Given that RAM is explicitly described as volatile (contents lost without power), registers \u2014 which are also volatile working storage \u2014 are inapplicable as a non-volatile option.\", \"option_index\": 0, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Random access memory (RAM) is the computer's working memory: it holds running programs and their data, and its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly states RAM is volatile and loses its contents when power is removed, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"Cache is described as a fast, small store near the CPU. Like RAM, it is not described as persistent; the excerpt's volatility discussion applies to RAM and contrasts with persistent storage, placing cache in the non-persistent category.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly states that SSDs (and HDDs) retain data without power, directly supporting this option as the correct answer.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question tests knowledge of the storage hierarchy and data persistence, a direct subtopic of computer hardware covered in the cited excerpt.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"The excerpt states GPUs were created to render images and video, and that machine learning training is a secondary, derived use \u2014 directly contradicting the claim that this was their original purpose.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"Scientific computing is listed as a secondary application enabled by their parallel design, not their original purpose, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The graphics processing unit (GPU) contains thousands of small cores designed to perform many simple calculations simultaneously.\", \"explanation\": \"The excerpt ties the design of many simple simultaneous calculations to GPU architecture generally, but explicitly states GPUs were created to render images and video \u2014 not for general-purpose tasks \u2014 contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"The excerpt directly and unambiguously states that GPUs were created to render images and video, supporting this option as the correct answer.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question tests the original purpose of GPUs, which is explicitly covered in the cited excerpt under GPU hardware \u2014 a direct subtopic of computer hardware.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "binary_search",
+      "question": "binary search",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "binary search",
+        "questions": [
+          {
+            "question": "What must be true about a list before binary search can be applied to it?",
+            "options": [
+              "It must be sorted in advance.",
+              "It can be sorted or unsorted.",
+              "It must be exhausted before returning a result.",
+              "It must have its middle element checked last."
+            ],
+            "correct_index": 0,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "When binary search compares the target to the middle element and the target is smaller, where does the search continue?",
+            "options": [
+              "In the right half of the remaining range.",
+              "Across the entire list from the beginning.",
+              "From the middle element to the last element.",
+              "In the left half of the remaining range."
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "According to Big-O notation, what is the efficiency classification of binary search?",
+            "options": [
+              "O(n)",
+              "O(log n)",
+              "O(n\u00b2)",
+              "O(n log n)"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          },
+          {
+            "question": "For a list of one million items, approximately how many comparisons does binary search need in the worst case?",
+            "options": [
+              "About fifty comparisons.",
+              "About one hundred comparisons.",
+              "About twenty comparisons.",
+              "About one thousand comparisons."
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What happens to the worst-case number of binary search comparisons when the size of a sorted list is doubled?",
+            "options": [
+              "The number of comparisons doubles.",
+              "The number of comparisons stays exactly the same.",
+              "The number of comparisons decreases by one.",
+              "Only one more comparison is added."
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#what-is-an-algorithm",
+          "lesson-04-algorithms#pseudocode",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "An algorithm is a precise, step-by-step procedure for solving a problem. A recipe is a\nuseful analogy: given ingredients (input), following the steps produces a dish\n(output). For a procedure to be an algorithm, its steps must be unambiguous, it must\nfinish after a finite number of steps, and it must produce a correct result for every\nvalid input. The same algorithm can be expressed in English, in pseudocode, or in any\nprogramming language.",
+          "Pseudocode describes an algorithm in structured, language-neutral text. It uses\nconstructs such as IF/ELSE for decisions, WHILE and FOR for repetition, and variables\nfor storing values, without the exact syntax of any programming language. Pseudocode\nlets people design and discuss an algorithm before writing real code.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": false,
+          "reason": "{\"errors\": [\"question 0 distractor 2 must be contradicted or inapplicable, got not_proven: The excerpt describes binary search as halving the search range, not exhausting the list before returning a result. This option is not addressed in the excerpt, so only not_proven applies.\", \"question 4 distractor 2 must be contradicted or inapplicable, got not_proven: The excerpt states that doubling adds one more comparison, not that it decreases by one. This option is not addressed anywhere in the excerpt, so not_proven is the appropriate ruling.\"], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt explicitly states this requirement, directly supporting option 0 as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt states the list must be sorted, directly contradicting the claim that it can be sorted or unsorted.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes binary search as halving the search range, not exhausting the list before returning a result. This option is not addressed in the excerpt, so only not_proven applies.\", \"option_index\": 2, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt shows the middle element is checked first (and repeatedly), not last, directly contradicting this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests a prerequisite condition for applying binary search, which is a core property of binary search as described in the cited excerpt.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt states the search continues in the left half when the target is smaller, directly contradicting the claim that it continues in the right half.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes binary search as halving the range, not restarting from the beginning of the entire list, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"Continuing from the middle to the last element describes the right-half scenario (when target is larger), not when the target is smaller, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt directly states that when the target is smaller, the search continues in the left half, supporting option 3 as correct.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question tests a specific step in the binary search algorithm \u2014 the direction of continuation when the target is smaller than the middle element \u2014 which is directly described in the cited excerpt.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Linear search is O(n): doubling the list doubles the worst-case work.\", \"explanation\": \"The excerpt assigns O(n) to linear search, not binary search, directly contradicting this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt explicitly classifies binary search as O(log n), directly supporting this option as correct.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt assigns O(n\u00b2) to bubble sort, a different algorithm category entirely, ruling out this classification for binary search.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt assigns O(n log n) to merge sort, a different algorithm, ruling out this classification for binary search.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question asks about the Big-O efficiency classification of binary search, which is explicitly discussed in the cited excerpt as a subtopic of comparing algorithm efficiency as it applies to binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt states approximately twenty comparisons, directly contradicting the claim of about fifty.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt states approximately twenty comparisons, directly contradicting the claim of about one hundred.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states that a list of one million items needs at most about twenty comparisons, directly supporting this option as correct.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt states approximately twenty comparisons, directly contradicting the claim of about one thousand.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question tests a specific quantitative fact about binary search's worst-case performance on a million-item list, directly stated in the cited excerpt.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt states that doubling the list adds only one comparison, directly contradicting the claim that comparisons double.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt states one more comparison is added when the list doubles, directly contradicting the claim that the count stays exactly the same.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt states that doubling adds one more comparison, not that it decreases by one. This option is not addressed anywhere in the excerpt, so not_proven is the appropriate ruling.\", \"option_index\": 2, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt explicitly states that doubling a sorted list adds only one more comparison, directly supporting this option as correct.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests the scaling behavior of binary search when list size doubles, which is explicitly described in the cited excerpt as part of the binary search efficiency discussion.\", \"topic_relevant\": true}]}, \"passed\": false}"
+        }
+      },
+      "scores": {}
+    }
+  ]
+}

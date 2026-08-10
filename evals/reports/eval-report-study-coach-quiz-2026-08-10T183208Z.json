@@ -1,0 +1,330 @@
+{
+  "run_at": "2026-08-10T18:32:08+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-quiz",
+  "summary": {
+    "cases": 3,
+    "assertions_passed": 12,
+    "assertions_total": 15
+  },
+  "cases": [
+    {
+      "case": "networks_and_internet",
+      "question": "networks and the internet",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "networks and the internet",
+        "questions": [
+          {
+            "question": "What is the internet, as described in the course material?",
+            "options": [
+              "A single centralized network managed by one organization",
+              "A global network of networks where independent networks exchange traffic using shared protocols",
+              "A wide area network that spans a single continent",
+              "A local area network that connects devices in a home or office"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#what-is-a-network"
+          },
+          {
+            "question": "What information is recorded in a packet's headers?",
+            "options": [
+              "Source address, destination address, and sequence position",
+              "Source address, file size, and encryption key",
+              "Destination address, packet count, and checksum",
+              "Source address, destination address, and total file size"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-06-networks#packets"
+          },
+          {
+            "question": "What is the role of routers on the internet?",
+            "options": [
+              "They store a complete copy of every packet sent across the internet",
+              "They translate domain names into IP addresses for browsers",
+              "They encrypt traffic between a browser and a web server",
+              "They read each packet's destination address and forward the packet one step closer to it"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-06-networks#ip-addresses-and-routing"
+          },
+          {
+            "question": "How does the Domain Name System (DNS) work when a browser visits a website?",
+            "options": [
+              "The browser connects directly to a central DNS server that holds every domain name",
+              "The browser first queries DNS to resolve the domain name, then connects to the returned IP address",
+              "The browser uses DNS to encrypt the request before sending it to the web server",
+              "The browser queries DNS after connecting to the web server to verify the server's identity"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#the-domain-name-system"
+          },
+          {
+            "question": "What two protections does encryption provide for data crossing a network, according to the course material?",
+            "options": [
+              "Confidentiality and speed: others cannot read the data, and delivery is faster",
+              "Integrity and availability: tampering is detectable, and the server is always reachable",
+              "Confidentiality and integrity: others cannot read the data, and tampering is detectable",
+              "Authentication and compression: the server is verified, and data size is reduced"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-06-networks#encryption-and-https"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#what-is-a-network",
+          "lesson-06-networks#packets",
+          "lesson-06-networks#ip-addresses-and-routing",
+          "lesson-06-networks#the-domain-name-system",
+          "lesson-06-networks#the-web-and-http",
+          "lesson-06-networks#encryption-and-https"
+        ],
+        "retrieved_chunks": [
+          "A computer network connects devices so they can exchange data. A local area network\n(LAN) covers a small area such as a home or office; a wide area network (WAN) spans\ncities or continents. The internet is a global network of networks: independent\nnetworks agree to exchange traffic using shared protocols, so any connected device can\nreach any other.",
+          "Data travels across networks in packets. A packet is a small chunk of data \u2014 typically\naround a kilobyte \u2014 carrying headers that record its source address, destination\naddress, and sequence position. A large file is split into many packets that may take\ndifferent routes across the network and arrive out of order; the receiving device\nreassembles them into the original data. Packet switching makes networks resilient:\nif one route fails, packets flow around the failure.",
+          "Every device on the internet has an IP address that identifies it, much as a street\naddress identifies a building. IPv4 addresses are four numbers between 0 and 255, such\nas 192.168.4.12; because IPv4 addresses are running out, the newer IPv6 provides a\nvastly larger address space. Routers are devices that read each packet's destination\naddress and forward the packet one step closer to it. A packet typically crosses many\nrouters between source and destination.",
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name.",
+          "The World Wide Web runs on top of the internet. A browser requests a page using the\nHypertext Transfer Protocol (HTTP): it sends a request to a web server, and the server\nresponds with the page content, usually written in HTML. Each request-response pair is\nindependent, which keeps the protocol simple. URLs identify resources: the scheme\n(https), the domain name, and the path together tell the browser what to fetch and how.",
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": false,
+          "reason": "{\"errors\": [\"question 2 option 1 evidence quote is not a normalized contiguous substring of its cited chunk\", \"question 2 distractor 2 must be contradicted or inapplicable, got not_proven\"], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"The internet is a global network of networks: independent networks agree to exchange traffic using shared protocols, so any connected device can reach any other.\", \"explanation\": \"The excerpt describes the internet as a global network of *independent* networks, directly contradicting the claim that it is managed by one centralized organization.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The internet is a global network of networks: independent networks agree to exchange traffic using shared protocols, so any connected device can reach any other.\", \"explanation\": \"This sentence directly matches the option's description of the internet as a global network of networks where independent networks exchange traffic using shared protocols.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"A wide area network (WAN) spans cities or continents.\", \"explanation\": \"The excerpt attributes spanning continents to a WAN, not to the internet, and explicitly defines the internet differently as a global network of networks.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office.\", \"explanation\": \"The excerpt establishes that a LAN is what covers a home or office \u2014 a distinct category from the internet \u2014 ruling out this option for the question about the internet.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 0}, {\"options\": [{\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt directly states that packet headers record source address, destination address, and sequence position, which exactly matches this option.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt lists the header fields as source address, destination address, and sequence position \u2014 not file size or encryption key \u2014 directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt states headers record source address, destination address, and sequence position \u2014 not packet count or checksum \u2014 directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt lists sequence position (not total file size) as the third header field, directly contradicting this option's claim of 'total file size.'\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 1}, {\"options\": [{\"evidence_quote\": \"Routers are devices that read each packet's destination address and forward the packet one step closer to it.\", \"explanation\": \"The excerpt describes routers as forwarding packets, not storing copies of every packet \u2014 directly contradicting this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"When a browser visits a website, it first queries DNS to resolve the name, then connects to the returned IP address.\", \"explanation\": \"The excerpt establishes that DNS (not routers) is responsible for translating domain names into IP addresses, ruling this option out for the question about routers.\", \"option_index\": 1, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Routers are devices that read each packet's destination address and forward the packet one step closer to it.\", \"explanation\": \"The excerpt does not mention routers encrypting traffic; there is no evidence in the cited chunk to support or directly contradict this claim in context.\", \"option_index\": 2, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"Routers are devices that read each packet's destination address and forward the packet one step closer to it.\", \"explanation\": \"This sentence directly matches the option, stating that routers read each packet's destination address and forward the packet one step closer to it.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 2}, {\"options\": [{\"evidence_quote\": \"DNS is a distributed, hierarchical directory \u2014 no single server holds every name.\", \"explanation\": \"The excerpt explicitly states that no single server holds every name, directly contradicting the claim that the browser connects to a central DNS server that holds every domain name.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"When a browser visits a website, it first queries DNS to resolve the name, then connects to the returned IP address.\", \"explanation\": \"The excerpt directly states the browser first queries DNS to resolve the name and then connects to the returned IP address, exactly matching this option.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"The Domain Name System (DNS) translates human-readable domain names such as example.edu into IP addresses.\", \"explanation\": \"The excerpt defines DNS as translating domain names to IP addresses, not as an encryption mechanism, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"When a browser visits a website, it first queries DNS to resolve the name, then connects to the returned IP address.\", \"explanation\": \"The excerpt states DNS is queried *before* connecting to the web server (not after), directly contradicting this option's claim that DNS is queried after connecting.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3}, {\"options\": [{\"evidence_quote\": \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\", \"explanation\": \"The excerpt lists confidentiality and integrity (not speed) as the two protections encryption provides, directly contradicting the pairing of confidentiality with speed.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\", \"explanation\": \"The excerpt names confidentiality and integrity as encryption's protections \u2014 not integrity and availability \u2014 directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\", \"explanation\": \"The excerpt directly states that encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), exactly matching this option.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\", \"explanation\": \"The excerpt identifies confidentiality and integrity as encryption's two protections, not authentication and compression. Authentication via certificates is mentioned as a separate benefit, and compression is not mentioned at all.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4}]}, \"passed\": false}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "binary_search",
+      "question": "binary search",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "binary search",
+        "questions": [
+          {
+            "question": "What is the fundamental technique binary search uses to find a target value?",
+            "options": [
+              "Checking each element one at a time from the first to the last",
+              "Repeatedly halving the search range by comparing the target to the middle element",
+              "Swapping adjacent elements that are out of order until the target is found",
+              "Dividing the list in half, sorting each half, and merging the sorted halves"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "When binary search determines the target is smaller than the middle element, where does the search continue?",
+            "options": [
+              "In the right half of the remaining range",
+              "From the beginning of the full list again",
+              "In the left half of the remaining range",
+              "At the last element of the list"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "Approximately how many comparisons does binary search need at most for a list of one million items?",
+            "options": [
+              "About one million comparisons",
+              "About one thousand comparisons",
+              "About one hundred comparisons",
+              "About twenty comparisons"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What precondition must a list satisfy before binary search can be applied?",
+            "options": [
+              "The list must be sorted in advance.",
+              "The list must contain no duplicate values.",
+              "The list must have an even number of elements.",
+              "The list must be stored in a two-dimensional structure."
+            ],
+            "correct_index": 0,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What is the Big-O efficiency classification of binary search?",
+            "options": [
+              "O(n squared), because doubling the list doubles the worst-case work",
+              "O(n), because each element may need to be examined once",
+              "O(n log n), because it divides and merges the list",
+              "O(log n), because doubling a sorted list adds only one more comparison"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#what-is-an-algorithm",
+          "lesson-04-algorithms#pseudocode",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "An algorithm is a precise, step-by-step procedure for solving a problem. A recipe is a\nuseful analogy: given ingredients (input), following the steps produces a dish\n(output). For a procedure to be an algorithm, its steps must be unambiguous, it must\nfinish after a finite number of steps, and it must produce a correct result for every\nvalid input. The same algorithm can be expressed in English, in pseudocode, or in any\nprogramming language.",
+          "Pseudocode describes an algorithm in structured, language-neutral text. It uses\nconstructs such as IF/ELSE for decisions, WHILE and FOR for repetition, and variables\nfor storing values, without the exact syntax of any programming language. Pseudocode\nlets people design and discuss an algorithm before writing real code.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": false,
+          "reason": "{\"errors\": [\"question 3 distractor 1 must be contradicted or inapplicable, got not_proven\", \"question 3 distractor 2 must be contradicted or inapplicable, got not_proven\", \"question 3 distractor 3 must be contradicted or inapplicable, got not_proven\"], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes binary search as repeatedly halving the search range, not checking each element one at a time from first to last. That sequential approach contradicts how binary search works.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range. It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt directly states that binary search repeatedly halves the search range by comparing the target to the middle element, which matches this option exactly.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes halving the range via comparisons, not swapping adjacent elements. Swapping adjacent out-of-order elements is characteristic of bubble sort, not binary search.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt does not describe dividing, sorting, and merging halves. That describes merge sort, not binary search, and directly conflicts with the described technique.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0}, {\"options\": [{\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states the search continues in the right half only when the target is larger, not smaller. This option has the halves reversed.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements.\", \"explanation\": \"The excerpt states each comparison eliminates half the remaining elements, meaning the search never restarts from the beginning of the full list.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt directly states that when the target is smaller than the middle element, the search continues in the left half, which matches this option.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt describes continuing in a specific half of the range, not jumping to the last element of the list.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 1}, {\"options\": [{\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly states at most about twenty comparisons are needed, not one million.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly states at most about twenty comparisons are needed, not one thousand.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly states at most about twenty comparisons are needed, not one hundred.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly states that a list of one million items needs at most about twenty comparisons, which exactly matches this option.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 2}, {\"options\": [{\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt explicitly states that binary search requires the list to be sorted in advance, directly supporting this option.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt mentions only the sorting precondition. There is no mention of a requirement for the list to contain no duplicate values.\", \"option_index\": 1, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt mentions only the sorting precondition. There is no mention of a requirement for an even number of elements.\", \"option_index\": 2, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt mentions only the sorting precondition. There is no mention of a requirement for a two-dimensional structure.\", \"option_index\": 3, \"ruling\": \"not_proven\"}], \"question_index\": 3}, {\"options\": [{\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt attributes O(n\u00b2) to bubble sort, not to binary search. This classification is inapplicable to binary search.\", \"option_index\": 0, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Linear search is O(n): doubling the list doubles the worst-case work.\", \"explanation\": \"The excerpt attributes O(n) to linear search, not to binary search. This classification is inapplicable to binary search.\", \"option_index\": 1, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt attributes O(n log n) to merge sort, not to binary search. This classification is inapplicable to binary search.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt directly states that binary search is O(log n) because doubling a sorted list adds only one more comparison, which exactly matches this option.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 4}]}, \"passed\": false}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "casual_ram_power_loss",
+      "question": "working memory when power goes off",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "working memory when power goes off",
+        "questions": [
+          {
+            "question": "What is RAM's role in a computer system?",
+            "options": [
+              "It stores the operating system permanently between power cycles.",
+              "It is the computer's working memory, holding running programs and their data.",
+              "It caches recently used data directly inside the CPU cores.",
+              "It provides persistent storage for files using flash memory."
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "What happens to the contents of RAM when power is removed?",
+            "options": [
+              "The contents are compressed and saved to cache memory.",
+              "The contents are transferred automatically to the hard disk drive.",
+              "The contents are retained because RAM is non-volatile.",
+              "The contents are lost because RAM is volatile."
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "Which type of storage retains data without power?",
+            "options": [
+              "Persistent storage such as solid-state drives and hard disk drives.",
+              "RAM, because it is the computer's working memory.",
+              "Cache memory, which holds recently used data.",
+              "Registers, which are the fastest and smallest storage."
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "Where does cache memory sit within the computer's storage hierarchy?",
+            "options": [
+              "Inside the CPU as the fastest and smallest storage.",
+              "Next to the CPU cores, holding recently used data.",
+              "On spinning magnetic platters inside hard disk drives.",
+              "In RAM, holding running programs and their data."
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "How do SSDs differ from HDDs in the storage hierarchy?",
+            "options": [
+              "SSDs store data on spinning magnetic platters, while HDDs use flash memory.",
+              "SSDs are volatile, losing their contents when power is removed.",
+              "SSDs use flash memory with no moving parts and are much faster than HDDs.",
+              "SSDs sit next to the CPU cores, while HDDs are used as working memory."
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": false,
+          "reason": "{\"errors\": [\"question 1 distractor 0 must be contradicted or inapplicable, got not_proven\", \"question 1 distractor 1 must be contradicted or inapplicable, got not_proven\"], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt states RAM is volatile and loses its contents when power is removed, directly contradicting the claim that it stores the OS permanently between power cycles.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Random access memory (RAM) is the computer's working memory: it holds running programs and their data.\", \"explanation\": \"The excerpt directly defines RAM as the computer's working memory that holds running programs and their data, matching this option exactly.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt attributes caching recently used data next to CPU cores to cache memory, not RAM, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"explanation\": \"The excerpt attributes flash memory to SSDs (persistent storage), not to RAM, directly contradicting this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0}, {\"options\": [{\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt says contents are lost when power is removed; it makes no mention of compression or saving to cache memory.\", \"option_index\": 0, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt says contents are lost, with no mention of automatic transfer to a hard disk drive.\", \"option_index\": 1, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly states RAM is volatile and contents are lost when power is removed, directly contradicting the claim that RAM is non-volatile and retains its contents.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly states that RAM's contents are lost when power is removed because RAM is volatile, exactly matching this option.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 1}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt directly states that persistent storage (SSDs and HDDs) retains data without power, matching this option exactly.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly states RAM is volatile and loses data when power is removed, directly contradicting the claim that RAM retains data without power.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt describes cache memory as holding recently used data next to CPU cores, a role entirely distinct from retaining data without power; it does not classify cache as persistent.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt characterises registers by their speed and size inside the CPU, not by any ability to retain data without power, ruling out this option for the question asked.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 2}, {\"options\": [{\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt assigns the role of fastest and smallest storage inside the CPU to registers, not cache memory, directly contradicting this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt directly states that cache memory sits next to the CPU cores and holds recently used data, exactly matching this option.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt attributes spinning magnetic platters to HDDs (hard disk drives), not to cache memory, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Random access memory (RAM) is the computer's working memory: it holds running programs and their data.\", \"explanation\": \"The excerpt assigns holding running programs and their data to RAM, not to cache memory, directly contradicting this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3}, {\"options\": [{\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt states the opposite: SSDs use flash memory while HDDs use spinning magnetic platters, directly contradicting the reversed claim in this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt classifies SSDs as persistent storage that retains data without power, directly contradicting the claim that SSDs are volatile.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt directly states that SSDs use flash memory with no moving parts and are much faster than HDDs, exactly matching this option.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data. Random access memory (RAM) is the computer's working memory: it holds running programs and their data.\", \"explanation\": \"The excerpt assigns sitting next to CPU cores to cache memory and working memory to RAM, not to SSDs or HDDs, directly contradicting this option's claims about their roles.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4}]}, \"passed\": false}"
+        }
+      },
+      "scores": {}
+    }
+  ]
+}
