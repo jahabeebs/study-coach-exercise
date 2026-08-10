@@ -72,9 +72,13 @@ def _context(positions: list[int]) -> EvaluatorContext:
 def _valid_evidence(positions: list[int]) -> dict:
     return {
         "items": [
-            {
-                "question_index": question_index,
-                "options": [
+                {
+                    "question_index": question_index,
+                    "topic_relevant": True,
+                    "topic_relevance_explanation": (
+                        "The question directly tests the requested topic."
+                    ),
+                    "options": [
                     {
                         "option_index": option_index,
                         "ruling": (
@@ -164,12 +168,19 @@ async def test_typed_quiz_judge_accepts_complete_cited_evidence():
         lambda evidence: evidence["items"][0]["options"][1].update(
             evidence_quote="This sentence was never in the cited chunk."
         ),
+        lambda evidence: evidence["items"][0].update(
+            topic_relevant=False,
+            topic_relevance_explanation=(
+                "This question tests a different topic than the request."
+            ),
+        ),
         lambda evidence: evidence["items"][4].update(question_index=0),
         lambda evidence: evidence["items"][0]["options"][3].update(option_index=2),
     ],
     ids=[
         "distractor-not-proven",
         "invented-quote",
+        "topic-drift",
         "missing-question-index",
         "missing-option-index",
     ],

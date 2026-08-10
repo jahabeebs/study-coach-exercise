@@ -1,3 +1,4 @@
+import json
 from collections.abc import Callable
 
 import pytest
@@ -13,22 +14,12 @@ from app.quiz import (
     quiz_agent,
     resolve_quiz_sections,
 )
+from app.quiz_review import quiz_review_agent
 from app.retrieval import load_sections
 
 
 client = TestClient(app)
 VALID_CITATION = "lesson-04-algorithms#binary-search"
-
-
-def _option_evidence(correct_index: int, quote: str) -> list[dict]:
-    return [
-        {
-            "index": index,
-            "ruling": "supported" if index == correct_index else "contradicted",
-            "evidence_quote": quote,
-        }
-        for index in range(4)
-    ]
 
 
 def _questions(citation: str) -> list[dict]:
@@ -43,9 +34,6 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 0,
             "citation": citation,
-            "option_evidence": _option_evidence(
-                0, "Binary search requires the list to be sorted in advance."
-            ),
         },
         {
             "question": "Which item does binary search compare with the target first?",
@@ -57,9 +45,6 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 1,
             "citation": citation,
-            "option_evidence": _option_evidence(
-                1, "It compares the target to the middle element"
-            ),
         },
         {
             "question": "What does each comparison eliminate in binary search?",
@@ -71,19 +56,12 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 2,
             "citation": citation,
-            "option_evidence": _option_evidence(
-                2, "Each comparison\neliminates half the remaining elements"
-            ),
         },
         {
             "question": "About how many comparisons can search a sorted million-item list?",
             "options": ["About five", "About ten", "About fifteen", "About twenty"],
             "correct_index": 3,
             "citation": citation,
-            "option_evidence": _option_evidence(
-                3,
-                "a list of one million items needs at most\nabout twenty comparisons",
-            ),
         },
         {
             "question": "Where does binary search continue when the target is smaller?",
@@ -95,10 +73,6 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 0,
             "citation": citation,
-            "option_evidence": _option_evidence(
-                0,
-                "if the target is smaller, the\nsearch continues in the left half",
-            ),
         },
     ]
 
@@ -121,6 +95,70 @@ def _scripted_quiz_model(
         )
 
     return FunctionModel(run), calls
+
+
+def _scripted_review_model(
+    mutate: Callable[[dict, int], None] | None = None,
+    inspect_prompt: Callable[[dict], None] | None = None,
+) -> tuple[FunctionModel, list[int]]:
+    calls: list[int] = []
+
+    def run(messages, info: AgentInfo) -> ModelResponse:
+        calls.append(len(calls) + 1)
+        prompt_parts = [
+            part.content
+            for message in messages
+            for part in message.parts
+            if type(part).__name__ == "UserPromptPart"
+        ]
+        assert len(prompt_parts) == 1
+        prompt = json.loads(prompt_parts[0])
+        if inspect_prompt:
+            inspect_prompt(prompt)
+
+        evidence = {
+            "items": [
+                {
+                    "question_index": item["question_index"],
+                    "topic_relevant": True,
+                    "topic_relevance_explanation": (
+                        "The question directly tests the requested course topic."
+                    ),
+                    "options": [
+                        {
+                            "option_index": option_index,
+                            "ruling": (
+                                "supported"
+                                if option_index == item["correct_index"]
+                                else "contradicted"
+                            ),
+                            "evidence_quote": item["cited_chunk"][:120],
+                            "explanation": (
+                                "The isolated cited excerpt establishes this ruling."
+                            ),
+                        }
+                        for option_index in range(4)
+                    ],
+                }
+                for item in prompt["questions"]
+            ]
+        }
+        if mutate:
+            mutate(evidence, len(calls))
+        output_tool = info.output_tools[0]
+        return ModelResponse(
+            parts=[ToolCallPart(output_tool.name, evidence)]
+        )
+
+    return FunctionModel(run), calls
+
+
+@pytest.fixture(autouse=True)
+def passing_quiz_reviewer():
+    """Keep every quiz test local while exercising the production review gate."""
+    model, calls = _scripted_review_model()
+    with quiz_review_agent.override(model=model):
+        yield calls
 
 
 @pytest.mark.parametrize(
@@ -228,45 +266,49 @@ async def test_answer_position_bias_is_retried():
     assert {question.correct_index for question in response.questions} == set(range(4))
 
 
-@pytest.mark.parametrize("invalid_evidence", ["not_proven", "foreign_quote"])
-async def test_invalid_option_evidence_is_retried(invalid_evidence):
-    calls: list[int] = []
-
-    def evidence_model(_messages, info: AgentInfo) -> ModelResponse:
-        calls.append(len(calls) + 1)
-        questions = _questions(VALID_CITATION)
-        if len(calls) == 1 and invalid_evidence == "not_proven":
-            questions[0]["option_evidence"][1]["ruling"] = "not_proven"
-        if len(calls) == 1 and invalid_evidence == "foreign_quote":
-            questions[0]["option_evidence"][1]["evidence_quote"] = (
-                "This quote does not occur in the cited course section."
+@pytest.mark.parametrize("review_failure", ["not_proven", "topic_drift"])
+async def test_independent_review_rejection_retries_generation(review_failure):
+    def reject_first_attempt(evidence: dict, attempt: int) -> None:
+        if attempt == 1 and review_failure == "not_proven":
+            evidence["items"][0]["options"][1].update(
+                ruling="not_proven",
+                explanation="The excerpt merely omits this distractor's claim.",
             )
-        output_tool = info.output_tools[0]
-        return ModelResponse(
-            parts=[ToolCallPart(output_tool.name, {"questions": questions})]
-        )
+        if attempt == 1 and review_failure == "topic_drift":
+            evidence["items"][0].update(
+                topic_relevant=False,
+                topic_relevance_explanation=(
+                    "The question tests a different concept than the request."
+                ),
+            )
 
-    with quiz_agent.override(model=FunctionModel(evidence_model)):
+    def inspect_prompt(prompt: dict) -> None:
+        assert set(prompt) == {"questions"}
+        for item in prompt["questions"]:
+            assert set(item) == {
+                "question_index",
+                "requested_topic",
+                "question",
+                "options",
+                "correct_index",
+                "citation",
+                "cited_chunk",
+            }
+            assert item["requested_topic"] == "binary search"
+
+    generation_model, generation_calls = _scripted_quiz_model()
+    review_model, review_calls = _scripted_review_model(
+        reject_first_attempt,
+        inspect_prompt,
+    )
+    with (
+        quiz_agent.override(model=generation_model),
+        quiz_review_agent.override(model=review_model),
+    ):
         response = await generate_quiz("binary search")
 
-    assert calls == [1, 2]
-    assert len(response.questions) == 5
-
-
-async def test_option_evidence_allows_harmless_quote_formatting():
-    def formatted_quote_model(_messages, info: AgentInfo) -> ModelResponse:
-        questions = _questions(VALID_CITATION)
-        questions[0]["option_evidence"][1]["evidence_quote"] = (
-            "Binary search requires   the list to be sorted in advance!"
-        )
-        output_tool = info.output_tools[0]
-        return ModelResponse(
-            parts=[ToolCallPart(output_tool.name, {"questions": questions})]
-        )
-
-    with quiz_agent.override(model=FunctionModel(formatted_quote_model)):
-        response = await generate_quiz("binary search")
-
+    assert generation_calls == [1, 2]
+    assert review_calls == [1, 2]
     assert len(response.questions) == 5
 
 
@@ -361,6 +403,29 @@ def test_quiz_api_fails_safely_when_foreign_citations_persist():
         response = client.post("/api/quiz", json={"topic": "binary search"})
 
     assert calls == [1, 2, 3]
+    assert response.status_code == 502
+    assert response.json() == {
+        "detail": "Quiz generation failed. Please try again."
+    }
+
+
+def test_quiz_api_fails_safely_when_independent_review_never_passes():
+    def reject_every_attempt(evidence: dict, _attempt: int) -> None:
+        evidence["items"][0]["options"][1].update(
+            ruling="not_proven",
+            explanation="The cited excerpt does not rule out this distractor.",
+        )
+
+    generation_model, generation_calls = _scripted_quiz_model()
+    review_model, review_calls = _scripted_review_model(reject_every_attempt)
+    with (
+        quiz_agent.override(model=generation_model),
+        quiz_review_agent.override(model=review_model),
+    ):
+        response = client.post("/api/quiz", json={"topic": "binary search"})
+
+    assert generation_calls == [1, 2, 3]
+    assert review_calls == [1, 2, 3]
     assert response.status_code == 502
     assert response.json() == {
         "detail": "Quiz generation failed. Please try again."
