@@ -8,6 +8,10 @@ from pydantic import BaseModel, Field, StringConstraints, field_validator
 
 
 NonBlankText = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+ChatMessage = Annotated[
+    str,
+    StringConstraints(strip_whitespace=True, min_length=1, max_length=2000),
+]
 QuizTopic = Annotated[
     str,
     StringConstraints(strip_whitespace=True, min_length=1, max_length=200),
@@ -21,13 +25,19 @@ def normalize_quiz_display_text(text: str) -> str:
 
 
 class ChatRequest(BaseModel):
-    message: str = Field(min_length=1, max_length=2000)
+    message: ChatMessage
 
 
 class StudyAnswer(BaseModel):
     """The agent's structured output."""
 
-    answer: str = Field(description="The answer to the student's question.")
+    answer: NonBlankText = Field(description="The answer to the student's question.")
+    supported: bool = Field(
+        description=(
+            "True only when retrieved course material directly supports the "
+            "answer; false when the assistant must abstain."
+        )
+    )
     citations: list[str] = Field(
         description=(
             "IDs of the course-material sections that support the answer, "

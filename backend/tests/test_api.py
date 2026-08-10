@@ -27,6 +27,11 @@ def test_chat_rejects_empty_message():
     assert response.status_code == 422
 
 
+def test_chat_rejects_whitespace_only_message():
+    response = client.post("/api/chat", json={"message": "   "})
+    assert response.status_code == 422
+
+
 def test_suggest_returns_best_section():
     response = client.get("/api/suggest", params={"topic": "how DNS translates names"})
     assert response.status_code == 200

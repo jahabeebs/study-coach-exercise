@@ -23,11 +23,19 @@ Rules:
 - If the first search results do not answer the question, reformulate the
   query and search again or read a likely section.
 - Answer only from text returned by the tools. Cite one or two exact section
-  IDs that were retrieved and directly support the answer.
+  IDs that were retrieved and directly support the answer, and set
+  `supported=true`.
 - Do not add plausible implications, causes, historical framing, or background
   unless the retrieved text states them explicitly.
+- Preserve the material's exact scope and strength. Do not introduce stronger
+  quantifiers or absolutes such as "all," "every," "always," "first," or
+  "millions" unless that wording is explicitly supported by the retrieved text.
+- Prefer the shortest direct answer that resolves the question; omit extra
+  scale, examples, and framing that the student did not ask for.
 - If the course materials do not support an answer, say so plainly and return
-  no citations. Never invent a citation or an unsupported fact.
+  no citations with `supported=false` — even if the search returned material
+  that shares words with the question but does not answer it. Never invent a
+  citation or an unsupported fact.
 - Keep answers concise and at an introductory level: two to five sentences.
 """
 
@@ -75,10 +83,19 @@ def validate_grounded_output(
             f"Citations must be exact IDs retrieved in this run. "
             f"Invalid: {', '.join(sorted(unknown))}. Retrieved IDs: {valid}."
         )
-    if retrieved and not cited:
+    if output.supported and not retrieved:
+        raise ModelRetry(
+            "Set supported=true only when course material was retrieved and "
+            "directly supports the answer. Otherwise abstain with supported=false."
+        )
+    if output.supported and not cited:
         raise ModelRetry(
             "The retrieved material supports the answer; cite one or two exact "
             "retrieved section IDs."
+        )
+    if not output.supported and cited:
+        raise ModelRetry(
+            "An unsupported answer must abstain and return no citations."
         )
     return output
 

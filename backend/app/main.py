@@ -6,6 +6,7 @@ public deployment; do not expose it to untrusted networks as-is.
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic_ai.exceptions import ModelAPIError, UnexpectedModelBehavior
 
 from .agent import ask
 from .models import (
@@ -44,6 +45,11 @@ async def quiz(request: QuizRequest) -> QuizResponse:
         return await generate_quiz(request.topic)
     except UnsupportedQuizTopic as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except (UnexpectedModelBehavior, ModelAPIError) as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="Quiz generation failed. Please try again.",
+        ) from exc
 
 
 @app.get("/api/suggest")

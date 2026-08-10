@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import json
 import re
+from collections import defaultdict
 from dataclasses import dataclass
 
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelRetry, RunContext
 
 from .config import get_model_name
-from .models import QuizQuestion, QuizResponse
+from .models import QuizQuestion, QuizResponse, normalize_quiz_display_text
 from .retrieval import Section, _tokenize, load_sections, search
 
 
@@ -25,19 +26,59 @@ Rules:
   topic, using only facts stated in the supplied course excerpts.
 - Give every question exactly four distinct answer choices and exactly one
   correct choice. `correct_index` is the zero-based index of that choice.
-- Distribute correct answers across at least three different option positions
-  in the five questions so students cannot learn a placement pattern.
+- Use all four `correct_index` positions at least once across the five questions
+  so students cannot learn a placement pattern.
 - Set each question's `citation` to the exact section ID whose excerpt directly
   supports the question and correct answer. Never invent or alter a section ID.
-- Make distractors plausible for an introductory student but clearly incorrect
-  or inapplicable according to that question's cited excerpt. A distractor must
-  not require outside knowledge or a different excerpt to rule out.
+- Derive each distractor by changing exactly one concrete detail stated in that
+  question's cited excerpt, such as a number, term, order, or relationship. The
+  same excerpt must directly contradict the changed detail.
+- Do not invent units, entities, comparisons, or properties that are merely
+  absent from the excerpt. A distractor must not require outside knowledge or a
+  different excerpt to rule out.
 - Do not mark, label, or otherwise reveal the correct choice in option text.
 """
 
 _EXPLICIT_LESSON = re.compile(r"\b(?:lesson|week)\s*([0-9]{1,2})\b", re.IGNORECASE)
 _LESSON_SOURCE = re.compile(r"^lesson-[0-9]{2}-.+\.md$")
-_MIN_TOPIC_TERM_COVERAGE = 2 / 3
+_LESSON_NUMBER = re.compile(r"^lesson-([0-9]{2})-")
+_MODULE_ROW = re.compile(
+    r"^\|\s*([0-9]+)\s*\|\s*([^|]+?)\s*\|\s*Lesson\s+[0-9]+\s*\|",
+    re.IGNORECASE,
+)
+_INTENT_TERMS = frozenset(
+    {
+        "about",
+        "create",
+        "course",
+        "give",
+        "help",
+        "id",
+        "learn",
+        "lesson",
+        "like",
+        "make",
+        "material",
+        "materials",
+        "me",
+        "please",
+        "practice",
+        "question",
+        "questions",
+        "quiz",
+        "review",
+        "study",
+        "tell",
+        "test",
+        "topic",
+        "understand",
+        "want",
+        "week",
+        "you",
+    }
+)
+_ANSWER_MARKERS = ("✓", "✅", "☑", "[correct]", "(correct)", "correct answer:")
+_MIN_WINNER_RATIO = 1.15
 
 
 class UnsupportedQuizTopic(ValueError):
@@ -57,38 +98,162 @@ class QuizDraft(BaseModel):
     questions: list[QuizQuestion] = Field(min_length=5, max_length=5)
 
 
-def _topic_is_supported(topic: str, sections: tuple[Section, ...]) -> bool:
-    """Reject a lesson selected by only a coincidental query-word match."""
-    topic_terms = set(_tokenize(topic))
-    if not topic_terms:
-        return False
-    lesson_text = " ".join(
-        [sections[0].source_file]
-        + [f"{section.title} {section.text}" for section in sections]
-    )
-    lesson_terms = set(_tokenize(lesson_text))
-    covered = len(topic_terms & lesson_terms) / len(topic_terms)
-    return covered >= _MIN_TOPIC_TERM_COVERAGE
+def _stem_topic_term(term: str) -> str:
+    """Normalize simple inflections without a course-specific alias table."""
+    if len(term) > 5 and term.endswith("ies"):
+        return f"{term[:-3]}y"
+    if len(term) > 5 and term.endswith("ing"):
+        return term[:-3]
+    if len(term) > 5 and term.endswith("ed"):
+        return term[:-2]
+    if len(term) > 4 and term.endswith("s"):
+        return term[:-1]
+    return term
 
 
-def _source_name_match(topic: str, sections: tuple[Section, ...]) -> str | None:
-    """Resolve course-area names that appear only in lesson filenames."""
-    topic_terms = set(_tokenize(topic))
-    sources = sorted(
-        {
-            section.source_file
-            for section in sections
-            if _LESSON_SOURCE.fullmatch(section.source_file)
-        }
+def _topic_terms(text: str) -> tuple[str, ...]:
+    return tuple(
+        _stem_topic_term(term)
+        for term in _tokenize(text)
+        if term not in _INTENT_TERMS and not term.isdigit()
     )
-    ranked = sorted(
-        sources,
-        key=lambda source: len(topic_terms & set(_tokenize(source))),
-        reverse=True,
+
+
+def _term_affinity(left: str, right: str) -> float:
+    """Score exact and conservative morphological/prefix token matches."""
+    if left == right:
+        return 1.0
+    shorter, longer = sorted((left, right), key=len)
+    if len(shorter) >= 3 and longer.startswith(shorter):
+        return 0.8
+    common = 0
+    for a, b in zip(left, right, strict=False):
+        if a != b:
+            break
+        common += 1
+    return 0.6 if common >= 5 else 0.0
+
+
+def _overlap_score(query_terms: set[str], vocabulary: set[str]) -> float:
+    return sum(
+        max((_term_affinity(term, candidate) for candidate in vocabulary), default=0.0)
+        for term in query_terms
     )
-    if not ranked or not (topic_terms & set(_tokenize(ranked[0]))):
+
+
+def _matched_term_count(query_terms: set[str], vocabulary: set[str]) -> int:
+    return sum(
+        any(_term_affinity(term, candidate) > 0 for candidate in vocabulary)
+        for term in query_terms
+    )
+
+
+def _module_terms_by_source(sections: tuple[Section, ...]) -> dict[str, tuple[str, ...]]:
+    """Derive lesson aliases from the syllabus module table."""
+    source_by_number = {
+        int(match.group(1)): section.source_file
+        for section in sections
+        if (match := _LESSON_NUMBER.match(section.source_file))
+    }
+    aliases: dict[str, tuple[str, ...]] = {}
+    modules = next((s for s in sections if s.id == "syllabus#modules"), None)
+    if modules is None:
+        return aliases
+    for line in modules.text.splitlines():
+        match = _MODULE_ROW.match(line)
+        if match and int(match.group(1)) in source_by_number:
+            aliases[source_by_number[int(match.group(1))]] = _topic_terms(match.group(2))
+    return aliases
+
+
+def _lesson_vocabulary(
+    lesson_sections: tuple[Section, ...], module_terms: tuple[str, ...]
+) -> tuple[set[str], set[str], set[str], list[tuple[str, ...]]]:
+    source_terms = set(_topic_terms(lesson_sections[0].source_file))
+    heading_phrases = [_topic_terms(section.title) for section in lesson_sections]
+    heading_terms = {term for phrase in heading_phrases for term in phrase}
+    body_terms = {
+        _stem_topic_term(term)
+        for section in lesson_sections
+        for term in _tokenize(section.text)
+    }
+    metadata_terms = source_terms | set(module_terms)
+    return metadata_terms, heading_terms, body_terms, heading_phrases
+
+
+def _required_matches(query_terms: set[str]) -> int:
+    return 1 if len(query_terms) == 1 else 2
+
+
+def _topic_supported_by_lesson(
+    topic: str,
+    lesson_sections: tuple[Section, ...],
+    module_terms: tuple[str, ...],
+) -> bool:
+    query_terms = set(_topic_terms(topic))
+    if not query_terms:
+        return True
+    metadata, headings, body, _phrases = _lesson_vocabulary(
+        lesson_sections, module_terms
+    )
+    vocabulary = metadata | headings | body
+    return _matched_term_count(query_terms, vocabulary) >= _required_matches(
+        query_terms
+    )
+
+
+def _rank_lesson_source(topic: str, sections: tuple[Section, ...]) -> str | None:
+    query_phrase = _topic_terms(topic)
+    query_terms = set(query_phrase)
+    if not query_terms:
         return None
-    return ranked[0]
+
+    grouped: dict[str, list[Section]] = defaultdict(list)
+    for section in sections:
+        if _LESSON_SOURCE.fullmatch(section.source_file):
+            grouped[section.source_file].append(section)
+
+    bm25_scores: dict[str, float] = defaultdict(float)
+    for result in search(topic, k=len(sections)):
+        if result.section.source_file in grouped:
+            bm25_scores[result.section.source_file] += result.score
+
+    module_aliases = _module_terms_by_source(sections)
+    candidates: list[tuple[float, bool, str]] = []
+    for source_file, source_sections_list in grouped.items():
+        source_sections = tuple(source_sections_list)
+        module_phrase = module_aliases.get(source_file, ())
+        metadata, headings, body, heading_phrases = _lesson_vocabulary(
+            source_sections, module_phrase
+        )
+        vocabulary = metadata | headings | body
+        if _matched_term_count(query_terms, vocabulary) < _required_matches(
+            query_terms
+        ):
+            continue
+
+        exact_heading = query_phrase in heading_phrases
+        exact_module = bool(module_phrase) and query_phrase == module_phrase
+        exact_match = exact_heading or exact_module
+        score = bm25_scores[source_file]
+        score += 12 * _overlap_score(query_terms, metadata)
+        score += 6 * _overlap_score(query_terms, headings)
+        score += _overlap_score(query_terms, body)
+        if exact_heading:
+            score += 100
+        elif exact_module:
+            score += 80
+        candidates.append((score, exact_match, source_file))
+
+    candidates.sort(reverse=True)
+    if not candidates:
+        return None
+    if len(candidates) > 1:
+        top_score, top_exact, _source = candidates[0]
+        second_score = candidates[1][0]
+        if not top_exact and top_score < second_score * _MIN_WINNER_RATIO:
+            return None
+    return candidates[0][2]
 
 
 quiz_agent = Agent(
@@ -118,11 +283,23 @@ def validate_quiz_output(
             f"sections. Invalid citation(s): {', '.join(invalid)}. "
             f"Allowed section IDs: {allowed}."
         )
+    normalized_stems = [
+        normalize_quiz_display_text(item.question) for item in output.questions
+    ]
+    if len(set(normalized_stems)) != len(normalized_stems):
+        raise ModelRetry("Every quiz question must have a distinct question stem.")
+    for item in output.questions:
+        for display_text in (item.question, *item.options):
+            lowered = display_text.casefold()
+            if any(marker in lowered for marker in _ANSWER_MARKERS):
+                raise ModelRetry(
+                    "Do not reveal or label the correct answer in question or option text."
+                )
     positions = {item.correct_index for item in output.questions}
-    if len(positions) < 3:
+    if positions != set(range(4)):
         raise ModelRetry(
-            "Distribute correct_index values across at least three different "
-            "option positions in the five questions."
+            "Use every correct_index position (0, 1, 2, and 3) at least once "
+            "across the five questions."
         )
     return output
 
@@ -139,6 +316,7 @@ def resolve_quiz_sections(topic: str) -> tuple[Section, ...]:
         raise UnsupportedQuizTopic("A quiz topic is required.")
 
     sections = load_sections()
+    module_aliases = _module_terms_by_source(sections)
     explicit = _EXPLICIT_LESSON.search(normalized_topic)
     source_file: str | None = None
 
@@ -154,17 +332,7 @@ def resolve_quiz_sections(topic: str) -> tuple[Section, ...]:
             None,
         )
     else:
-        ranked = search(normalized_topic, k=len(sections))
-        source_file = next(
-            (
-                result.section.source_file
-                for result in ranked
-                if _LESSON_SOURCE.fullmatch(result.section.source_file)
-            ),
-            None,
-        )
-        if source_file is None:
-            source_file = _source_name_match(normalized_topic, sections)
+        source_file = _rank_lesson_source(normalized_topic, sections)
 
     if source_file is None:
         raise UnsupportedQuizTopic(
@@ -178,10 +346,17 @@ def resolve_quiz_sections(topic: str) -> tuple[Section, ...]:
         raise UnsupportedQuizTopic(
             "No course lesson contains enough material for that topic."
         )
-    weak_match = not explicit and not _topic_is_supported(
-        normalized_topic, lesson_sections
-    )
-    if weak_match:
+    residual_topic = normalized_topic
+    if explicit:
+        residual_topic = (
+            f"{normalized_topic[:explicit.start()]} "
+            f"{normalized_topic[explicit.end():]}"
+        )
+    if explicit and not _topic_supported_by_lesson(
+        residual_topic,
+        lesson_sections,
+        module_aliases.get(source_file, ()),
+    ):
         raise UnsupportedQuizTopic(
             "No course lesson contains enough material for that topic."
         )

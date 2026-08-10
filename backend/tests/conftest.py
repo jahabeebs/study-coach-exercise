@@ -36,6 +36,7 @@ def scripted_model(query: str = "binary numbers base two") -> FunctionModel:
                     output_tool.name,
                     {
                         "answer": "Binary is a base-2 number system.",
+                        "supported": True,
                         "citations": [first_id] if first_id else [],
                     },
                 )
@@ -60,6 +61,7 @@ def abstaining_model() -> FunctionModel:
                     output_tool.name,
                     {
                         "answer": "I couldn't find that in the course materials.",
+                        "supported": False,
                         "citations": [],
                     },
                 )

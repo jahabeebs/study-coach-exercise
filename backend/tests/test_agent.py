@@ -1,10 +1,12 @@
 from types import SimpleNamespace
 
 import pytest
+from pydantic import ValidationError
 from pydantic_ai import ModelRetry
 
 from app.agent import (
     RetrievalTracker,
+    SYSTEM_PROMPT,
     ask,
     search_materials,
     study_agent,
@@ -40,7 +42,9 @@ async def test_tracker_records_each_section_once():
 
 def test_output_validator_requires_search():
     ctx = SimpleNamespace(deps=RetrievalTracker())
-    output = StudyAnswer(answer="A byte has 256 values.", citations=[])
+    output = StudyAnswer(
+        answer="A byte has 256 values.", supported=True, citations=[]
+    )
     with pytest.raises(ModelRetry, match="Search the course materials"):
         validate_grounded_output(ctx, output)
 
@@ -52,9 +56,43 @@ def test_output_validator_rejects_fabricated_citation():
     ctx = SimpleNamespace(deps=tracker)
     output = StudyAnswer(
         answer="A byte has 256 values.",
+        supported=True,
         citations=["lesson-99-invented#bytes"],
     )
     with pytest.raises(ModelRetry, match="Invalid"):
+        validate_grounded_output(ctx, output)
+
+
+def test_output_validator_allows_abstention_after_irrelevant_retrieval():
+    tracker = RetrievalTracker()
+    tracker.record_search("python quantum entanglement")
+    tracker.record(
+        "lesson-05-programming-languages#a-first-look-at-python",
+        "Python is a high-level interpreted language.",
+    )
+    ctx = SimpleNamespace(deps=tracker)
+    output = StudyAnswer(
+        answer="The course materials do not answer that question.",
+        supported=False,
+        citations=[],
+    )
+    assert validate_grounded_output(ctx, output) is output
+
+
+def test_output_validator_rejects_citation_on_unsupported_answer():
+    tracker = RetrievalTracker()
+    tracker.record_search("python quantum entanglement")
+    tracker.record(
+        "lesson-05-programming-languages#a-first-look-at-python",
+        "Python is a high-level interpreted language.",
+    )
+    ctx = SimpleNamespace(deps=tracker)
+    output = StudyAnswer(
+        answer="The course materials do not answer that question.",
+        supported=False,
+        citations=["lesson-05-programming-languages#a-first-look-at-python"],
+    )
+    with pytest.raises(ModelRetry, match="unsupported answer"):
         validate_grounded_output(ctx, output)
 
 
@@ -72,3 +110,14 @@ def test_search_materials_tool_formats_and_records():
 def test_agent_has_expected_tools():
     tool_names = set(study_agent._function_toolset.tools)  # noqa: SLF001
     assert {"search_materials", "read_section"} <= tool_names
+
+
+def test_prompt_forbids_strengthening_source_scope():
+    assert "Preserve the material's exact scope and strength" in SYSTEM_PROMPT
+    assert '"every,"' in SYSTEM_PROMPT
+    assert '"millions"' in SYSTEM_PROMPT
+
+
+def test_study_answer_rejects_blank_answer():
+    with pytest.raises(ValidationError):
+        StudyAnswer(answer="   ", supported=False, citations=[])
