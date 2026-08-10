@@ -3,6 +3,11 @@ import QuizView from './QuizView.jsx'
 
 const FALLBACK_ERROR = 'We could not generate a quiz. Please try again.'
 
+/**
+ * Normalize generated display text for client-side contract validation.
+ * @param {string} value
+ * @returns {string}
+ */
 function normalizeDisplayText(value) {
   return value
     .normalize('NFKC')
@@ -11,6 +16,11 @@ function normalizeDisplayText(value) {
     .trim()
 }
 
+/**
+ * Read a safe user-facing message from a failed quiz response.
+ * @param {Response} response
+ * @returns {Promise<string>}
+ */
 async function errorMessage(response) {
   try {
     const body = await response.json()
@@ -23,6 +33,12 @@ async function errorMessage(response) {
   return `${FALLBACK_ERROR} (status ${response.status})`
 }
 
+/**
+ * Validate the API payload and separate display-safe quiz data from its key.
+ * @param {unknown} data
+ * @returns {{quiz: {topic: string, questions: Array<{question: string, options: string[], citation: string}>}, answerKey: number[]}}
+ * @throws {Error} When the payload violates the five-question quiz contract.
+ */
 function splitQuizResponse(data) {
   if (
     !data ||
@@ -70,6 +86,7 @@ function splitQuizResponse(data) {
   }
 }
 
+/** Own quiz generation, request lifecycle, local grading, and reset state. */
 export default function QuizPanel() {
   const [topic, setTopic] = useState('')
   const [quiz, setQuiz] = useState(null)

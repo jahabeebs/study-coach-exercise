@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ChatPanel from './components/ChatPanel.jsx'
 import QuizPanel from './components/QuizPanel.jsx'
 
+/** Render the Study Coach shell and its mutually exclusive chat/quiz views. */
 export default function App() {
   const [tab, setTab] = useState('chat')
 
