@@ -32,6 +32,11 @@ QUIZ_CASES = [
         inputs="binary search",
         metadata={"expected_question_count": 5},
     ),
+    Case(
+        name="casual_ram_power_loss",
+        inputs="working memory when power goes off",
+        metadata={"expected_question_count": 5},
+    ),
 ]
 
 

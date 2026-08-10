@@ -49,7 +49,7 @@ def main() -> int:
     if args.suite == "hard":
         from hard_dataset import build_hard_dataset
 
-        dataset = build_hard_dataset()
+        dataset = build_hard_dataset(include_judge=not args.no_judge)
         task = study_task
     elif args.suite == "quiz":
         # Keep the production import local so core and hard evals remain usable
@@ -81,7 +81,7 @@ def main() -> int:
                 "metadata": case.metadata,
                 # Full task output so reviewers can re-score offline with their
                 # own evaluators (no API key, no candidate code) — see
-                # review/rescore.py.
+                # evals/rescore_hard_report.py.
                 "output": case.output.model_dump(),
                 "assertions": assertions,
                 "scores": {name: r.value for name, r in case.scores.items()},

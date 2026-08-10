@@ -22,6 +22,7 @@ from pydantic_evals.evaluators import Evaluator, EvaluatorContext, LLMJudge  # n
 from app.config import get_model_name  # noqa: E402
 from app.models import ChatResponse  # noqa: E402
 from app.retrieval import _tokenize  # noqa: E402
+from fact_matching import answer_satisfies_facts  # noqa: E402
 
 
 @dataclass
@@ -54,9 +55,7 @@ class AnswerHasFact(Evaluator[str, ChatResponse]):
     """The answer states the known fact (any accepted phrasing)."""
 
     def evaluate(self, ctx: EvaluatorContext[str, ChatResponse]) -> bool:
-        keywords = (ctx.metadata or {}).get("answer_keywords", [])
-        answer = ctx.output.answer.lower()
-        return any(k.lower() in answer for k in keywords)
+        return answer_satisfies_facts(ctx.output.answer, ctx.metadata)
 
 
 @dataclass
