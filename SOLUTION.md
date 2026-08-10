@@ -53,6 +53,10 @@ submission reply. Don't commit large video files into the repo.
   traversal could read files outside `materials/`. It now resolves the target,
   enforces containment, permits Markdown only, and returns a generic 404;
   direct and percent-encoded traversal regressions cover it.
+- The final dependency audit found high-severity advisories in Vite's transitive
+  `postcss` and `nanoid` build dependencies. I updated only those lockfile
+  entries within the existing ranges; `npm audit` now reports zero
+  vulnerabilities and the production build remains green.
 
 ## Part 2 — Practice quiz
 
