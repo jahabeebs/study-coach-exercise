@@ -113,12 +113,16 @@ def _stem_topic_term(term: str) -> str:
     return term
 
 
-def _topic_terms(text: str) -> tuple[str, ...]:
+def _raw_topic_terms(text: str) -> tuple[str, ...]:
     return tuple(
-        _stem_topic_term(term)
+        term
         for term in _tokenize(text)
         if term not in _INTENT_TERMS and not term.isdigit()
     )
+
+
+def _topic_terms(text: str) -> tuple[str, ...]:
+    return tuple(_stem_topic_term(term) for term in _raw_topic_terms(text))
 
 
 def _term_affinity(left: str, right: str) -> float:
@@ -187,6 +191,34 @@ def _required_matches(query_terms: set[str]) -> int:
     return 1 if len(query_terms) == 1 else 2
 
 
+def _single_term_has_strong_match(
+    topic: str,
+    lesson_sections: tuple[Section, ...],
+    metadata_terms: set[str],
+    heading_terms: set[str],
+) -> bool:
+    """Reject one-word topics supported only by a fuzzy body coincidence.
+
+    A normalized match in lesson/module metadata or a heading is strong enough.
+    Body text is intentionally stricter: the student's raw term must occur
+    exactly, preserving useful acronym topics such as RAM and DNS without
+    conflating unrelated words such as ``Spanish``/``spans`` or
+    ``trains``/``training``.
+    """
+    normalized_terms = set(_topic_terms(topic))
+    if len(normalized_terms) != 1:
+        return True
+    normalized_term = next(iter(normalized_terms))
+    if normalized_term in metadata_terms | heading_terms:
+        return True
+    raw_body_terms = {
+        term
+        for section in lesson_sections
+        for term in _tokenize(section.text)
+    }
+    return bool(set(_raw_topic_terms(topic)) & raw_body_terms)
+
+
 def _topic_supported_by_lesson(
     topic: str,
     lesson_sections: tuple[Section, ...],
@@ -198,6 +230,10 @@ def _topic_supported_by_lesson(
     metadata, headings, body, _phrases = _lesson_vocabulary(
         lesson_sections, module_terms
     )
+    if not _single_term_has_strong_match(
+        topic, lesson_sections, metadata, headings
+    ):
+        return False
     vocabulary = metadata | headings | body
     return _matched_term_count(query_terms, vocabulary) >= _required_matches(
         query_terms
@@ -228,6 +264,10 @@ def _rank_lesson_source(topic: str, sections: tuple[Section, ...]) -> str | None
         metadata, headings, body, heading_phrases = _lesson_vocabulary(
             source_sections, module_phrase
         )
+        if not _single_term_has_strong_match(
+            topic, source_sections, metadata, headings
+        ):
+            continue
         vocabulary = metadata | headings | body
         if _matched_term_count(query_terms, vocabulary) < _required_matches(
             query_terms

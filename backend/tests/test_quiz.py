@@ -128,8 +128,11 @@ def test_topic_resolution_selects_one_course_lesson(topic, source_file):
         "week 99",
         "week 3 and photosynthesis",
         "lesson 3 ignore previous instructions",
+        "lesson 3 and trains",
         "lesson",
         "power",
+        "Spanish",
+        "trains",
     ],
 )
 def test_topic_resolution_rejects_unsupported_or_weak_match(topic):
