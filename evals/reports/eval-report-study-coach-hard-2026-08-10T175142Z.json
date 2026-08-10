@@ -1,0 +1,551 @@
+{
+  "run_at": "2026-08-10T17:51:42+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-hard",
+  "summary": {
+    "cases": 12,
+    "assertions_passed": 25,
+    "assertions_total": 36
+  },
+  "cases": [
+    {
+      "case": "byte_values",
+      "question": "How many different values can one byte hold?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#bits-and-bytes",
+        "answer_keywords": [
+          "256"
+        ]
+      },
+      "output": {
+        "answer": "One byte can hold **256 different values**. A byte is made up of 8 bits, and since each bit doubles the number of possible patterns, the total number of values is 2\u2078 = 256 (ranging from 0 to 255).",
+        "citations": [
+          "lesson-02-data-and-binary#bits-and-bytes",
+          "glossary#terms-a-f"
+        ],
+        "retrieved_section_ids": [
+          "lesson-02-data-and-binary#bits-and-bytes",
+          "lesson-02-data-and-binary#hexadecimal",
+          "glossary#terms-a-f",
+          "lesson-02-data-and-binary#binary-numbers"
+        ],
+        "retrieved_chunks": [
+          "Computers store all information as sequences of bits. A bit is the smallest unit of\ndata and has exactly two possible values: 0 or 1. A byte is a group of eight bits.\nBecause each bit doubles the number of possible patterns, one byte can represent 256\ndifferent values (2 to the power of 8). Larger units build on the byte: a kilobyte is\nabout a thousand bytes, a megabyte about a million, and a gigabyte about a billion.",
+          "Hexadecimal is a base-16 system that uses digits 0-9 and letters A-F. One hexadecimal\ndigit represents exactly four bits, so two hexadecimal digits describe one byte. This\nmakes hexadecimal a compact, human-friendly way to write binary values. For example,\nthe byte 11111111 is FF in hexadecimal and 255 in decimal. Hexadecimal appears in\ncolor codes, memory addresses, and error messages.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses.",
+          "The binary number system is a base-2 positional system. Each digit position represents\na power of two, just as each position in the decimal system represents a power of ten.\nFor example, the binary number 1011 equals 8 + 0 + 2 + 1 = 11 in decimal. To convert a\ndecimal number to binary, repeatedly divide by two and record the remainders. Binary\nsuits computers because electronic circuits reliably distinguish two states, such as\nhigh and low voltage."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "eniac_year",
+      "question": "When was the first big electronic computer finished?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-electronic-era",
+        "answer_keywords": [
+          "1945"
+        ]
+      },
+      "output": {
+        "answer": "The first general-purpose electronic digital computer, ENIAC, was completed in **1945** at the University of Pennsylvania. It used about 18,000 vacuum tubes, weighed 30 tons, and was programmed by physically rewiring connections.",
+        "citations": [
+          "lesson-01-history-of-computing#the-electronic-era"
+        ],
+        "retrieved_section_ids": [
+          "lesson-01-history-of-computing#the-electronic-era",
+          "syllabus#course-description",
+          "syllabus#modules",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "ENIAC, completed in 1945 at the University of Pennsylvania, is generally considered the\nfirst general-purpose electronic digital computer. It used about 18,000 vacuum tubes,\nweighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes\nwere unreliable and generated enormous heat, which limited how large computers could\npractically become.",
+          "CS-1010 introduces the fundamental concepts of computing for students with no prior\nprogramming experience. The course covers the history of computing, how computers\nrepresent and store data, computer hardware, algorithms, programming languages, and\ncomputer networks. Students finish the course able to reason about how computers work\nfrom transistors to the web.",
+          "| Week | Module | Materials |\n|------|--------|-----------|\n| 1 | History of Computing | Lesson 1 |\n| 2 | Data and Binary | Lesson 2 |\n| 3 | Computer Hardware | Lesson 3 |\n| 4 | Algorithms | Lesson 4 |\n| 5 | Programming Languages | Lesson 5 |\n| 6 | Networks and the Internet | Lesson 6 |",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "glass_tube_replacement",
+      "question": "What little switch took over from those glowing glass tubes?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-transistor-and-the-integrated-circuit",
+        "answer_keywords": [
+          "transistor",
+          "1947"
+        ]
+      },
+      "output": {
+        "answer": "The little switch that took over from those glowing glass tubes is the **transistor**. Invented at Bell Labs in 1947, transistors replaced vacuum tubes because they are smaller, faster, cheaper, and far more reliable. They later became the building blocks of integrated circuits, which packed many transistors onto a single silicon chip and made it possible to shrink room-sized computers down to desk size.",
+        "citations": [
+          "lesson-01-history-of-computing#the-transistor-and-the-integrated-circuit",
+          "glossary#terms-q-z"
+        ],
+        "retrieved_section_ids": [
+          "lesson-01-history-of-computing#the-electronic-era",
+          "lesson-01-history-of-computing#the-transistor-and-the-integrated-circuit",
+          "glossary#terms-q-z"
+        ],
+        "retrieved_chunks": [
+          "ENIAC, completed in 1945 at the University of Pennsylvania, is generally considered the\nfirst general-purpose electronic digital computer. It used about 18,000 vacuum tubes,\nweighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes\nwere unreliable and generated enormous heat, which limited how large computers could\npractically become.",
+          "The transistor, invented at Bell Labs in 1947, replaced the vacuum tube. Transistors\nare smaller, faster, cheaper, and far more reliable. In 1958, Jack Kilby and Robert\nNoyce independently developed the integrated circuit, which places many transistors on\na single chip of silicon. Integrated circuits made it possible to shrink a room-sized\ncomputer onto a desk.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "first_cpu_chip",
+      "question": "When did a whole processor first fit on one chip?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-microprocessor-and-personal-computing",
+        "answer_keywords": [
+          "1971",
+          "4004"
+        ]
+      },
+      "output": {
+        "answer": "In 1971, Intel released the 4004 \u2014 the first commercial microprocessor, meaning an entire central processing unit fit on a single chip. This breakthrough made personal computers possible, eventually leading to machines like the Apple II (1977) and IBM PC (1981).",
+        "citations": [
+          "lesson-01-history-of-computing#the-microprocessor-and-personal-computing"
+        ],
+        "retrieved_section_ids": [
+          "glossary#terms-g-p",
+          "lesson-01-history-of-computing#the-microprocessor-and-personal-computing",
+          "syllabus#modules",
+          "syllabus#course-description",
+          "lesson-05-programming-languages#a-first-look-at-python",
+          "lesson-01-history-of-computing#the-transistor-and-the-integrated-circuit",
+          "lesson-06-networks#the-domain-name-system"
+        ],
+        "retrieved_chunks": [
+          "- **GPU (graphics processing unit)** \u2014 a chip with thousands of small cores for\n  parallel computation; used for graphics and machine learning.\n- **HTTP** \u2014 the request-response protocol browsers and web servers use.\n- **HTTPS** \u2014 HTTP protected by encryption; provides confidentiality and integrity.\n- **Integrated circuit** \u2014 many transistors fabricated on one silicon chip.\n- **Interpreter** \u2014 a translator that executes a program line by line as it runs.\n- **IP address** \u2014 the numeric address identifying a device on the internet.\n- **Machine code** \u2014 binary instructions a CPU executes directly.\n- **Packet** \u2014 a small chunk of data with source, destination, and sequence headers.\n- **Pixel** \u2014 one cell in the grid that makes up a digital image.\n- **Pseudocode** \u2014 structured, language-neutral text for describing algorithms.",
+          "In 1971, Intel released the 4004, the first commercial microprocessor \u2014 an entire\ncentral processing unit on one chip. Microprocessors made personal computers possible.\nThe Apple II (1977) and the IBM PC (1981) brought computing into homes and offices.\nGraphical user interfaces, popularized by the Apple Macintosh in 1984, replaced typed\ncommands with windows, icons, and a mouse.",
+          "| Week | Module | Materials |\n|------|--------|-----------|\n| 1 | History of Computing | Lesson 1 |\n| 2 | Data and Binary | Lesson 2 |\n| 3 | Computer Hardware | Lesson 3 |\n| 4 | Algorithms | Lesson 4 |\n| 5 | Programming Languages | Lesson 5 |\n| 6 | Networks and the Internet | Lesson 6 |",
+          "CS-1010 introduces the fundamental concepts of computing for students with no prior\nprogramming experience. The course covers the history of computing, how computers\nrepresent and store data, computer hardware, algorithms, programming languages, and\ncomputer networks. Students finish the course able to reason about how computers work\nfrom transistors to the web.",
+          "Python is a high-level, interpreted language known for readable syntax. A Python\nprogram that prints a greeting is a single line: `print(\"Hello, world!\")`. Python uses\nindentation to group statements, which enforces readable structure. Its large standard\nlibrary and gentle learning curve have made it one of the most widely used first\nlanguages in education.",
+          "The transistor, invented at Bell Labs in 1947, replaced the vacuum tube. Transistors\nare smaller, faster, cheaper, and far more reliable. In 1958, Jack Kilby and Robert\nNoyce independently developed the integrated circuit, which places many transistors on\na single chip of silicon. Integrated circuits made it possible to shrink a room-sized\ncomputer onto a desk.",
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "million_list_looks",
+      "question": "Roughly how many looks to find one name in a sorted list of a million?",
+      "metadata": {
+        "expected_section": "lesson-04-algorithms#binary-search",
+        "answer_keywords": [
+          "twenty",
+          "20"
+        ]
+      },
+      "output": {
+        "answer": "Using **binary search** on a sorted list of one million names, you need at most about **20 comparisons**. The algorithm works by repeatedly comparing the target to the middle element and halving the remaining search range each time, so each step eliminates half the list. This makes it far more efficient than checking names one by one.",
+        "citations": [
+          "lesson-04-algorithms#binary-search"
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "pixel_color_count",
+      "question": "How many colors can one dot on my screen show?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#representing-images-and-color",
+        "answer_keywords": [
+          "16.7",
+          "16,777,216",
+          "16 million"
+        ]
+      },
+      "output": {
+        "answer": "Each dot (pixel) on your screen uses the RGB color model, storing one byte each for red, green, and blue intensity. Each channel ranges from 0 to 255, giving roughly **16.7 million possible colors** per pixel.",
+        "citations": [
+          "lesson-02-data-and-binary#representing-images-and-color"
+        ],
+        "retrieved_section_ids": [
+          "lesson-02-data-and-binary#representing-images-and-color",
+          "lesson-02-data-and-binary#file-sizes-and-compression",
+          "glossary#terms-g-p",
+          "glossary#terms-q-z"
+        ],
+        "retrieved_chunks": [
+          "A digital image is a grid of pixels. Each pixel stores a color, most commonly as three\nnumbers for red, green, and blue intensity \u2014 the RGB color model. With one byte per\nchannel, each channel ranges from 0 to 255, giving about 16.7 million possible colors.\nImage resolution is the number of pixels in the grid; higher resolution means more\ndetail and larger file sizes. Compression formats such as JPEG reduce file size by\ndiscarding detail the human eye barely notices.",
+          "File size follows directly from data representation: a 1000 by 1000 pixel image with\nthree bytes per pixel needs about three megabytes uncompressed. Compression reduces\nstorage and transmission cost. Lossless compression (such as ZIP) preserves the data\nexactly, while lossy compression (such as JPEG or MP3) achieves much smaller files by\npermanently discarding some information.",
+          "- **GPU (graphics processing unit)** \u2014 a chip with thousands of small cores for\n  parallel computation; used for graphics and machine learning.\n- **HTTP** \u2014 the request-response protocol browsers and web servers use.\n- **HTTPS** \u2014 HTTP protected by encryption; provides confidentiality and integrity.\n- **Integrated circuit** \u2014 many transistors fabricated on one silicon chip.\n- **Interpreter** \u2014 a translator that executes a program line by line as it runs.\n- **IP address** \u2014 the numeric address identifying a device on the internet.\n- **Machine code** \u2014 binary instructions a CPU executes directly.\n- **Packet** \u2014 a small chunk of data with source, destination, and sequence headers.\n- **Pixel** \u2014 one cell in the grid that makes up a digital image.\n- **Pseudocode** \u2014 structured, language-neutral text for describing algorithms.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "ascii_capital_a",
+      "question": "What number stands for a capital A in the old text standard?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#representing-text",
+        "answer_keywords": [
+          "65"
+        ]
+      },
+      "output": {
+        "answer": "In ASCII \u2014 the old text standard from 1963 \u2014 the capital letter A is represented by the number **65**. ASCII assigns numbers to 128 characters in total, covering English letters, digits, punctuation, and control codes.",
+        "citations": [
+          "lesson-02-data-and-binary#representing-text",
+          "glossary#terms-a-f"
+        ],
+        "retrieved_section_ids": [
+          "lesson-02-data-and-binary#representing-text",
+          "glossary#terms-a-f",
+          "glossary#terms-q-z",
+          "lesson-02-data-and-binary#binary-numbers"
+        ],
+        "retrieved_chunks": [
+          "Text is stored by assigning a number to every character. ASCII, standardized in 1963,\nassigns numbers to 128 characters: English letters, digits, punctuation, and control\ncodes. The capital letter A is 65 in ASCII. Unicode extends this idea to cover more\nthan 140,000 characters from the world's writing systems, plus symbols and emoji.\nUTF-8, the dominant encoding on the web, stores common characters in a single byte and\nrarer characters in up to four bytes, and it is backward compatible with ASCII.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character.",
+          "The binary number system is a base-2 positional system. Each digit position represents\na power of two, just as each position in the decimal system represents a power of ten.\nFor example, the binary number 1011 equals 8 + 0 + 2 + 1 = 11 in decimal. To convert a\ndecimal number to binary, repeatedly divide by two and record the remainders. Binary\nsuits computers because electronic circuits reliably distinguish two states, such as\nhigh and low voltage."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "original_text_chars",
+      "question": "How many characters did that original text standard cover?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#representing-text",
+        "answer_keywords": [
+          "128"
+        ]
+      },
+      "output": {
+        "answer": "I don't have context about a previous conversation mentioning a specific \"original text standard.\" However, based on the course materials, if you're referring to **ASCII** \u2014 the original text encoding standard, standardized in 1963 \u2014 it covered **128 characters**, including English letters, digits, punctuation, and control codes.",
+        "citations": [
+          "lesson-02-data-and-binary#representing-text",
+          "glossary#terms-a-f"
+        ],
+        "retrieved_section_ids": [
+          "lesson-02-data-and-binary#representing-text",
+          "glossary#terms-q-z",
+          "glossary#terms-a-f",
+          "lesson-06-networks#packets"
+        ],
+        "retrieved_chunks": [
+          "Text is stored by assigning a number to every character. ASCII, standardized in 1963,\nassigns numbers to 128 characters: English letters, digits, punctuation, and control\ncodes. The capital letter A is 65 in ASCII. Unicode extends this idea to cover more\nthan 140,000 characters from the world's writing systems, plus symbols and emoji.\nUTF-8, the dominant encoding on the web, stores common characters in a single byte and\nrarer characters in up to four bytes, and it is backward compatible with ASCII.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses.",
+          "Data travels across networks in packets. A packet is a small chunk of data \u2014 typically\naround a kilobyte \u2014 carrying headers that record its source address, destination\naddress, and sequence position. A large file is split into many packets that may take\ndifferent routes across the network and arrive out of order; the receiving device\nreassembles them into the original data. Packet switching makes networks resilient:\nif one route fails, packets flow around the failure."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "ipv4_range",
+      "question": "What do those older numeric net addresses look like?",
+      "metadata": {
+        "expected_section": "lesson-06-networks#ip-addresses-and-routing",
+        "answer_keywords": [
+          "255",
+          "four numbers"
+        ]
+      },
+      "output": {
+        "answer": "You're likely thinking of **IPv4 addresses** \u2014 the older, widely used format. An IPv4 address consists of four numbers, each between 0 and 255, separated by dots (e.g., **192.168.4.12**). Every device on the internet has one to identify it, much like a street address identifies a building. Because IPv4 addresses are running out, the newer IPv6 standard provides a vastly larger address space.",
+        "citations": [
+          "lesson-06-networks#ip-addresses-and-routing"
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#what-is-a-network",
+          "lesson-06-networks#ip-addresses-and-routing",
+          "glossary#terms-g-p",
+          "lesson-06-networks#encryption-and-https",
+          "lesson-06-networks#the-domain-name-system",
+          "syllabus#learning-outcomes",
+          "glossary#terms-a-f"
+        ],
+        "retrieved_chunks": [
+          "A computer network connects devices so they can exchange data. A local area network\n(LAN) covers a small area such as a home or office; a wide area network (WAN) spans\ncities or continents. The internet is a global network of networks: independent\nnetworks agree to exchange traffic using shared protocols, so any connected device can\nreach any other.",
+          "Every device on the internet has an IP address that identifies it, much as a street\naddress identifies a building. IPv4 addresses are four numbers between 0 and 255, such\nas 192.168.4.12; because IPv4 addresses are running out, the newer IPv6 provides a\nvastly larger address space. Routers are devices that read each packet's destination\naddress and forward the packet one step closer to it. A packet typically crosses many\nrouters between source and destination.",
+          "- **GPU (graphics processing unit)** \u2014 a chip with thousands of small cores for\n  parallel computation; used for graphics and machine learning.\n- **HTTP** \u2014 the request-response protocol browsers and web servers use.\n- **HTTPS** \u2014 HTTP protected by encryption; provides confidentiality and integrity.\n- **Integrated circuit** \u2014 many transistors fabricated on one silicon chip.\n- **Interpreter** \u2014 a translator that executes a program line by line as it runs.\n- **IP address** \u2014 the numeric address identifying a device on the internet.\n- **Machine code** \u2014 binary instructions a CPU executes directly.\n- **Packet** \u2014 a small chunk of data with source, destination, and sequence headers.\n- **Pixel** \u2014 one cell in the grid that makes up a digital image.\n- **Pseudocode** \u2014 structured, language-neutral text for describing algorithms.",
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be.",
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name.",
+          "By the end of this course, students will be able to:\n\n1. Describe the major milestones in the history of computing and their significance.\n2. Explain how computers represent numbers, text, and images using binary.\n3. Identify the main hardware components of a computer and describe their roles.\n4. Read and trace simple algorithms expressed in pseudocode.\n5. Compare compiled and interpreted programming languages.\n6. Explain how data travels across the internet, including packets, IP addresses, and DNS.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "moore_doubling",
+      "question": "How often did the number of switches on a chip keep doubling?",
+      "metadata": {
+        "expected_section": "lesson-03-hardware#moores-law",
+        "answer_keywords": [
+          "two years",
+          "doubl"
+        ]
+      },
+      "output": {
+        "answer": "According to Moore's Law, the number of transistors (switches) on a chip doubled roughly every two years. This observation was made by Gordon Moore in 1965 and drove decades of exponential growth in computing power at falling cost.",
+        "citations": [
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#comparing-algorithm-efficiency",
+          "lesson-03-hardware#moores-law",
+          "lesson-02-data-and-binary#binary-numbers",
+          "glossary#terms-g-p"
+        ],
+        "retrieved_chunks": [
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency.",
+          "The binary number system is a base-2 positional system. Each digit position represents\na power of two, just as each position in the decimal system represents a power of ten.\nFor example, the binary number 1011 equals 8 + 0 + 2 + 1 = 11 in decimal. To convert a\ndecimal number to binary, repeatedly divide by two and record the remainders. Binary\nsuits computers because electronic circuits reliably distinguish two states, such as\nhigh and low voltage.",
+          "- **GPU (graphics processing unit)** \u2014 a chip with thousands of small cores for\n  parallel computation; used for graphics and machine learning.\n- **HTTP** \u2014 the request-response protocol browsers and web servers use.\n- **HTTPS** \u2014 HTTP protected by encryption; provides confidentiality and integrity.\n- **Integrated circuit** \u2014 many transistors fabricated on one silicon chip.\n- **Interpreter** \u2014 a translator that executes a program line by line as it runs.\n- **IP address** \u2014 the numeric address identifying a device on the internet.\n- **Machine code** \u2014 binary instructions a CPU executes directly.\n- **Packet** \u2014 a small chunk of data with source, destination, and sequence headers.\n- **Pixel** \u2014 one cell in the grid that makes up a digital image.\n- **Pseudocode** \u2014 structured, language-neutral text for describing algorithms."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "ram_volatile",
+      "question": "What happens to the computer's working memory when the power goes off?",
+      "metadata": {
+        "expected_section": "lesson-03-hardware#memory-and-the-storage-hierarchy",
+        "answer_keywords": [
+          "volatile",
+          "lost"
+        ]
+      },
+      "output": {
+        "answer": "When the power goes off, everything stored in the computer's working memory (RAM) is lost. RAM is described as **volatile**, meaning it only holds data while power is supplied. Any running programs or data not saved to persistent storage (like an SSD or HDD) will disappear.",
+        "citations": [
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "glossary#terms-q-z"
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "glossary#terms-q-z",
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-02-data-and-binary#binary-numbers"
+        ],
+        "retrieved_chunks": [
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character.",
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "The binary number system is a base-2 positional system. Each digit position represents\na power of two, just as each position in the decimal system represents a power of ten.\nFor example, the binary number 1011 equals 8 + 0 + 2 + 1 = 11 in decimal. To convert a\ndecimal number to binary, repeatedly divide by two and record the remainders. Binary\nsuits computers because electronic circuits reliably distinguish two states, such as\nhigh and low voltage."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "packet_size",
+      "question": "How much data rides in one of those little pieces sent over the net?",
+      "metadata": {
+        "expected_section": "lesson-06-networks#packets",
+        "answer_keywords": [
+          "kilobyte"
+        ]
+      },
+      "output": {
+        "answer": "Those little pieces are called **packets**, and each one typically carries around **one kilobyte** of data. Along with the actual data, a packet also includes header information such as the source address, destination address, and sequence position so the receiving device knows how to reassemble everything in the right order.",
+        "citations": [
+          "lesson-06-networks#packets"
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#packets",
+          "lesson-02-data-and-binary#file-sizes-and-compression",
+          "lesson-06-networks#what-is-a-network",
+          "lesson-06-networks#encryption-and-https"
+        ],
+        "retrieved_chunks": [
+          "Data travels across networks in packets. A packet is a small chunk of data \u2014 typically\naround a kilobyte \u2014 carrying headers that record its source address, destination\naddress, and sequence position. A large file is split into many packets that may take\ndifferent routes across the network and arrive out of order; the receiving device\nreassembles them into the original data. Packet switching makes networks resilient:\nif one route fails, packets flow around the failure.",
+          "File size follows directly from data representation: a 1000 by 1000 pixel image with\nthree bytes per pixel needs about three megabytes uncompressed. Compression reduces\nstorage and transmission cost. Lossless compression (such as ZIP) preserves the data\nexactly, while lossy compression (such as JPEG or MP3) achieves much smaller files by\npermanently discarding some information.",
+          "A computer network connects devices so they can exchange data. A local area network\n(LAN) covers a small area such as a home or office; a wide area network (WAN) spans\ncities or continents. The internet is a global network of networks: independent\nnetworks agree to exchange traffic using shared protocols, so any connected device can\nreach any other.",
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerMentionsFact": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerIsSubstantial": {
+          "passed": true,
+          "reason": null
+        }
+      },
+      "scores": {}
+    }
+  ]
+}

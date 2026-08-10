@@ -130,6 +130,29 @@ submission reply. Don't commit large video files into the repo.
 <!-- Clusters you saw in the hard-set failures, the root cause of the
      dominant one, and why you attacked it first. -->
 
+- Baseline: `eval-report-study-coach-hard-2026-08-10T175142Z.json`, 25/36.
+  I inspected every answer, citation, retrieved section, and verdict before
+  editing the suite.
+- Meaningful passes: all 12 `CitationsGrounded` checks. Each citation belonged
+  to that run's retrieval evidence, and every answer also cited the expected
+  lesson section when checked manually.
+- Evaluator false negatives: 11/12 `AnswerMentionsFact` checks. Examples: the
+  byte answer says “256 different values,” the ENIAC answer says “1945,” and
+  the packet answer says “one kilobyte,” yet each is red. The evaluator searches
+  `output.citations` instead of `output.answer`, so it cannot see those facts.
+- Evaluator false positive / hollow pass: `glass_tube_replacement` is the only
+  green fact check because `transistor` happens to occur in its citation slug.
+  The answer itself is correct, but that verdict would stay green even if the
+  prose said the opposite.
+- Hollow passes: all 12 `AnswerIsSubstantial` checks. `len(answer) > 15` rewards
+  long refusals and nonsense and can reject a concise correct answer; it adds no
+  trustworthy signal here.
+- Genuine agent failures: none in this run. All 12 answers contain an accepted
+  fact and cite the expected section. `original_text_chars` adds an unnecessary
+  context caveat, but still identifies ASCII and correctly answers 128 from the
+  cited material; changing the agent to chase the broken reds would be the
+  wrong intervention.
+
 ### The improvement
 
 - What and why:
