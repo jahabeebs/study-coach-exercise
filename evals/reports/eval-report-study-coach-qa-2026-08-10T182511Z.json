@@ -1,0 +1,532 @@
+{
+  "run_at": "2026-08-10T18:25:11+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-qa",
+  "summary": {
+    "cases": 10,
+    "assertions_passed": 40,
+    "assertions_total": 40
+  },
+  "cases": [
+    {
+      "case": "byte_values",
+      "question": "How many different values can one byte represent?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#bits-and-bytes",
+        "answer_keyword_groups": [
+          [
+            "256"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "One byte is made up of eight bits, and because each bit doubles the number of possible patterns, one byte can represent **256 different values** (2\u2078 = 256).",
+        "citations": [
+          "lesson-02-data-and-binary#bits-and-bytes",
+          "glossary#terms-a-f"
+        ],
+        "retrieved_section_ids": [
+          "lesson-02-data-and-binary#bits-and-bytes",
+          "lesson-02-data-and-binary#hexadecimal",
+          "glossary#terms-a-f",
+          "lesson-02-data-and-binary#file-sizes-and-compression"
+        ],
+        "retrieved_chunks": [
+          "Computers store all information as sequences of bits. A bit is the smallest unit of\ndata and has exactly two possible values: 0 or 1. A byte is a group of eight bits.\nBecause each bit doubles the number of possible patterns, one byte can represent 256\ndifferent values (2 to the power of 8). Larger units build on the byte: a kilobyte is\nabout a thousand bytes, a megabyte about a million, and a gigabyte about a billion.",
+          "Hexadecimal is a base-16 system that uses digits 0-9 and letters A-F. One hexadecimal\ndigit represents exactly four bits, so two hexadecimal digits describe one byte. This\nmakes hexadecimal a compact, human-friendly way to write binary values. For example,\nthe byte 11111111 is FF in hexadecimal and 255 in decimal. Hexadecimal appears in\ncolor codes, memory addresses, and error messages.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses.",
+          "File size follows directly from data representation: a 1000 by 1000 pixel image with\nthree bytes per pixel needs about three megabytes uncompressed. Compression reduces\nstorage and transmission cost. Lossless compression (such as ZIP) preserves the data\nexactly, while lossy compression (such as JPEG or MP3) achieves much smaller files by\npermanently discarding some information."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states that \"one byte is made up of eight bits\" and \"each bit doubles the number of possible patterns,\" and \"one byte can represent 256 different values (2\u2078 = 256).\" All of these facts are directly supported by the retrieved chunks: \"A byte is a group of eight bits. Because each bit doubles the number of possible patterns, one byte can represent 256 different values (2 to the power of 8).\" No facts in the answer go beyond what is stated in the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.8888888888888888
+      }
+    },
+    {
+      "case": "eniac_year",
+      "question": "When was ENIAC completed, and why does it matter?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-electronic-era",
+        "answer_keyword_groups": [
+          [
+            "1945"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "ENIAC was completed in 1945 at the University of Pennsylvania. It is generally considered the first general-purpose electronic digital computer, making it a major milestone in computing history. It used about 18,000 vacuum tubes and was programmed by physically rewiring connections, though its vacuum tubes were unreliable and generated enormous heat, which limited how large computers could practically become.",
+        "citations": [
+          "lesson-01-history-of-computing#the-electronic-era"
+        ],
+        "retrieved_section_ids": [
+          "syllabus#learning-outcomes",
+          "lesson-01-history-of-computing#the-electronic-era",
+          "syllabus#modules",
+          "syllabus#course-description"
+        ],
+        "retrieved_chunks": [
+          "By the end of this course, students will be able to:\n\n1. Describe the major milestones in the history of computing and their significance.\n2. Explain how computers represent numbers, text, and images using binary.\n3. Identify the main hardware components of a computer and describe their roles.\n4. Read and trace simple algorithms expressed in pseudocode.\n5. Compare compiled and interpreted programming languages.\n6. Explain how data travels across the internet, including packets, IP addresses, and DNS.",
+          "ENIAC, completed in 1945 at the University of Pennsylvania, is generally considered the\nfirst general-purpose electronic digital computer. It used about 18,000 vacuum tubes,\nweighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes\nwere unreliable and generated enormous heat, which limited how large computers could\npractically become.",
+          "| Week | Module | Materials |\n|------|--------|-----------|\n| 1 | History of Computing | Lesson 1 |\n| 2 | Data and Binary | Lesson 2 |\n| 3 | Computer Hardware | Lesson 3 |\n| 4 | Algorithms | Lesson 4 |\n| 5 | Programming Languages | Lesson 5 |\n| 6 | Networks and the Internet | Lesson 6 |",
+          "CS-1010 introduces the fundamental concepts of computing for students with no prior\nprogramming experience. The course covers the history of computing, how computers\nrepresent and store data, computer hardware, algorithms, programming languages, and\ncomputer networks. Students finish the course able to reason about how computers work\nfrom transistors to the web."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states that ENIAC \"used about 18,000 vacuum tubes and was programmed by physically rewiring connections, though its vacuum tubes were unreliable and generated enormous heat, which limited how large computers could practically become.\" All of these facts are directly supported by the retrieved chunk: \"It used about 18,000 vacuum tubes, weighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes were unreliable and generated enormous heat, which limited how large computers could practically become.\" The answer also correctly states it was completed in 1945 at the University of Pennsylvania and is generally considered the first general-purpose electronic digital computer \u2014 all supported by the chunk. Notably, the answer omits the weight (30 tons), but omission is not a problem. No facts in the answer are absent from or contradict the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.925
+      }
+    },
+    {
+      "case": "compiler_vs_interpreter",
+      "question": "What is the difference between a compiler and an interpreter?",
+      "metadata": {
+        "expected_section": "lesson-05-programming-languages#compilers",
+        "answer_keyword_groups": [
+          [
+            "before"
+          ],
+          [
+            "line by line",
+            "line-by-line"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "A **compiler** translates an entire program into machine code *before* it runs, producing an executable file that can be run repeatedly without further translation \u2014 though any change requires recompiling. An **interpreter**, by contrast, translates and executes the program *line by line while it runs*, with no separate build step, allowing a faster write-and-run cycle but generally slower execution. Some languages blend both approaches \u2014 for example, Java compiles to bytecode that a virtual machine then interprets.",
+        "citations": [
+          "lesson-05-programming-languages#compilers",
+          "lesson-05-programming-languages#interpreters"
+        ],
+        "retrieved_section_ids": [
+          "lesson-05-programming-languages#compilers",
+          "lesson-04-algorithms#comparing-algorithm-efficiency",
+          "lesson-05-programming-languages#interpreters",
+          "glossary#terms-g-p"
+        ],
+        "retrieved_chunks": [
+          "A compiler translates an entire program from a high-level language into machine code\nbefore the program runs. The output is an executable file that can run repeatedly\nwithout further translation. Compiled languages such as C and C++ typically produce\nfast programs, and the compiler catches many errors before the program ever runs. The\ncost is an extra build step: after every change, the program must be recompiled.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else.",
+          "An interpreter translates and executes a program line by line while the program runs,\nwith no separate build step. Interpreted languages such as Python offer a faster\nwrite-and-run cycle, which makes them popular for learning and rapid development. The\ntradeoff is speed: interpreting each line during execution is slower than running\nmachine code produced ahead of time. Some languages blend both approaches \u2014 Java\ncompiles to an intermediate bytecode that a virtual machine then executes.",
+          "- **GPU (graphics processing unit)** \u2014 a chip with thousands of small cores for\n  parallel computation; used for graphics and machine learning.\n- **HTTP** \u2014 the request-response protocol browsers and web servers use.\n- **HTTPS** \u2014 HTTP protected by encryption; provides confidentiality and integrity.\n- **Integrated circuit** \u2014 many transistors fabricated on one silicon chip.\n- **Interpreter** \u2014 a translator that executes a program line by line as it runs.\n- **IP address** \u2014 the numeric address identifying a device on the internet.\n- **Machine code** \u2014 binary instructions a CPU executes directly.\n- **Packet** \u2014 a small chunk of data with source, destination, and sequence headers.\n- **Pixel** \u2014 one cell in the grid that makes up a digital image.\n- **Pseudocode** \u2014 structured, language-neutral text for describing algorithms."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "Let me verify each claim in the answer against the retrieved chunks:\n\n1. \"A compiler translates an entire program into machine code *before* it runs\" \u2014 Supported: \"A compiler translates an entire program from a high-level language into machine code before the program runs.\"\n2. \"producing an executable file that can be run repeatedly without further translation\" \u2014 Supported: \"The output is an executable file that can run repeatedly without further translation.\"\n3. \"any change requires recompiling\" \u2014 Supported: \"after every change, the program must be recompiled.\"\n4. \"An interpreter translates and executes the program *line by line while it runs*\" \u2014 Supported: \"An interpreter translates and executes a program line by line while the program runs.\"\n5. \"no separate build step\" \u2014 Supported: \"with no separate build step.\"\n6. \"allowing a faster write-and-run cycle\" \u2014 Supported: \"Interpreted languages such as Python offer a faster write-and-run cycle.\"\n7. \"generally slower execution\" \u2014 Supported: \"interpreting each line during execution is slower than running machine code produced ahead of time.\"\n8. \"Java compiles to bytecode that a virtual machine then interprets\" \u2014 Supported: \"Java compiles to an intermediate bytecode that a virtual machine then executes.\" (Note: the answer says \"interprets\" while the chunk says \"executes\" \u2014 this is a minor paraphrase but not a factual addition; the chunk does say \"Some languages blend both approaches.\")\n\nAll claims in the answer are directly supported by the retrieved chunks. No facts are added that are absent from the chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.803921568627451
+      }
+    },
+    {
+      "case": "binary_search_sorted",
+      "question": "Why does binary search need the list to be sorted?",
+      "metadata": {
+        "expected_section": "lesson-04-algorithms#binary-search",
+        "answer_keyword_groups": [
+          [
+            "half",
+            "halv*",
+            "middle"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "Binary search works by comparing the target to the middle element and then discarding either the left or right half of the remaining list. This elimination only works correctly if the list is sorted \u2014 if elements are in order, you can reliably conclude that the target must be in one half and not the other. Without sorting, discarding half the list could throw away the target entirely.",
+        "citations": [
+          "lesson-04-algorithms#binary-search"
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states that binary search works by comparing the target to the middle element and discarding either the left or right half, and that this elimination only works if the list is sorted \u2014 allowing you to reliably conclude the target must be in one half. These claims are directly supported by the retrieved chunks: \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half\" and \"Binary search requires the list to be sorted in advance.\" The answer does not introduce any facts absent from the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.5428571428571428
+      }
+    },
+    {
+      "case": "dns_purpose",
+      "question": "What does the Domain Name System actually do?",
+      "metadata": {
+        "expected_section": "lesson-06-networks#the-domain-name-system",
+        "answer_keyword_groups": [
+          [
+            "ip address"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "The Domain Name System (DNS) translates human-readable domain names (like example.edu) into IP addresses. When a browser visits a website, it first queries DNS to resolve the domain name, then connects to the returned IP address. DNS is structured as a distributed, hierarchical directory, meaning no single server holds every name.",
+        "citations": [
+          "lesson-06-networks#the-domain-name-system"
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#the-domain-name-system",
+          "glossary#terms-a-f",
+          "lesson-06-networks#the-web-and-http",
+          "lesson-02-data-and-binary#binary-numbers"
+        ],
+        "retrieved_chunks": [
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses.",
+          "The World Wide Web runs on top of the internet. A browser requests a page using the\nHypertext Transfer Protocol (HTTP): it sends a request to a web server, and the server\nresponds with the page content, usually written in HTML. Each request-response pair is\nindependent, which keeps the protocol simple. URLs identify resources: the scheme\n(https), the domain name, and the path together tell the browser what to fetch and how.",
+          "The binary number system is a base-2 positional system. Each digit position represents\na power of two, just as each position in the decimal system represents a power of ten.\nFor example, the binary number 1011 equals 8 + 0 + 2 + 1 = 11 in decimal. To convert a\ndecimal number to binary, repeatedly divide by two and record the remainders. Binary\nsuits computers because electronic circuits reliably distinguish two states, such as\nhigh and low voltage."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states three facts: (1) DNS translates human-readable domain names (like example.edu) into IP addresses \u2014 directly supported by the DNS chunk; (2) when a browser visits a website, it first queries DNS to resolve the domain name, then connects to the returned IP address \u2014 directly supported; (3) DNS is structured as a distributed, hierarchical directory, meaning no single server holds every name \u2014 directly supported. Every claim in the answer maps precisely to text in the retrieved chunks, with no facts introduced from outside those chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.9117647058823529
+      }
+    },
+    {
+      "case": "moores_law",
+      "question": "What is Moore's law?",
+      "metadata": {
+        "expected_section": "lesson-03-hardware#moores-law",
+        "answer_keyword_groups": [
+          [
+            "transistor"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "Moore's Law is the observation made by Gordon Moore in 1965 that the number of transistors on a chip doubles roughly every two years. This drove exponential growth in computing power at falling cost for decades. In recent years, the pace has slowed as transistors approach physical limits, pushing the industry toward multi-core designs, specialized chips, and better software efficiency.",
+        "citations": [
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states: (1) Gordon Moore made the observation in 1965 \u2014 supported by the chunk. (2) The number of transistors on a chip doubles roughly every two years \u2014 supported. (3) This drove exponential growth in computing power at falling cost for decades \u2014 supported. (4) In recent years the pace has slowed as transistors approach physical limits \u2014 supported. (5) The industry is pushing toward multi-core designs, specialized chips, and better software efficiency \u2014 supported. Every factual claim in the answer is directly present in the retrieved chunk, with no additional facts introduced from outside the chunk."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.9512195121951219
+      }
+    },
+    {
+      "case": "ascii_capital_a",
+      "question": "What number represents the capital letter A in ASCII?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#representing-text",
+        "answer_keyword_groups": [
+          [
+            "65"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "The capital letter A is represented by the number **65** in ASCII.",
+        "citations": [
+          "lesson-02-data-and-binary#representing-text",
+          "glossary#terms-a-f"
+        ],
+        "retrieved_section_ids": [
+          "lesson-02-data-and-binary#representing-text",
+          "glossary#terms-a-f",
+          "lesson-02-data-and-binary#binary-numbers",
+          "glossary#terms-q-z"
+        ],
+        "retrieved_chunks": [
+          "Text is stored by assigning a number to every character. ASCII, standardized in 1963,\nassigns numbers to 128 characters: English letters, digits, punctuation, and control\ncodes. The capital letter A is 65 in ASCII. Unicode extends this idea to cover more\nthan 140,000 characters from the world's writing systems, plus symbols and emoji.\nUTF-8, the dominant encoding on the web, stores common characters in a single byte and\nrarer characters in up to four bytes, and it is backward compatible with ASCII.",
+          "- **Algorithm** \u2014 a precise, step-by-step procedure for solving a problem that always\n  finishes and produces a correct result for valid input.\n- **ASCII** \u2014 a 1963 standard assigning numbers to 128 characters; capital A is 65.\n- **Binary** \u2014 the base-2 number system computers use; each digit is a bit, 0 or 1.\n- **Bit** \u2014 the smallest unit of data; holds one of two values.\n- **Byte** \u2014 eight bits; can represent 256 distinct values.\n- **Cache** \u2014 small, fast memory near the CPU cores holding recently used data.\n- **Compiler** \u2014 a translator that converts an entire high-level program into machine\n  code before it runs.\n- **CPU (central processing unit)** \u2014 the component that executes instructions via the\n  fetch-decode-execute cycle.\n- **DNS (Domain Name System)** \u2014 the distributed directory that translates domain\n  names into IP addresses.",
+          "The binary number system is a base-2 positional system. Each digit position represents\na power of two, just as each position in the decimal system represents a power of ten.\nFor example, the binary number 1011 equals 8 + 0 + 2 + 1 = 11 in decimal. To convert a\ndecimal number to binary, repeatedly divide by two and record the remainders. Binary\nsuits computers because electronic circuits reliably distinguish two states, such as\nhigh and low voltage.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states \"The capital letter A is represented by the number **65** in ASCII.\" This fact is directly supported by the retrieved chunks: \"The capital letter A is 65 in ASCII\" (from lesson-02-data-and-binary#representing-text) and \"capital A is 65\" (from glossary#terms-a-f). The answer contains no facts absent from the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.8333333333333334
+      }
+    },
+    {
+      "case": "ram_vs_ssd",
+      "question": "What is the difference between RAM and an SSD?",
+      "metadata": {
+        "expected_section": "lesson-03-hardware#memory-and-the-storage-hierarchy",
+        "answer_keyword_groups": [
+          [
+            "volatile",
+            "lost"
+          ],
+          [
+            "persistent",
+            "retains",
+            "without power"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "The key difference is **volatility vs. persistence**. RAM is the computer's working memory \u2014 it holds running programs and their data, but its contents are lost when power is removed (it is volatile). An SSD, on the other hand, is persistent storage that retains data without power, using flash memory with no moving parts. In the storage hierarchy, RAM is faster but typically smaller in capacity, while an SSD offers much larger storage that survives power-off.",
+        "citations": [
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "glossary#terms-q-z"
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "glossary#terms-q-z",
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-02-data-and-binary#file-sizes-and-compression"
+        ],
+        "retrieved_chunks": [
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "- **RAM (random access memory)** \u2014 volatile working memory holding running programs;\n  contents are lost when power is removed.\n- **RGB** \u2014 the color model storing red, green, and blue intensity per pixel.\n- **Router** \u2014 a device that forwards packets toward their destination address.\n- **SSD (solid-state drive)** \u2014 persistent flash storage with no moving parts.\n- **Transistor** \u2014 the electronic switch, invented at Bell Labs in 1947, that replaced\n  the vacuum tube.\n- **Turing machine** \u2014 Alan Turing's 1936 abstract machine defining what is computable.\n- **Unicode** \u2014 the character standard covering more than 140,000 characters.\n- **UTF-8** \u2014 the dominant web text encoding; ASCII-compatible, one to four bytes per\n  character.",
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "File size follows directly from data representation: a 1000 by 1000 pixel image with\nthree bytes per pixel needs about three megabytes uncompressed. Compression reduces\nstorage and transmission cost. Lossless compression (such as ZIP) preserves the data\nexactly, while lossy compression (such as JPEG or MP3) achieves much smaller files by\npermanently discarding some information."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states: (1) RAM holds running programs and their data, (2) RAM contents are lost when power is removed (volatile), (3) SSD is persistent storage that retains data without power, (4) SSD uses flash memory with no moving parts, (5) RAM is faster but typically smaller in capacity, while SSD offers much larger storage. All of these points are directly supported by the retrieved chunks. The only claim that requires slight scrutiny is \"RAM is faster but typically smaller in capacity\" \u2014 the chunks do state RAM is in the storage hierarchy above SSDs (implying faster), and that SSDs are \"persistent storage\" implying larger long-term storage, though the chunks don't explicitly say \"larger capacity.\" However, the hierarchy described (registers \u2192 cache \u2192 RAM \u2192 SSDs/HDDs) and the context of \"working memory\" vs \"persistent storage\" implicitly supports this. The answer does not introduce any facts absent from the chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.6744186046511628
+      }
+    },
+    {
+      "case": "first_programmer",
+      "question": "Who is often called the first computer programmer?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-mechanical-era",
+        "answer_keyword_groups": [
+          [
+            "lovelace"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "Ada Lovelace is often called the first computer programmer. She wrote extensive notes on Charles Babbage's Analytical Engine and described how it could follow a sequence of instructions.",
+        "citations": [
+          "lesson-01-history-of-computing#the-mechanical-era"
+        ],
+        "retrieved_section_ids": [
+          "lesson-01-history-of-computing#the-mechanical-era",
+          "lesson-01-history-of-computing#the-electronic-era",
+          "lesson-05-programming-languages#a-first-look-at-python",
+          "syllabus#course-description"
+        ],
+        "retrieved_chunks": [
+          "Long before electronics, people built mechanical devices to automate calculation. The\nabacus, used for thousands of years, helped merchants perform arithmetic. In the 1830s,\nCharles Babbage designed the Analytical Engine, a mechanical general-purpose computer\nthat was never completed in his lifetime. Ada Lovelace, who wrote extensive notes on\nthe Analytical Engine, described how it could follow a sequence of instructions and is\noften called the first computer programmer.",
+          "ENIAC, completed in 1945 at the University of Pennsylvania, is generally considered the\nfirst general-purpose electronic digital computer. It used about 18,000 vacuum tubes,\nweighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes\nwere unreliable and generated enormous heat, which limited how large computers could\npractically become.",
+          "Python is a high-level, interpreted language known for readable syntax. A Python\nprogram that prints a greeting is a single line: `print(\"Hello, world!\")`. Python uses\nindentation to group statements, which enforces readable structure. Its large standard\nlibrary and gentle learning curve have made it one of the most widely used first\nlanguages in education.",
+          "CS-1010 introduces the fundamental concepts of computing for students with no prior\nprogramming experience. The course covers the history of computing, how computers\nrepresent and store data, computer hardware, algorithms, programming languages, and\ncomputer networks. Students finish the course able to reason about how computers work\nfrom transistors to the web."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states: (1) Ada Lovelace is often called the first computer programmer \u2014 supported by the chunk \"is often called the first computer programmer\"; (2) she wrote extensive notes on Charles Babbage's Analytical Engine \u2014 supported by \"Ada Lovelace, who wrote extensive notes on the Analytical Engine\"; (3) she described how it could follow a sequence of instructions \u2014 supported by \"described how it could follow a sequence of instructions\". Every factual claim in the answer is directly present in the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.9
+      }
+    },
+    {
+      "case": "https_protection",
+      "question": "What protection does HTTPS give you that plain HTTP doesn't?",
+      "metadata": {
+        "expected_section": "lesson-06-networks#encryption-and-https",
+        "answer_keyword_groups": [
+          [
+            "encrypt*"
+          ]
+        ]
+      },
+      "output": {
+        "answer": "HTTPS adds three protections that plain HTTP lacks: **confidentiality** (the data is encrypted so eavesdroppers see only scrambled bytes), **integrity** (any tampering with the data in transit is detectable), and **authentication** (certificates verify that the server is actually who it claims to be). The browser's padlock icon signals that an HTTPS connection is in use.",
+        "citations": [
+          "lesson-06-networks#encryption-and-https"
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#encryption-and-https",
+          "lesson-06-networks#the-web-and-http",
+          "glossary#terms-g-p"
+        ],
+        "retrieved_chunks": [
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be.",
+          "The World Wide Web runs on top of the internet. A browser requests a page using the\nHypertext Transfer Protocol (HTTP): it sends a request to a web server, and the server\nresponds with the page content, usually written in HTML. Each request-response pair is\nindependent, which keeps the protocol simple. URLs identify resources: the scheme\n(https), the domain name, and the path together tell the browser what to fetch and how.",
+          "- **GPU (graphics processing unit)** \u2014 a chip with thousands of small cores for\n  parallel computation; used for graphics and machine learning.\n- **HTTP** \u2014 the request-response protocol browsers and web servers use.\n- **HTTPS** \u2014 HTTP protected by encryption; provides confidentiality and integrity.\n- **Integrated circuit** \u2014 many transistors fabricated on one silicon chip.\n- **Interpreter** \u2014 a translator that executes a program line by line as it runs.\n- **IP address** \u2014 the numeric address identifying a device on the internet.\n- **Machine code** \u2014 binary instructions a CPU executes directly.\n- **Packet** \u2014 a small chunk of data with source, destination, and sequence headers.\n- **Pixel** \u2014 one cell in the grid that makes up a digital image.\n- **Pseudocode** \u2014 structured, language-neutral text for describing algorithms."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "The answer states three protections: confidentiality, integrity, and authentication (via certificates), plus mentions the padlock icon. All of these are directly supported by the retrieved chunks: \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\" and \"The padlock icon in a browser indicates an HTTPS connection.\" No facts are stated in the answer that are absent from the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.6470588235294118
+      }
+    }
+  ]
+}
