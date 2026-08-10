@@ -43,6 +43,13 @@ submission reply. Don't commit large video files into the repo.
 <!-- If you found and addressed anything not listed above, note it here:
      what, how severe, what you did. -->
 
+- The first post-fix run reached 39/40 assertions. The remaining judge failure
+  was a genuinely useful near-miss: the ENIAC answer added plausible historical
+  implications ("marked the beginning" / "drove the next wave") that the
+  retrieved section did not state. I tightened the general grounding rule to
+  exclude unsupported implications and framing rather than special-casing
+  ENIAC.
+
 ## Part 2 — Practice quiz
 
 ### Scope decisions
