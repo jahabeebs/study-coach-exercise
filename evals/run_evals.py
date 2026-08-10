@@ -32,9 +32,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--suite",
-        choices=["core", "hard"],
+        choices=["core", "quiz", "hard"],
         default="core",
-        help="core = the main Q&A evals; hard = the senior-track hard set.",
+        help=(
+            "core = the main Q&A evals; quiz = practice-quiz generation; "
+            "hard = the senior-track hard set."
+        ),
     )
     parser.add_argument(
         "--no-judge",
@@ -47,9 +50,19 @@ def main() -> int:
         from hard_dataset import build_hard_dataset
 
         dataset = build_hard_dataset()
+        task = study_task
+    elif args.suite == "quiz":
+        # Keep the production import local so core and hard evals remain usable
+        # while the eval-first quiz implementation is still under construction.
+        from app.quiz import generate_quiz
+        from quiz_dataset import build_quiz_dataset
+
+        dataset = build_quiz_dataset(include_judge=not args.no_judge)
+        task = generate_quiz
     else:
         dataset = build_dataset(include_judge=not args.no_judge)
-    report = dataset.evaluate_sync(study_task)
+        task = study_task
+    report = dataset.evaluate_sync(task)
     report.print(include_input=True, include_output=False)
 
     cases = []
