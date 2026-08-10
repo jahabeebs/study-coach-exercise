@@ -144,7 +144,10 @@ export default function QuizPanel() {
       }
 
       const correctAnswer = quiz.questions[index].options[correctIndex]
-      return `Question ${index + 1}: Not quite. The correct answer is ${correctAnswer}.`
+      const punctuatedAnswer = /[.!?]$/.test(correctAnswer.trim())
+        ? correctAnswer.trim()
+        : `${correctAnswer.trim()}.`
+      return `Question ${index + 1}: Not quite. The correct answer is ${punctuatedAnswer}`
     })
 
     const score = selections.filter(
