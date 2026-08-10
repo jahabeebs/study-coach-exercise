@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ChatPanel from './components/ChatPanel.jsx'
+import QuizPanel from './components/QuizPanel.jsx'
 
 export default function App() {
   const [tab, setTab] = useState('chat')
@@ -13,12 +14,14 @@ export default function App() {
           <button
             className={tab === 'chat' ? 'active' : ''}
             onClick={() => setTab('chat')}
+            aria-pressed={tab === 'chat'}
           >
             Ask a question
           </button>
           <button
             className={tab === 'quiz' ? 'active' : ''}
             onClick={() => setTab('quiz')}
+            aria-pressed={tab === 'quiz'}
           >
             Practice quiz
           </button>
@@ -28,14 +31,7 @@ export default function App() {
       {tab === 'chat' ? (
         <ChatPanel />
       ) : (
-        <div className="quiz-placeholder">
-          <h2>Practice quizzes are coming soon</h2>
-          <p>
-            This tab is not wired up yet. A ready-made <code>QuizView</code>{' '}
-            component lives in <code>src/components/QuizView.jsx</code> — see
-            its header comment for the props it expects.
-          </p>
-        </div>
+        <QuizPanel />
       )}
     </div>
   )
