@@ -12,11 +12,6 @@ from pydantic_ai import Agent, ModelRetry, RunContext
 
 from .config import get_model_name
 from .models import QuizQuestion, QuizResponse, normalize_quiz_display_text
-from .quiz_review import (
-    QuizReviewQuestion,
-    quiz_review_agent,
-    validate_quiz_evidence,
-)
 from .retrieval import Section, _tokenize, load_sections, search
 
 
@@ -97,8 +92,6 @@ class QuizDeps:
     """Per-run evidence available to output validation."""
 
     allowed_section_ids: frozenset[str]
-    section_chunks: dict[str, str]
-    requested_topic: str
 
 
 class QuizDraft(BaseModel):
@@ -274,7 +267,7 @@ quiz_agent = Agent(
 
 
 @quiz_agent.output_validator
-async def validate_quiz_output(
+def validate_quiz_output(
     ctx: RunContext[QuizDeps], output: QuizDraft
 ) -> QuizDraft:
     """Require exact provenance instead of accepting plausible-looking IDs."""
@@ -311,30 +304,6 @@ async def validate_quiz_output(
             "across the five questions."
         )
 
-    review_payload: list[QuizReviewQuestion] = [
-        {
-            "question_index": question_index,
-            "requested_topic": ctx.deps.requested_topic,
-            "question": item.question,
-            "options": item.options,
-            "correct_index": item.correct_index,
-            "citation": item.citation,
-            # Do not expose any other section to the independent reviewer.
-            "cited_chunk": ctx.deps.section_chunks[item.citation],
-        }
-        for question_index, item in enumerate(output.questions)
-    ]
-    review = await quiz_review_agent.run(
-        json.dumps({"questions": review_payload}, ensure_ascii=False),
-        model=get_model_name(),
-    )
-    review_errors = validate_quiz_evidence(review.output, review_payload)
-    if review_errors:
-        raise ModelRetry(
-            "Independent semantic review rejected this quiz. Repair every "
-            "listed item using only its cited section:\n- "
-            + "\n- ".join(review_errors)
-        )
     return output
 
 
@@ -414,11 +383,7 @@ async def generate_quiz(topic: str) -> QuizResponse:
     normalized_topic = " ".join(topic.split())
     sections = resolve_quiz_sections(normalized_topic)
     section_ids = [section.id for section in sections]
-    deps = QuizDeps(
-        allowed_section_ids=frozenset(section_ids),
-        section_chunks={section.id: section.text for section in sections},
-        requested_topic=normalized_topic,
-    )
+    deps = QuizDeps(allowed_section_ids=frozenset(section_ids))
 
     result = await quiz_agent.run(
         _generation_prompt(normalized_topic, sections),
