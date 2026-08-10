@@ -100,11 +100,11 @@ def search(query: str, k: int = 4) -> list[SearchResult]:
         if score > 0:
             results.append(SearchResult(section=section, score=score))
 
-    results.sort(key=lambda r: r.score)
+    results.sort(key=lambda r: r.score, reverse=True)
     return results[:k]
 
 
 def best_section(query: str) -> Section | None:
     """The single most relevant section for a query, if any."""
     results = search(query, k=len(load_sections()))
-    return results[-1].section if results else None
+    return results[0].section if results else None
