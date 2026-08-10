@@ -28,15 +28,19 @@ submission reply. Don't commit large video files into the repo.
 
 - Root cause: the production prompt explicitly told the model to answer from
   its own knowledge, avoid retrieval unless asked, and emit merely plausible
-  citation IDs. The baseline report therefore contains confident answers with
-  fabricated citations and usually no retrieved evidence (13/40 assertions).
+  citation IDs. The baseline report
+  `eval-report-study-coach-qa-2026-08-10T172259Z.json` therefore contains
+  confident answers with fabricated citations and usually no retrieved
+  evidence (13/40 assertions across 10 cases).
 - Why the unit tests stayed green while evals failed: the grounded test fixture
   replaces the real model with a scripted model that always searches and cites
   its first result. The skip-tools test asserted only response types, so the
   production prompt's behavior was mocked away.
 - Fix: require evidence retrieval before course answers, permit world knowledge
   only to reformulate search queries, require exact retrieved citation IDs, and
-  retry structured output when its citations violate retrieval provenance.
+  retry structured output when its citations violate retrieval provenance. An
+  internal `supported` flag lets a searched-but-irrelevant result abstain with
+  no citation instead of forcing the model to cite lexical noise.
 
 ### Anything else you found
 
@@ -44,8 +48,9 @@ submission reply. Don't commit large video files into the repo.
      what, how severe, what you did. -->
 
 - The first post-fix run reached 39/40 assertions. The remaining judge failure
-  was a genuinely useful near-miss: the ENIAC answer added plausible historical
-  implications ("marked the beginning" / "drove the next wave") that the
+  (`eval-report-study-coach-qa-2026-08-10T172808Z.json`) was a genuinely useful
+  near-miss: the ENIAC answer added plausible historical implications
+  ("marked the beginning" / "drove the next wave") that the
   retrieved section did not state. I tightened the general grounding rule to
   exclude unsupported implications and framing rather than special-casing
   ENIAC.
@@ -57,6 +62,10 @@ submission reply. Don't commit large video files into the repo.
   `postcss` and `nanoid` build dependencies. I updated only those lockfile
   entries within the existing ranges; `npm audit` now reports zero
   vulnerabilities and the production build remains green.
+- The final post-audit core report,
+  `eval-report-study-coach-qa-2026-08-10T182511Z.json`, is 40/40 across 10
+  cases with the stricter grouped-fact matcher. This is a fresh stochastic run,
+  not a controlled rescore; the saved reports preserve the actual outputs.
 
 ## Part 2 — Practice quiz
 
@@ -66,9 +75,14 @@ submission reply. Don't commit large video files into the repo.
 
 - A quiz is five questions with four choices, matching the supplied sample and
   the existing `QuizView` contract. A topic resolves to one lesson so a quiz is
-  coherent; explicit `week N` / `lesson N` requests are deterministic, while
-  other topics use best-first retrieval. Unsupported topics return 404 before
-  spending a model request.
+  bounded to a coherent evidence set; lesson-level grounding does not guarantee
+  every item stays on a narrow subtopic, as the final RAM case shows. Explicit
+  `week N` / `lesson N` requests are validated against that lesson; other topics
+  strip conversational scaffolding and rank lesson names, headings, and bodies
+  as a whole with a winner-confidence gate. Unsupported or ambiguous topics
+  return 404 before spending a model request. A final audit caught unrelated
+  one-word topics entering through fuzzy body matches; those now require a
+  normalized metadata/heading match or an exact raw body term.
 - Retrieval is application-owned: the model receives all six sections from the
   selected lesson, but it can cite only those exact IDs. The response retains
   the retrieved IDs/chunks so both deterministic evaluators and the judge can
@@ -79,7 +93,9 @@ submission reply. Don't commit large video files into the repo.
   self-check. This is deliberately not an academic-integrity boundary.
 - Quiz state is intentionally ephemeral. Starting a new quiz or leaving the tab
   resets answers and results; a fresh React key prevents selection state from
-  leaking between generated quizzes.
+  leaking between generated quizzes. Leaving during generation aborts the
+  browser request and prevents stale UI updates; server-side cancellation and
+  request deduplication remain production work.
 
 ### Questions I'd ask the Product Owner
 
@@ -96,40 +112,67 @@ submission reply. Don't commit large video files into the repo.
   the actual outputs):
 
   - Initial report:
-    `eval-report-study-coach-quiz-2026-08-10T174706Z.json` (12/12). The green
-    score still hid placement bias: across 15 questions, `correct_index` was
-    never `0`; the networks case used only positions `1` and `2`.
-  - Hardware near-miss: a GPU distractor claimed GPUs have “a higher clock
-    speed measured in gigahertz than any CPU.” The cited section supports the
-    parallel-core answer but does not let a student rule out that absolute
-    distractor. The judge passed it because it was merely absent from the text.
-  - Networks near-miss: the router question offered “To reassemble out-of-order
-    packets into the original file.” Its cited routing section does not say who
-    reassembles packets; the judge had to borrow that fact from a different
-    retrieved section. The item remained answerable, but its own citation was
-    not sufficient to eliminate every distractor.
+    `eval-report-study-coach-quiz-2026-08-10T174706Z.json` (12/12 under the
+    initial contract). Across 15 questions, `correct_index` was never `0`; the
+    networks case used only positions `1` and `2`. The first refinement,
+    `eval-report-study-coach-quiz-2026-08-10T174948Z.json` (15/15), was a
+    false-green: all three quizzes still omitted index `0`, and the plain-text
+    judge accepted distractors merely absent from the citation or justified
+    from another retrieved chunk.
+  - The typed-evidence report,
+    `eval-report-study-coach-quiz-2026-08-10T182616Z.json`, covered four topics
+    and 20 generated questions. All 16 deterministic assertions passed, while
+    the all-or-nothing semantic assertion failed for every quiz (16/20 total).
+    It recorded 11 `not_proven` distractors and two quotes absent from the
+    item's citation. Actual options included “A LAN uses packet switching,
+    while a WAN does not,” “The list must contain no duplicate values,” and
+    “The list must have an even number of elements”; their cited excerpts do
+    not rule those claims out.
+  - I tested two stronger gates and kept their incomplete reports. The private
+    author-evidence run
+    (`eval-report-study-coach-quiz-2026-08-10T183208Z.json`) returned three
+    cases and recorded seven findings (six `not_proven`, one quote mismatch);
+    hardware is absent. The request-path-review run
+    (`eval-report-study-coach-quiz-2026-08-10T184232Z.json`) contains only two
+    of four intended cases and two findings. These fresh stochastic artifacts
+    do not record missing-case exceptions, so they cannot prove a controlled
+    quality change or why cases are absent; the incomplete coverage itself is
+    enough availability risk to reject either gate on a synchronous student
+    request. The exact-final-code report,
+    `eval-report-study-coach-quiz-2026-08-10T185849Z.json` (16/20), returned all
+    four quizzes and passed all 16 deterministic checks. The reviewer failed
+    every quiz, recording 14 `not_proven` distractors, two narrow-topic
+    relevance failures, and one noncontiguous evidence quote across 9/20 items;
+    every indexed answer was still ruled supported. An immediately prior full
+    run, `eval-report-study-coach-quiz-2026-08-10T184701Z.json`, also scored
+    16/20 but produced different questions/findings. Manual review found most
+    flags expose real same-citation gaps, while several also expose judge
+    conservatism and inconsistency. I kept the raw red reports instead of
+    weakening the rubric or presenting an LLM verdict as ground truth.
 - Which evaluator targets which observed failure:
 
-  - `QuizAnswerPositionsVaried` requires at least three distinct correct-answer
-    positions in five questions; the production validator applies the same
-    generic property and retries instead of teaching students a position cue.
-  - The refined LLM judge requires the indexed answer to be supported *and*
-    each distractor to be clearly wrong or inapplicable from that question's
-    cited chunk. The quiz prompt carries the same rule; it does not contain any
-    topic, case name, or visible answer.
-  - Refined report:
-    `eval-report-study-coach-quiz-2026-08-10T174948Z.json` (15/15). Correct
-    positions now span three positions in every case (`[1,2,3,1,2]`,
-    `[1,2,2,1,3]`, and `[1,2,3,2,1]`), and all questions retained exact
-    retrieved-section citations.
+  - `QuizAnswerPositionsVaried` now requires all four indices `{0,1,2,3}` in
+    five questions; the production validator applies the same generic rule.
+  - `QuizEvidenceJudge` requires five-by-four typed option rulings, exact index
+    coverage, a supported indexed answer, contradicted/inapplicable distractors,
+    direct requested-topic relevance, and an 8–300-character quote that is
+    programmatically found in that item's cited chunk. Each payload pairs a
+    public item with only its own cited chunk and excludes private author
+    reasoning. One call still contains all five payloads; manual audit caught a
+    cross-item inference, so the judge is evidence, not an oracle. The rules
+    contain no case-specific answers.
+  - The report totals are not a linear trend: case counts and evaluator
+    contracts changed. Each JSON artifact preserves its exact generated output,
+    retrieved evidence, verdicts, and judge reasons for inspection.
 
 ### What I'd do next with more time
 
 - Add a small instructor-reviewed held-out quiz set and calibrate the semantic
   judge against human labels; the refined judge is intentionally stricter, but
   an LLM verdict is still evidence rather than ground truth.
-- Move authoring off the synchronous student request path and grade by an
-  immutable server-side quiz ID, as described in the handoff below.
+- Move authoring and semantic review off the synchronous student request path,
+  let rejected candidates regenerate asynchronously, and grade approved items
+  by an immutable server-side quiz ID, as described in the handoff below.
 
 ## Part 3 — Senior only
 
@@ -155,31 +198,45 @@ submission reply. Don't commit large video files into the repo.
 - Hollow passes: all 12 `AnswerIsSubstantial` checks. `len(answer) > 15` rewards
   long refusals and nonsense and can reject a concise correct answer; it adds no
   trustworthy signal here.
-- Genuine agent failures: none in this run. All 12 answers contain an accepted
-  fact and cite the expected section. `original_text_chars` adds an unnecessary
-  context caveat, but still identifies ASCII and correctly answers 128 from the
-  cited material; changing the agent to chase the broken reds would be the
-  wrong intervention.
+- Genuine agent failure hidden by those checks: the IPv4 answer says every
+  internet device has an IPv4 address. The section says every device has an IP
+  address and separately distinguishes IPv4 from IPv6. The deterministic fact
+  and citation checks cannot see that strengthened quantifier.
+- The remaining answers state an accepted fact and cite the expected section;
+  `original_text_chars` adds an unnecessary context caveat but still answers
+  128 from the cited material. The dominant red cluster was still an evaluator
+  defect, so I repaired the measuring instrument before changing the agent.
 
 ### The improvement
 
-- What and why: `AnswerMentionsFact` now normalizes and inspects answer tokens,
-  not citation strings. Numeric tokens match whole values (`65` does not match
-  `165`); formatted integers normalize; and a single textual keyword can remain
-  an intentional stem (`doubl` matches doubled/doubling). I removed the length
-  assertion and added `ExpectedSectionCited`, so the three signals now measure
-  provenance, section relevance, and answer fact presence. Synthetic regressions
-  prove concise correct answers pass while long nonsense, citation-slug-only
-  matches, and numeric substrings fail.
-- Before/after (report files):
-  `eval-report-study-coach-hard-2026-08-10T175142Z.json` (25/36) →
-  `eval-report-study-coach-hard-2026-08-10T175523Z.json` (36/36).
-- Why this should generalize beyond the visible cases: matching operates on
-  normalized answer/metadata tokens rather than case names or question text;
-  numeric boundaries and stem handling are properties of accepted answers. The
-  expected section already comes from each case's metadata, so fresh held-out
-  cases use the same evaluator unchanged. I did not change the agent because no
-  genuine failure remained after truthful rescoring.
+- Deterministic repair: `AnswerMentionsFact` now inspects normalized answer
+  text, not citation strings. Facts are an AND of accepted-phrasing groups;
+  numbers use whole-token boundaries, nearby negation invalidates a match, and
+  prefix matching must be explicit (`encrypt*`) rather than treating every word
+  as a stem. I replaced the length check with `ExpectedSectionCited`. Regression
+  tests reject long nonsense, citation-slug-only matches, `165` for `65`,
+  negated facts, arbitrary prefixes, and incomplete multi-part answers.
+- Controlled comparison:
+  `eval-report-study-coach-hard-offline-rescore-2026-08-10T182400Z.json`
+  reuses the byte-identical outputs from the 25/36 baseline and applies the
+  current three deterministic evaluators/metadata: 36/36, with no model call.
+  This isolates the evaluator repair—but the baseline IPv4 overreach also shows
+  why 36/36 deterministic assertions are not a complete quality claim.
+- A fresh intermediate report,
+  `eval-report-study-coach-hard-2026-08-10T175523Z.json`, also scored 36/36 but
+  made two unsupported additions: transistors packed "by the millions" where
+  the section says "many," and every device having IPv4. That hollow green led
+  me to add the course-evidence faithfulness judge and tighten the agent's
+  generic scope/quantifier rules rather than special-case either question.
+- Final fresh report:
+  `eval-report-study-coach-hard-2026-08-10T182707Z.json`, 48/48 (12 cases × four
+  assertions, including faithfulness). I inspected all raw outputs; the glass-
+  tube and IPv4 answers avoid the earlier overreach.
+- Why this should generalize: the matchers operate on metadata fact groups and
+  normalized answer text, provenance uses per-run retrieval, and the judge sees
+  retrieved chunks rather than case-specific expected prose. The offline 36/36
+  and fresh 48/48 use different assertion sets; they are separate evidence, not
+  a linear score improvement, and fresh generations remain stochastic samples.
 
 ### Handoff note (ADR-style, ~half a page)
 
@@ -208,4 +265,5 @@ automation plus manual checks, and retention/privacy rules. Treat evaluator
 scores as monitored evidence, not truth: maintain a versioned, instructor-
 reviewed held-out set, calibrate the LLM judge against human labels, inspect raw
 outputs on regressions, and pin model/prompt changes through that release gate.
-The current API remains explicitly localhost-only until those controls exist.
+The current API is intended and documented for localhost use; it is not
+hardened against external exposure until those controls exist.
