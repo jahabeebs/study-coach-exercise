@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import QuizView from './QuizView.jsx'
 
 const FALLBACK_ERROR = 'We could not generate a quiz. Please try again.'
@@ -6,7 +6,7 @@ const FALLBACK_ERROR = 'We could not generate a quiz. Please try again.'
 function normalizeDisplayText(value) {
   return value
     .normalize('NFKC')
-    .toLocaleLowerCase()
+    .toLowerCase()
     .replace(/[^\p{L}\p{N}]+/gu, ' ')
     .trim()
 }
@@ -79,6 +79,16 @@ export default function QuizPanel() {
   const [error, setError] = useState('')
   const [quizVersion, setQuizVersion] = useState(0)
   const [announcement, setAnnouncement] = useState('')
+  const requestController = useRef(null)
+  const quizRegion = useRef(null)
+
+  useEffect(() => {
+    return () => requestController.current?.abort()
+  }, [])
+
+  useEffect(() => {
+    if (quiz) quizRegion.current?.focus()
+  }, [quiz, result])
 
   async function generateQuiz(event) {
     event.preventDefault()
@@ -89,12 +99,15 @@ export default function QuizPanel() {
     setError('')
     setResult(null)
     setAnnouncement('')
+    const controller = new AbortController()
+    requestController.current = controller
 
     try {
       const response = await fetch('/api/quiz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: requestedTopic }),
+        signal: controller.signal,
       })
       if (!response.ok) {
         throw new Error(await errorMessage(response))
@@ -103,18 +116,23 @@ export default function QuizPanel() {
       const { quiz: nextQuiz, answerKey: nextAnswerKey } = splitQuizResponse(
         await response.json(),
       )
+      if (controller.signal.aborted) return
       setQuiz(nextQuiz)
       setAnswerKey(nextAnswerKey)
       setQuizVersion((version) => version + 1)
       setAnnouncement(`Quiz ready: ${nextQuiz.questions.length} questions.`)
     } catch (requestError) {
+      if (controller.signal.aborted) return
       const message =
         requestError instanceof Error && !(requestError instanceof TypeError)
           ? requestError.message
           : FALLBACK_ERROR
       setError(message || FALLBACK_ERROR)
     } finally {
-      setBusy(false)
+      if (requestController.current === controller) {
+        requestController.current = null
+        if (!controller.signal.aborted) setBusy(false)
+      }
     }
   }
 
@@ -155,7 +173,12 @@ export default function QuizPanel() {
         {announcement}
       </p>
       {quiz ? (
-        <>
+        <section
+          className="quiz-session"
+          ref={quizRegion}
+          tabIndex={-1}
+          aria-label={`Practice quiz: ${quiz.topic}`}
+        >
           <QuizView
             key={quizVersion}
             quiz={quiz}
@@ -171,7 +194,7 @@ export default function QuizPanel() {
               saved.
             </p>
           </div>
-        </>
+        </section>
       ) : (
         <section className="quiz-setup">
           <h2>Create a practice quiz</h2>
