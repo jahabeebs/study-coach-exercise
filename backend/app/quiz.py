@@ -6,8 +6,9 @@ import json
 import re
 from collections import defaultdict
 from dataclasses import dataclass
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 from pydantic_ai import Agent, ModelRetry, RunContext
 
 from .config import get_model_name
@@ -30,9 +31,16 @@ Rules:
   so students cannot learn a placement pattern.
 - Set each question's `citation` to the exact section ID whose excerpt directly
   supports the question and correct answer. Never invent or alter a section ID.
-- Derive each distractor by changing exactly one concrete detail stated in that
-  question's cited excerpt, such as a number, term, order, or relationship. The
-  same excerpt must directly contradict the changed detail.
+- For every answer choice, include one `option_evidence` record with that
+  choice's zero-based `index`, a `ruling`, and an exact `evidence_quote` copied
+  from that question's cited excerpt. The four records must cover indices 0-3.
+- Use `supported` only for the correct choice. Derive every distractor by
+  changing exactly one concrete detail stated in that question's cited excerpt,
+  such as a number, term, order, or relationship. Mark it `contradicted` when
+  the quote states the conflicting detail, or `inapplicable` when the quote
+  states that the choice does not apply in the question's situation.
+- Never use `not_proven` for a distractor. If the excerpt merely omits a choice's
+  claim, replace that choice with one the excerpt directly rules out.
 - Do not invent units, entities, comparisons, or properties that are merely
   absent from the excerpt. A distractor must not require outside knowledge or a
   different excerpt to rule out.
@@ -90,12 +98,33 @@ class QuizDeps:
     """Per-run evidence available to output validation."""
 
     allowed_section_ids: frozenset[str]
+    section_chunks: dict[str, str]
+
+
+EvidenceQuote = Annotated[
+    str,
+    StringConstraints(strip_whitespace=True, min_length=8, max_length=300),
+]
+
+
+class OptionEvidence(BaseModel):
+    """Internal authoring proof for one answer choice."""
+
+    index: int = Field(ge=0, le=3)
+    ruling: Literal["supported", "contradicted", "inapplicable", "not_proven"]
+    evidence_quote: EvidenceQuote
+
+
+class AuthoredQuizQuestion(QuizQuestion):
+    """A public quiz question plus private authoring evidence."""
+
+    option_evidence: list[OptionEvidence] = Field(min_length=4, max_length=4)
 
 
 class QuizDraft(BaseModel):
-    """Model-authored portion of a quiz; evidence is attached by application code."""
+    """Model-authored quiz whose evidence is removed at the API boundary."""
 
-    questions: list[QuizQuestion] = Field(min_length=5, max_length=5)
+    questions: list[AuthoredQuizQuestion] = Field(min_length=5, max_length=5)
 
 
 def _stem_topic_term(term: str) -> str:
@@ -283,6 +312,44 @@ def validate_quiz_output(
             f"sections. Invalid citation(s): {', '.join(invalid)}. "
             f"Allowed section IDs: {allowed}."
         )
+    for item in output.questions:
+        evidence_indices = [record.index for record in item.option_evidence]
+        if set(evidence_indices) != set(range(4)):
+            raise ModelRetry(
+                "Each question's option_evidence must contain exactly one record "
+                "for each option index (0, 1, 2, and 3)."
+            )
+
+        cited_chunk = ctx.deps.section_chunks[item.citation]
+        normalized_chunk = normalize_quiz_display_text(cited_chunk)
+        for record in item.option_evidence:
+            normalized_quote = normalize_quiz_display_text(record.evidence_quote)
+            if not normalized_quote or normalized_quote not in normalized_chunk:
+                raise ModelRetry(
+                    "Every evidence_quote must be a contiguous quote from that "
+                    "question's cited course section; only whitespace and "
+                    "typography may differ."
+                )
+
+        evidence_by_index = {
+            record.index: record for record in item.option_evidence
+        }
+        if evidence_by_index[item.correct_index].ruling != "supported":
+            raise ModelRetry(
+                "The correct_index option must have a supported evidence ruling."
+            )
+        invalid_distractor_indices = [
+            index
+            for index, record in evidence_by_index.items()
+            if index != item.correct_index
+            and record.ruling not in {"contradicted", "inapplicable"}
+        ]
+        if invalid_distractor_indices:
+            raise ModelRetry(
+                "Every distractor must be contradicted or inapplicable according "
+                "to an exact quote from the cited section; not_proven distractors "
+                "must be replaced."
+            )
     normalized_stems = [
         normalize_quiz_display_text(item.question) for item in output.questions
     ]
@@ -380,7 +447,10 @@ async def generate_quiz(topic: str) -> QuizResponse:
     normalized_topic = " ".join(topic.split())
     sections = resolve_quiz_sections(normalized_topic)
     section_ids = [section.id for section in sections]
-    deps = QuizDeps(allowed_section_ids=frozenset(section_ids))
+    deps = QuizDeps(
+        allowed_section_ids=frozenset(section_ids),
+        section_chunks={section.id: section.text for section in sections},
+    )
 
     result = await quiz_agent.run(
         _generation_prompt(normalized_topic, sections),
@@ -389,7 +459,15 @@ async def generate_quiz(topic: str) -> QuizResponse:
     )
     return QuizResponse(
         topic=normalized_topic,
-        questions=result.output.questions,
+        questions=[
+            QuizQuestion(
+                question=item.question,
+                options=item.options,
+                correct_index=item.correct_index,
+                citation=item.citation,
+            )
+            for item in result.output.questions
+        ],
         retrieved_section_ids=section_ids,
         retrieved_chunks=[section.text for section in sections],
     )

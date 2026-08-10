@@ -20,6 +20,17 @@ client = TestClient(app)
 VALID_CITATION = "lesson-04-algorithms#binary-search"
 
 
+def _option_evidence(correct_index: int, quote: str) -> list[dict]:
+    return [
+        {
+            "index": index,
+            "ruling": "supported" if index == correct_index else "contradicted",
+            "evidence_quote": quote,
+        }
+        for index in range(4)
+    ]
+
+
 def _questions(citation: str) -> list[dict]:
     return [
         {
@@ -32,6 +43,9 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 0,
             "citation": citation,
+            "option_evidence": _option_evidence(
+                0, "Binary search requires the list to be sorted in advance."
+            ),
         },
         {
             "question": "Which item does binary search compare with the target first?",
@@ -43,6 +57,9 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 1,
             "citation": citation,
+            "option_evidence": _option_evidence(
+                1, "It compares the target to the middle element"
+            ),
         },
         {
             "question": "What does each comparison eliminate in binary search?",
@@ -54,12 +71,19 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 2,
             "citation": citation,
+            "option_evidence": _option_evidence(
+                2, "Each comparison\neliminates half the remaining elements"
+            ),
         },
         {
             "question": "About how many comparisons can search a sorted million-item list?",
             "options": ["About five", "About ten", "About fifteen", "About twenty"],
             "correct_index": 3,
             "citation": citation,
+            "option_evidence": _option_evidence(
+                3,
+                "a list of one million items needs at most\nabout twenty comparisons",
+            ),
         },
         {
             "question": "Where does binary search continue when the target is smaller?",
@@ -71,6 +95,10 @@ def _questions(citation: str) -> list[dict]:
             ],
             "correct_index": 0,
             "citation": citation,
+            "option_evidence": _option_evidence(
+                0,
+                "if the target is smaller, the\nsearch continues in the left half",
+            ),
         },
     ]
 
@@ -198,6 +226,48 @@ async def test_answer_position_bias_is_retried():
 
     assert calls == [1, 2]
     assert {question.correct_index for question in response.questions} == set(range(4))
+
+
+@pytest.mark.parametrize("invalid_evidence", ["not_proven", "foreign_quote"])
+async def test_invalid_option_evidence_is_retried(invalid_evidence):
+    calls: list[int] = []
+
+    def evidence_model(_messages, info: AgentInfo) -> ModelResponse:
+        calls.append(len(calls) + 1)
+        questions = _questions(VALID_CITATION)
+        if len(calls) == 1 and invalid_evidence == "not_proven":
+            questions[0]["option_evidence"][1]["ruling"] = "not_proven"
+        if len(calls) == 1 and invalid_evidence == "foreign_quote":
+            questions[0]["option_evidence"][1]["evidence_quote"] = (
+                "This quote does not occur in the cited course section."
+            )
+        output_tool = info.output_tools[0]
+        return ModelResponse(
+            parts=[ToolCallPart(output_tool.name, {"questions": questions})]
+        )
+
+    with quiz_agent.override(model=FunctionModel(evidence_model)):
+        response = await generate_quiz("binary search")
+
+    assert calls == [1, 2]
+    assert len(response.questions) == 5
+
+
+async def test_option_evidence_allows_harmless_quote_formatting():
+    def formatted_quote_model(_messages, info: AgentInfo) -> ModelResponse:
+        questions = _questions(VALID_CITATION)
+        questions[0]["option_evidence"][1]["evidence_quote"] = (
+            "Binary search requires   the list to be sorted in advance!"
+        )
+        output_tool = info.output_tools[0]
+        return ModelResponse(
+            parts=[ToolCallPart(output_tool.name, {"questions": questions})]
+        )
+
+    with quiz_agent.override(model=FunctionModel(formatted_quote_model)):
+        response = await generate_quiz("binary search")
+
+    assert len(response.questions) == 5
 
 
 @pytest.mark.parametrize("invalid_kind", ["duplicate", "answer_marker"])
