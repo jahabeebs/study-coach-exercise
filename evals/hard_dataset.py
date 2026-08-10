@@ -14,8 +14,8 @@ commit, so fixes that generalize beat fixes that special-case these cases.
 
 from pydantic_evals import Case, Dataset
 
-from evaluators import CitationsGrounded
-from hard_evaluators import AnswerIsSubstantial, AnswerMentionsFact
+from evaluators import CitationsGrounded, ExpectedSectionCited
+from hard_evaluators import AnswerMentionsFact
 
 HARD_CASES = [
     Case(name="byte_values",
@@ -73,5 +73,9 @@ def build_hard_dataset() -> Dataset:
     return Dataset(
         name="study-coach-hard",
         cases=HARD_CASES,
-        evaluators=[CitationsGrounded(), AnswerMentionsFact(), AnswerIsSubstantial()],
+        evaluators=[
+            CitationsGrounded(),
+            ExpectedSectionCited(),
+            AnswerMentionsFact(),
+        ],
     )

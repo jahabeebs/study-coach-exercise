@@ -49,6 +49,10 @@ submission reply. Don't commit large video files into the repo.
   retrieved section did not state. I tightened the general grounding rule to
   exclude unsupported implications and framing rather than special-casing
   ENIAC.
+- The material route joined an arbitrary path and checked only `is_file()`, so
+  traversal could read files outside `materials/`. It now resolves the target,
+  enforces containment, permits Markdown only, and returns a generic 404;
+  direct and percent-encoded traversal regressions cover it.
 
 ## Part 2 — Practice quiz
 
@@ -155,11 +159,49 @@ submission reply. Don't commit large video files into the repo.
 
 ### The improvement
 
-- What and why:
+- What and why: `AnswerMentionsFact` now normalizes and inspects answer tokens,
+  not citation strings. Numeric tokens match whole values (`65` does not match
+  `165`); formatted integers normalize; and a single textual keyword can remain
+  an intentional stem (`doubl` matches doubled/doubling). I removed the length
+  assertion and added `ExpectedSectionCited`, so the three signals now measure
+  provenance, section relevance, and answer fact presence. Synthetic regressions
+  prove concise correct answers pass while long nonsense, citation-slug-only
+  matches, and numeric substrings fail.
 - Before/after (report files):
-- Why this should generalize beyond the visible cases:
+  `eval-report-study-coach-hard-2026-08-10T175142Z.json` (25/36) →
+  `eval-report-study-coach-hard-2026-08-10T175523Z.json` (36/36).
+- Why this should generalize beyond the visible cases: matching operates on
+  normalized answer/metadata tokens rather than case names or question text;
+  numeric boundaries and stem handling are properties of accepted answers. The
+  expected section already comes from each case's metadata, so fresh held-out
+  cases use the same evaluator unchanged. I did not change the agent because no
+  genuine failure remained after truthful rescoring.
 
 ### Handoff note (ADR-style, ~half a page)
 
 <!-- The pod rotates off; the course team's engineers run this for ~10k
      students. What changes first? What must they know? -->
+
+**Decision: replace per-request quiz generation with versioned, reviewed quiz
+authoring before scaling to 10k students.** The prototype makes a synchronous
+model call for every quiz and sends the answer key to the browser. That is a
+reasonable local formative-learning tradeoff, but at course scale it creates
+variable latency/cost, model-drift risk, inconsistent student experiences, and
+no academic-integrity boundary.
+
+The first production slice should generate candidate questions against an
+immutable course-material version, record the prompt/model/material hashes and
+retrieved evidence, run the deterministic and semantic validators, and put the
+result in an instructor approval queue. Approved questions become cached,
+immutable quiz IDs. Students receive a sampled quiz without `correct_index`;
+submissions are graded server-side against that ID. This trades per-request
+novelty for trust, predictable cost, reproducibility, and operability—the right
+trade for instruction at this scale.
+
+Next, add institutional authentication/authorization, rate limits and quotas,
+attempt persistence, audit logs, latency/token/error telemetry, accessibility
+automation plus manual checks, and retention/privacy rules. Treat evaluator
+scores as monitored evidence, not truth: maintain a versioned, instructor-
+reviewed held-out set, calibrate the LLM judge against human labels, inspect raw
+outputs on regressions, and pin model/prompt changes through that release gate.
+The current API remains explicitly localhost-only until those controls exist.
