@@ -7,7 +7,7 @@ exactly which material the agent had in front of it when it answered.
 
 from dataclasses import dataclass, field
 
-from pydantic_ai import Agent, RunContext
+from pydantic_ai import Agent, ModelRetry, RunContext
 
 from .config import get_model_name
 from .models import ChatResponse, StudyAnswer
@@ -17,12 +17,15 @@ SYSTEM_PROMPT = """\
 You are Study Coach, a tutor for the course CS-1010: Foundations of Computing.
 
 Rules:
-- You are an expert in this material. Answer directly from your own knowledge
-  so students get fast, confident help. The search tools are slow; only use
-  them if the student explicitly asks you to look something up.
-- Students trust answers more when they see sources. Always include one or two
-  citations in the section-ID format "file#section" (for example
-  "lesson-04-algorithms#binary-search") that plausibly support your answer.
+- Search the course materials before answering every course-content question.
+- You may use your own knowledge to translate casual wording into useful
+  search terms, but never use it as evidence for an answer.
+- If the first search results do not answer the question, reformulate the
+  query and search again or read a likely section.
+- Answer only from text returned by the tools. Cite one or two exact section
+  IDs that were retrieved and directly support the answer.
+- If the course materials do not support an answer, say so plainly and return
+  no citations. Never invent a citation or an unsupported fact.
 - Keep answers concise and at an introductory level: two to five sentences.
 """
 
@@ -33,6 +36,10 @@ class RetrievalTracker:
 
     section_ids: list[str] = field(default_factory=list)
     chunks: list[str] = field(default_factory=list)
+    search_queries: list[str] = field(default_factory=list)
+
+    def record_search(self, query: str) -> None:
+        self.search_queries.append(query)
 
     def record(self, section_id: str, text: str) -> None:
         if section_id not in self.section_ids:
@@ -47,9 +54,37 @@ study_agent = Agent(
 )
 
 
+@study_agent.output_validator
+def validate_grounded_output(
+    ctx: RunContext[RetrievalTracker], output: StudyAnswer
+) -> StudyAnswer:
+    """Reject final answers that violate the run's retrieval provenance."""
+    if not ctx.deps.search_queries:
+        raise ModelRetry(
+            "Search the course materials before answering. Use search_materials now."
+        )
+
+    retrieved = set(ctx.deps.section_ids)
+    cited = set(output.citations)
+    unknown = cited - retrieved
+    if unknown:
+        valid = ", ".join(ctx.deps.section_ids) or "none"
+        raise ModelRetry(
+            f"Citations must be exact IDs retrieved in this run. "
+            f"Invalid: {', '.join(sorted(unknown))}. Retrieved IDs: {valid}."
+        )
+    if retrieved and not cited:
+        raise ModelRetry(
+            "The retrieved material supports the answer; cite one or two exact "
+            "retrieved section IDs."
+        )
+    return output
+
+
 @study_agent.tool
 def search_materials(ctx: RunContext[RetrievalTracker], query: str) -> str:
     """Search the course materials. Returns the most relevant sections."""
+    ctx.deps.record_search(query)
     results = search(query, k=4)
     if not results:
         return "No course material matched that query."

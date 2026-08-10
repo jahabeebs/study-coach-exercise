@@ -6,9 +6,8 @@ the suite can reach a real model by accident.
 """
 
 import pytest
-from pydantic_ai import ModelResponse, TextPart, ToolCallPart, models
+from pydantic_ai import ModelResponse, ToolCallPart, models
 from pydantic_ai.models.function import AgentInfo, FunctionModel
-from pydantic_ai.models.test import TestModel
 
 from app.agent import study_agent
 
@@ -46,6 +45,30 @@ def scripted_model(query: str = "binary numbers base two") -> FunctionModel:
     return FunctionModel(run)
 
 
+def abstaining_model() -> FunctionModel:
+    """A model that searches, finds no evidence, and abstains cleanly."""
+
+    def run(messages, info: AgentInfo) -> ModelResponse:
+        if len(messages) == 1:
+            return ModelResponse(
+                parts=[ToolCallPart("search_materials", {"query": "zzzz qqqq"})]
+            )
+        output_tool = info.output_tools[0]
+        return ModelResponse(
+            parts=[
+                ToolCallPart(
+                    output_tool.name,
+                    {
+                        "answer": "I couldn't find that in the course materials.",
+                        "citations": [],
+                    },
+                )
+            ]
+        )
+
+    return FunctionModel(run)
+
+
 @pytest.fixture
 def grounded_agent():
     """study_agent wired to the scripted model."""
@@ -54,7 +77,7 @@ def grounded_agent():
 
 
 @pytest.fixture
-def test_model_agent():
-    """study_agent wired to plain TestModel (plumbing only)."""
-    with study_agent.override(model=TestModel()):
+def abstaining_agent():
+    """study_agent wired to a model that performs a no-match search."""
+    with study_agent.override(model=abstaining_model()):
         yield
