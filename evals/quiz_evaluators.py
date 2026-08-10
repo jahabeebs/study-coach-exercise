@@ -68,6 +68,17 @@ class QuizCitationsGrounded(Evaluator[str, QuizResponse]):
 
 
 @dataclass
+class QuizAnswerPositionsVaried(Evaluator[str, QuizResponse]):
+    """Avoid a learnable answer-position cue within a short quiz."""
+
+    min_distinct_positions: int = 3
+
+    def evaluate(self, ctx: EvaluatorContext[str, QuizResponse]) -> bool:
+        positions = {item.correct_index for item in ctx.output.questions}
+        return len(positions) >= self.min_distinct_positions
+
+
+@dataclass
 class QuizDoesNotRevealAnswers(Evaluator[str, QuizResponse]):
     """Generated display text must not mark which option is correct."""
 
@@ -100,9 +111,12 @@ def quiz_quality_judge() -> LLMJudge:
             "the requested topic, its own `citation` identifies a retrieved "
             "chunk that supports the question, and the option identified by "
             "`correct_index` is the one answer supported by that cited chunk. "
-            "The other three options must not also be correct. Fail the entire "
-            "quiz if any item is ambiguous, the indexed answer is wrong, any "
-            "claim is unsupported, or an item depends on outside knowledge."
+            "Each of the other three options must be clearly incorrect or "
+            "inapplicable using that same cited chunk; being merely absent from "
+            "the text is not enough for an absolute factual distractor. Do not "
+            "borrow another retrieved chunk to rescue an item's citation. Fail "
+            "the entire quiz if any item is ambiguous, the indexed answer is "
+            "wrong, or an item depends on outside knowledge."
         ),
         model=get_model_name(),
         include_input=True,

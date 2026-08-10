@@ -8,6 +8,7 @@ must generalize beyond a single lesson or phrasing.
 from pydantic_evals import Case, Dataset
 
 from quiz_evaluators import (
+    QuizAnswerPositionsVaried,
     QuizCitationsGrounded,
     QuizDoesNotRevealAnswers,
     QuizShapeValid,
@@ -38,6 +39,7 @@ def build_quiz_dataset(include_judge: bool = True) -> Dataset:
     evaluators = [
         QuizShapeValid(),
         QuizCitationsGrounded(),
+        QuizAnswerPositionsVaried(),
         QuizDoesNotRevealAnswers(),
     ]
     if include_judge:

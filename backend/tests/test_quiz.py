@@ -147,6 +147,27 @@ async def test_invalid_citation_is_retried_with_exact_provenance():
     }
 
 
+async def test_answer_position_bias_is_retried():
+    calls: list[int] = []
+
+    def position_model(_messages, info: AgentInfo) -> ModelResponse:
+        calls.append(len(calls) + 1)
+        questions = _questions(VALID_CITATION)
+        if len(calls) == 1:
+            for question in questions:
+                question["correct_index"] = 0
+        output_tool = info.output_tools[0]
+        return ModelResponse(
+            parts=[ToolCallPart(output_tool.name, {"questions": questions})]
+        )
+
+    with quiz_agent.override(model=FunctionModel(position_model)):
+        response = await generate_quiz("binary search")
+
+    assert calls == [1, 2]
+    assert len({question.correct_index for question in response.questions}) >= 3
+
+
 async def test_unsupported_topic_never_calls_the_model():
     def fail_if_called(_messages, _info):
         raise AssertionError("model should not run for an unsupported topic")

@@ -109,8 +109,19 @@ submission reply. Don't commit large video files into the repo.
     each distractor to be clearly wrong or inapplicable from that question's
     cited chunk. The quiz prompt carries the same rule; it does not contain any
     topic, case name, or visible answer.
+  - Refined report:
+    `eval-report-study-coach-quiz-2026-08-10T174948Z.json` (15/15). Correct
+    positions now span three positions in every case (`[1,2,3,1,2]`,
+    `[1,2,2,1,3]`, and `[1,2,3,2,1]`), and all questions retained exact
+    retrieved-section citations.
 
 ### What I'd do next with more time
+
+- Add a small instructor-reviewed held-out quiz set and calibrate the semantic
+  judge against human labels; the refined judge is intentionally stricter, but
+  an LLM verdict is still evidence rather than ground truth.
+- Move authoring off the synchronous student request path and grade by an
+  immutable server-side quiz ID, as described in the handoff below.
 
 ## Part 3 — Senior only
 

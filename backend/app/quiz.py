@@ -25,10 +25,13 @@ Rules:
   topic, using only facts stated in the supplied course excerpts.
 - Give every question exactly four distinct answer choices and exactly one
   correct choice. `correct_index` is the zero-based index of that choice.
+- Distribute correct answers across at least three different option positions
+  in the five questions so students cannot learn a placement pattern.
 - Set each question's `citation` to the exact section ID whose excerpt directly
   supports the question and correct answer. Never invent or alter a section ID.
 - Make distractors plausible for an introductory student but clearly incorrect
-  according to the cited excerpt. Do not rely on outside knowledge.
+  or inapplicable according to that question's cited excerpt. A distractor must
+  not require outside knowledge or a different excerpt to rule out.
 - Do not mark, label, or otherwise reveal the correct choice in option text.
 """
 
@@ -97,7 +100,7 @@ quiz_agent = Agent(
 
 
 @quiz_agent.output_validator
-def validate_quiz_citations(
+def validate_quiz_output(
     ctx: RunContext[QuizDeps], output: QuizDraft
 ) -> QuizDraft:
     """Require exact provenance instead of accepting plausible-looking IDs."""
@@ -114,6 +117,12 @@ def validate_quiz_citations(
             "Every citation must be copied exactly from the supplied course "
             f"sections. Invalid citation(s): {', '.join(invalid)}. "
             f"Allowed section IDs: {allowed}."
+        )
+    positions = {item.correct_index for item in output.questions}
+    if len(positions) < 3:
+        raise ModelRetry(
+            "Distribute correct_index values across at least three different "
+            "option positions in the five questions."
         )
     return output
 

@@ -1,0 +1,330 @@
+{
+  "run_at": "2026-08-10T17:49:48+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-quiz",
+  "summary": {
+    "cases": 3,
+    "assertions_passed": 15,
+    "assertions_total": 15
+  },
+  "cases": [
+    {
+      "case": "computer_hardware",
+      "question": "computer hardware",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "computer hardware",
+        "questions": [
+          {
+            "question": "What is the correct sequence of steps in the CPU's fetch-decode-execute cycle?",
+            "options": [
+              "Decode the instruction, fetch it from memory, then execute it",
+              "Fetch the next instruction from memory, decode what it means, then execute it",
+              "Execute the instruction, fetch the next one, then decode it",
+              "Fetch the instruction, execute it immediately, then decode the result"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#the-central-processing-unit"
+          },
+          {
+            "question": "Which characteristic defines RAM as 'volatile' memory?",
+            "options": [
+              "It is the slowest type of storage in the hierarchy",
+              "It can only store data for a few seconds before refreshing",
+              "Its contents are lost when power is removed",
+              "It requires a spinning magnetic platter to operate"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "What is the primary role of device drivers?",
+            "options": [
+              "To increase the clock speed of the CPU",
+              "To manage data traffic between the CPU and RAM",
+              "To convert input signals into graphical output",
+              "To let the operating system communicate with specific hardware"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#input-and-output-devices"
+          },
+          {
+            "question": "Why are GPUs well suited for training machine learning models, beyond their original purpose of rendering graphics?",
+            "options": [
+              "They contain a few very powerful cores optimized for complex logic",
+              "Their parallel design, with thousands of small cores, lets them perform many simple calculations simultaneously",
+              "They operate at much higher clock speeds measured in terahertz",
+              "They have direct access to persistent storage, reducing memory bottlenecks"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#the-graphics-processing-unit"
+          },
+          {
+            "question": "According to Moore's Law, what did Gordon Moore observe in 1965?",
+            "options": [
+              "CPU clock speeds doubled roughly every two years",
+              "The cost of computers halved every 18 months",
+              "The number of transistors on a chip doubled roughly every two years",
+              "RAM capacity tripled with each new generation of hardware"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#moores-law"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "Let me evaluate each question against the rubric:\n\n**Q1 (Fetch-Decode-Execute Cycle):**\n- Citation: `lesson-03-hardware#the-central-processing-unit` \u2192 Chunk: \"fetch the next instruction from memory, decode what it means, and execute it.\"\n- Correct index 1: \"Fetch the next instruction from memory, decode what it means, then execute it.\" \u2705 Directly supported.\n- Distractors: Option 0 reverses fetch/decode; Option 2 reverses execute first; Option 3 executes before decoding. All are clearly wrong per the chunk. \u2705\n\n**Q2 (RAM as volatile):**\n- Citation: `lesson-03-hardware#memory-and-the-storage-hierarchy` \u2192 Chunk: \"its contents are lost when power is removed \u2014 RAM is volatile.\"\n- Correct index 2: \"Its contents are lost when power is removed.\" \u2705 Directly supported.\n- Option 0: \"slowest type\" \u2014 chunk actually calls registers/cache faster, but RAM is not \"the slowest,\" HDDs are. Clearly wrong. \u2705\n- Option 1: \"can only store data for a few seconds before refreshing\" \u2014 not stated and implies something different from volatility. Clearly wrong. \u2705\n- Option 3: \"requires a spinning magnetic platter\" \u2014 chunk says HDDs use spinning platters, not RAM. Clearly wrong. \u2705\n\n**Q3 (Primary role of device drivers):**\n- Citation: `lesson-03-hardware#input-and-output-devices` \u2192 Chunk: \"Device drivers are software components that let the operating system communicate with specific hardware.\"\n- Correct index 3: \"To let the operating system communicate with specific hardware.\" \u2705 Directly supported.\n- Option 0: \"increase clock speed of CPU\" \u2014 not mentioned, and unrelated to I/O. Clearly wrong. \u2705\n- Option 1: \"manage data traffic between CPU and RAM\" \u2014 that's the chipset per motherboard chunk, but the citation chunk says nothing like this; clearly wrong in context. \u2705\n- Option 2: \"convert input signals into graphical output\" \u2014 not what drivers do per the chunk. Clearly wrong. \u2705\n\n**Q4 (GPUs and machine learning):**\n- Citation: `lesson-03-hardware#the-graphics-processing-unit` \u2192 Chunk: \"their parallel design also makes them well suited to scientific computing and training machine learning models.\"\n- Correct index 1: \"Their parallel design, with thousands of small cores, lets them perform many simple calculations simultaneously.\" \u2705 Directly supported (\"thousands of small cores designed to perform many simple calculations simultaneously\").\n- Option 0: \"a few very powerful cores\" \u2014 chunk says \"thousands of small cores,\" clearly wrong. \u2705\n- Option 2: \"clock speeds measured in terahertz\" \u2014 not stated; chunk says nothing about terahertz. Clearly wrong. \u2705\n- Option 3: \"direct access to persistent storage\" \u2014 not stated; clearly wrong. \u2705\n\n**Q5 (Moore's Law):**\n- Citation: `lesson-03-hardware#moores-law` \u2192 Chunk: \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years.\"\n- Correct index 2: \"The number of transistors on a chip doubled roughly every two years.\" \u2705 Directly supported.\n- Option 0: \"CPU clock speeds doubled every two years\" \u2014 chunk says transistors, not clock speeds. Clearly wrong. \u2705\n- Option 1: \"cost of computers halved every 18 months\" \u2014 not stated; chunk says \"exponential growth in computing power at falling cost\" but does not say halved every 18 months. Clearly wrong. \u2705\n- Option 3: \"RAM capacity tripled with each new generation\" \u2014 not stated; clearly wrong. \u2705\n\nAll five questions are relevant to \"computer hardware,\" each citation maps to a retrieved chunk that directly supports the correct answer, the correct_index identifies the right answer, and all distractors are clearly wrong (not merely absent). No item requires outside knowledge."
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "networks_and_internet",
+      "question": "networks and the internet",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "networks and the internet",
+        "questions": [
+          {
+            "question": "What is the key difference between a LAN and a WAN?",
+            "options": [
+              "A LAN uses wireless connections while a WAN uses only wired connections.",
+              "A LAN covers a small area such as a home or office, while a WAN spans cities or continents.",
+              "A LAN connects to the internet directly, while a WAN does not.",
+              "A LAN can only connect two devices, while a WAN connects many."
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#what-is-a-network"
+          },
+          {
+            "question": "Why might different packets from the same large file arrive at the destination out of order?",
+            "options": [
+              "Packets are deliberately shuffled by routers to improve security.",
+              "Each packet carries a different destination address.",
+              "Packets may take different routes across the network.",
+              "The sending device transmits packets in reverse sequence."
+            ],
+            "correct_index": 2,
+            "citation": "lesson-06-networks#packets"
+          },
+          {
+            "question": "What format does an IPv4 address take?",
+            "options": [
+              "A string of letters and numbers separated by colons, such as 2001:db8::1.",
+              "A single number between 0 and 65535.",
+              "Four numbers between 0 and 255, such as 192.168.4.12.",
+              "A human-readable domain name such as example.edu."
+            ],
+            "correct_index": 2,
+            "citation": "lesson-06-networks#ip-addresses-and-routing"
+          },
+          {
+            "question": "What does the Domain Name System (DNS) do when a browser wants to visit a website?",
+            "options": [
+              "It encrypts the browser's request before sending it to the web server.",
+              "It translates a human-readable domain name into an IP address.",
+              "It splits the web page content into packets for transmission.",
+              "It assigns a new IP address to the browser for each new connection."
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#the-domain-name-system"
+          },
+          {
+            "question": "What does the padlock icon in a browser indicate, according to the course material?",
+            "options": [
+              "The website's DNS entry has been successfully resolved.",
+              "The web page was written in valid HTML.",
+              "The browser is currently downloading packets for the page.",
+              "The connection is protected by HTTPS encryption."
+            ],
+            "correct_index": 3,
+            "citation": "lesson-06-networks#encryption-and-https"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#what-is-a-network",
+          "lesson-06-networks#packets",
+          "lesson-06-networks#ip-addresses-and-routing",
+          "lesson-06-networks#the-domain-name-system",
+          "lesson-06-networks#the-web-and-http",
+          "lesson-06-networks#encryption-and-https"
+        ],
+        "retrieved_chunks": [
+          "A computer network connects devices so they can exchange data. A local area network\n(LAN) covers a small area such as a home or office; a wide area network (WAN) spans\ncities or continents. The internet is a global network of networks: independent\nnetworks agree to exchange traffic using shared protocols, so any connected device can\nreach any other.",
+          "Data travels across networks in packets. A packet is a small chunk of data \u2014 typically\naround a kilobyte \u2014 carrying headers that record its source address, destination\naddress, and sequence position. A large file is split into many packets that may take\ndifferent routes across the network and arrive out of order; the receiving device\nreassembles them into the original data. Packet switching makes networks resilient:\nif one route fails, packets flow around the failure.",
+          "Every device on the internet has an IP address that identifies it, much as a street\naddress identifies a building. IPv4 addresses are four numbers between 0 and 255, such\nas 192.168.4.12; because IPv4 addresses are running out, the newer IPv6 provides a\nvastly larger address space. Routers are devices that read each packet's destination\naddress and forward the packet one step closer to it. A packet typically crosses many\nrouters between source and destination.",
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name.",
+          "The World Wide Web runs on top of the internet. A browser requests a page using the\nHypertext Transfer Protocol (HTTP): it sends a request to a web server, and the server\nresponds with the page content, usually written in HTML. Each request-response pair is\nindependent, which keeps the protocol simple. URLs identify resources: the scheme\n(https), the domain name, and the path together tell the browser what to fetch and how.",
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "I will evaluate each question against its cited chunk:\n\n**Q1** (citation: `lesson-06-networks#what-is-a-network`, chunk 1):\n- Correct index 1: \"A LAN covers a small area such as a home or office, while a WAN spans cities or continents.\" \u2705 Directly supported.\n- Option 0: \"A LAN uses wireless connections while a WAN uses only wired connections.\" \u2014 Clearly contradicted/unsupported; the chunk makes no such distinction, and is clearly wrong in general knowledge.\n- Option 2: \"A LAN connects to the internet directly, while a WAN does not.\" \u2014 Clearly inapplicable; chunk doesn't say this and it's obviously not stated as a defining difference.\n- Option 3: \"A LAN can only connect two devices, while a WAN connects many.\" \u2014 Clearly wrong; chunk implies networks connect multiple devices regardless.\n\u2705 Pass.\n\n**Q2** (citation: `lesson-06-networks#packets`, chunk 2):\n- Correct index 2: \"Packets may take different routes across the network.\" \u2705 Directly stated: \"may take different routes across the network and arrive out of order.\"\n- Option 0: \"Packets are deliberately shuffled by routers to improve security.\" \u2014 Chunk says nothing about this; clearly wrong per the chunk (packets take different routes by routing, not by deliberate shuffling for security).\n- Option 1: \"Each packet carries a different destination address.\" \u2014 Clearly wrong; chunk says packets carry source address, destination address (same destination for packets of the same file), and sequence position.\n- Option 3: \"The sending device transmits packets in reverse sequence.\" \u2014 Clearly wrong; not stated, and chunk implies normal sequencing with sequence positions recorded.\n\u2705 Pass.\n\n**Q3** (citation: `lesson-06-networks#ip-addresses-and-routing`, chunk 3):\n- Correct index 2: \"Four numbers between 0 and 255, such as 192.168.4.12.\" \u2705 Directly stated.\n- Option 0: \"A string of letters and numbers separated by colons, such as 2001:db8::1.\" \u2014 Describes IPv6, not IPv4; chunk distinguishes IPv4 from IPv6, so clearly wrong for IPv4.\n- Option 1: \"A single number between 0 and 65535.\" \u2014 Clearly wrong; not described anywhere in the chunk.\n- Option 3: \"A human-readable domain name such as example.edu.\" \u2014 Clearly wrong; chunk explicitly contrasts IP addresses with domain names (covered in the DNS chunk).\n\u2705 Pass.\n\n**Q4** (citation: `lesson-06-networks#the-domain-name-system`, chunk 4):\n- Correct index 1: \"It translates a human-readable domain name into an IP address.\" \u2705 Directly stated: \"DNS translates human-readable domain names\u2026 into IP addresses.\"\n- Option 0: \"It encrypts the browser's request before sending it to the web server.\" \u2014 Clearly wrong per the chunk; DNS is about name resolution, not encryption.\n- Option 2: \"It splits the web page content into packets for transmission.\" \u2014 Clearly wrong; that's packet switching (chunk 2), not DNS.\n- Option 3: \"It assigns a new IP address to the browser for each new connection.\" \u2014 Clearly wrong; DNS resolves names to addresses, it doesn't assign addresses to browsers.\n\u2705 Pass.\n\n**Q5** (citation: `lesson-06-networks#encryption-and-https`, chunk 6):\n- Correct index 3: \"The connection is protected by HTTPS encryption.\" \u2705 Directly stated: \"The padlock icon in a browser indicates an HTTPS connection.\"\n- Option 0: \"The website's DNS entry has been successfully resolved.\" \u2014 Clearly wrong per the chunk; padlock is about HTTPS, not DNS.\n- Option 1: \"The web page was written in valid HTML.\" \u2014 Clearly wrong; not mentioned in the chunk in relation to the padlock.\n- Option 2: \"The browser is currently downloading packets for the page.\" \u2014 Clearly wrong; not related to the padlock per the chunk.\n\u2705 Pass.\n\nAll five questions are relevant to the topic \"networks and the internet,\" each citation maps to a retrieved chunk that directly supports the correct answer, the correct_index is accurate for each, and the distractors are clearly incorrect based on the cited chunk (not merely absent). No item is ambiguous or requires outside knowledge."
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "binary_search",
+      "question": "binary search",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "binary search",
+        "questions": [
+          {
+            "question": "What is the core strategy binary search uses to find a target value in a list?",
+            "options": [
+              "Checking each element one at a time from the first to the last",
+              "Repeatedly halving the search range by comparing the target to the middle element",
+              "Swapping adjacent elements until the target rises to the top",
+              "Dividing the list in half, sorting each half, then scanning for the target"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "Which of the following is a requirement for binary search to work correctly?",
+            "options": [
+              "The list must contain at least one million elements",
+              "The list must have no duplicate values",
+              "The list must be sorted in advance",
+              "The list must be stored in a two-dimensional structure"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "According to the course material, approximately how many comparisons does binary search need for a list of one million items in the worst case?",
+            "options": [
+              "About one thousand comparisons",
+              "About five hundred comparisons",
+              "About one hundred comparisons",
+              "About twenty comparisons"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What is the Big-O efficiency of binary search, and what does it mean practically?",
+            "options": [
+              "O(n\u00b2), meaning doubling the list quadruples the worst-case work",
+              "O(n), meaning doubling the list doubles the worst-case work",
+              "O(log n), meaning doubling a sorted list adds only one more comparison",
+              "O(n log n), meaning doubling the list slightly more than doubles the work"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          },
+          {
+            "question": "When binary search compares the target to the middle element and the target is smaller, what happens next?",
+            "options": [
+              "The search restarts from the beginning of the full list",
+              "The search continues in the left half of the remaining range",
+              "The search continues in the right half of the remaining range",
+              "The algorithm concludes the target is not in the list"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#binary-search"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#what-is-an-algorithm",
+          "lesson-04-algorithms#pseudocode",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "An algorithm is a precise, step-by-step procedure for solving a problem. A recipe is a\nuseful analogy: given ingredients (input), following the steps produces a dish\n(output). For a procedure to be an algorithm, its steps must be unambiguous, it must\nfinish after a finite number of steps, and it must produce a correct result for every\nvalid input. The same algorithm can be expressed in English, in pseudocode, or in any\nprogramming language.",
+          "Pseudocode describes an algorithm in structured, language-neutral text. It uses\nconstructs such as IF/ELSE for decisions, WHILE and FOR for repetition, and variables\nfor storing values, without the exact syntax of any programming language. Pseudocode\nlets people design and discuss an algorithm before writing real code.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": true,
+          "reason": "Let me evaluate each question against the retrieved chunks and citations:\n\n**Q1** (citation: `lesson-04-algorithms#binary-search`, chunk: \"Binary search finds a target value in a sorted list by repeatedly halving the search range. It compares the target to the middle element...\")\n- Correct index 1: \"Repeatedly halving the search range by comparing the target to the middle element\" \u2705 directly supported.\n- Distractor 0: \"Checking each element one at a time\" \u2014 this describes linear search, clearly wrong \u2705\n- Distractor 2: \"Swapping adjacent elements until the target rises to the top\" \u2014 describes bubble sort, clearly wrong \u2705\n- Distractor 3: \"Dividing the list in half, sorting each half, then scanning for the target\" \u2014 describes merge sort, clearly wrong \u2705\n\n**Q2** (citation: `lesson-04-algorithms#binary-search`, same chunk: \"Binary search requires the list to be sorted in advance.\")\n- Correct index 2: \"The list must be sorted in advance\" \u2705 directly supported.\n- Distractor 0: \"at least one million elements\" \u2014 clearly incorrect; the chunk mentions one million only as an example \u2705\n- Distractor 1: \"no duplicate values\" \u2014 not stated in chunk, and not a requirement per the chunk \u2705\n- Distractor 3: \"stored in a two-dimensional structure\" \u2014 clearly incorrect, not mentioned \u2705\n\n**Q3** (citation: `lesson-04-algorithms#binary-search`, chunk: \"...a list of one million items needs at most about twenty comparisons.\")\n- Correct index 3: \"About twenty comparisons\" \u2705 directly supported.\n- Distractor 0: \"About one thousand\" \u2014 clearly wrong per chunk \u2705\n- Distractor 1: \"About five hundred\" \u2014 clearly wrong per chunk \u2705\n- Distractor 2: \"About one hundred\" \u2014 clearly wrong per chunk \u2705\n\n**Q4** (citation: `lesson-04-algorithms#comparing-algorithm-efficiency`, chunk: \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\")\n- Correct index 2: \"O(log n), meaning doubling a sorted list adds only one more comparison\" \u2705 directly supported.\n- Distractor 0: \"O(n\u00b2)...quadruples\" \u2014 the chunk says O(n\u00b2) is bubble sort, not binary search, clearly wrong \u2705\n- Distractor 1: \"O(n), meaning doubling the list doubles the worst-case work\" \u2014 the chunk assigns this to linear search, not binary search, clearly wrong \u2705\n- Distractor 3: \"O(n log n)...slightly more than doubles\" \u2014 the chunk assigns this to merge sort, clearly wrong \u2705\n\n**Q5** (citation: `lesson-04-algorithms#binary-search`, chunk: \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\")\n- Correct index 1: \"The search continues in the left half of the remaining range\" \u2705 directly supported (target is smaller \u2192 left half).\n- Distractor 0: \"The search restarts from the beginning of the full list\" \u2014 clearly wrong per chunk \u2705\n- Distractor 2: \"The search continues in the right half\" \u2014 the chunk says right half is for when target is LARGER, so this is clearly incorrect for the scenario where target is smaller \u2705\n- Distractor 3: \"The algorithm concludes the target is not in the list\" \u2014 clearly wrong per chunk \u2705\n\nAll five questions are relevant to binary search, all citations match retrieved chunks, all correct answers are supported by cited chunks, and all distractors are clearly incorrect based on the cited chunks. No ambiguity found."
+        }
+      },
+      "scores": {}
+    }
+  ]
+}
