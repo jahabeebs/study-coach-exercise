@@ -16,15 +16,27 @@ submission reply. Don't commit large video files into the repo.
 
 ### Bug caught by the tests
 
-- Root cause:
-- Fix (and why this is the cause, not a symptom):
-- Anything else the fix forced you to change, and why:
+- Root cause: `search()` sorted BM25-style scores in ascending order, then
+  returned the first `k`, so callers received the weakest matches first.
+- Fix (and why this is the cause, not a symptom): sort scores descending to
+  restore the documented best-first contract.
+- Anything else the fix forced you to change, and why: `best_section()` had
+  compensated for the defect by taking the last result. It must take the first
+  result once the shared ordering contract is fixed.
 
 ### Bug caught by the evals
 
-- Root cause:
-- Why the unit tests stayed green while evals failed:
-- Fix:
+- Root cause: the production prompt explicitly told the model to answer from
+  its own knowledge, avoid retrieval unless asked, and emit merely plausible
+  citation IDs. The baseline report therefore contains confident answers with
+  fabricated citations and usually no retrieved evidence (13/40 assertions).
+- Why the unit tests stayed green while evals failed: the grounded test fixture
+  replaces the real model with a scripted model that always searches and cites
+  its first result. The skip-tools test asserted only response types, so the
+  production prompt's behavior was mocked away.
+- Fix: require evidence retrieval before course answers, permit world knowledge
+  only to reformulate search queries, require exact retrieved citation IDs, and
+  retry structured output when its citations violate retrieval provenance.
 
 ### Anything else you found
 

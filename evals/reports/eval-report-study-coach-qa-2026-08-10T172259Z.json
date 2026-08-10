@@ -1,0 +1,424 @@
+{
+  "run_at": "2026-08-10T17:22:59+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-qa",
+  "summary": {
+    "cases": 10,
+    "assertions_passed": 13,
+    "assertions_total": 40
+  },
+  "cases": [
+    {
+      "case": "byte_values",
+      "question": "How many different values can one byte represent?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#bits-and-bytes",
+        "answer_keywords": [
+          "256"
+        ]
+      },
+      "output": {
+        "answer": "One byte consists of 8 bits, and each bit can be either 0 or 1. This means a single byte can represent 2\u2078 = **256** different values (ranging from 0 to 255).",
+        "citations": [
+          "lesson-02-data-and-binary#binary-numbers"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field is an empty array (`[]`), meaning no supporting text was retrieved. However, the `answer` field contains specific factual claims: that a byte has 8 bits, each bit can be 0 or 1, and therefore 2\u2078 = 256 different values can be represented (ranging from 0 to 255). Since `retrieved_chunks` is empty, none of these facts are supported by the retrieved content. The answer should have indicated the material could not be found in the retrieved chunks, rather than stating facts unsupported by them."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "eniac_year",
+      "question": "When was ENIAC completed, and why does it matter?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-electronic-era",
+        "answer_keywords": [
+          "1945"
+        ]
+      },
+      "output": {
+        "answer": "ENIAC was completed in **1945** at the University of Pennsylvania. It is considered the first general-purpose electronic digital computer, marking a landmark moment in computing history. It used around 18,000 vacuum tubes and weighed 30 tons \u2014 demonstrating both the enormous potential and the practical limitations (heat, unreliability) of early electronic computing. Its significance lies in establishing that a programmable, general-purpose electronic machine was possible, paving the way for all modern computers.",
+        "citations": [
+          "lesson-01-history-of-computing#the-electronic-era"
+        ],
+        "retrieved_section_ids": [
+          "syllabus#learning-outcomes",
+          "syllabus#course-description",
+          "syllabus#modules",
+          "lesson-01-history-of-computing#the-electronic-era"
+        ],
+        "retrieved_chunks": [
+          "By the end of this course, students will be able to:\n\n1. Describe the major milestones in the history of computing and their significance.\n2. Explain how computers represent numbers, text, and images using binary.\n3. Identify the main hardware components of a computer and describe their roles.\n4. Read and trace simple algorithms expressed in pseudocode.\n5. Compare compiled and interpreted programming languages.\n6. Explain how data travels across the internet, including packets, IP addresses, and DNS.",
+          "CS-1010 introduces the fundamental concepts of computing for students with no prior\nprogramming experience. The course covers the history of computing, how computers\nrepresent and store data, computer hardware, algorithms, programming languages, and\ncomputer networks. Students finish the course able to reason about how computers work\nfrom transistors to the web.",
+          "| Week | Module | Materials |\n|------|--------|-----------|\n| 1 | History of Computing | Lesson 1 |\n| 2 | Data and Binary | Lesson 2 |\n| 3 | Computer Hardware | Lesson 3 |\n| 4 | Algorithms | Lesson 4 |\n| 5 | Programming Languages | Lesson 5 |\n| 6 | Networks and the Internet | Lesson 6 |",
+          "ENIAC, completed in 1945 at the University of Pennsylvania, is generally considered the\nfirst general-purpose electronic digital computer. It used about 18,000 vacuum tubes,\nweighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes\nwere unreliable and generated enormous heat, which limited how large computers could\npractically become."
+        ]
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The answer states ENIAC was completed in 1945 at the University of Pennsylvania, used around 18,000 vacuum tubes, weighed 30 tons, and demonstrated the potential and limitations of early electronic computing \u2014 all of which are directly supported by the retrieved chunk: \"ENIAC, completed in 1945 at the University of Pennsylvania, is generally considered the first general-purpose electronic digital computer. It used about 18,000 vacuum tubes, weighed 30 tons, and was programmed by physically rewiring connections. Vacuum tubes were unreliable and generated enormous heat, which limited how large computers could practically become.\"\n\nHowever, the answer includes the claim that ENIAC \"paving the way for all modern computers\" and that it established \"that a programmable, general-purpose electronic machine was possible.\" While reasonable inferences, these specific claims are not directly stated in the retrieved chunks. More critically, the answer omits the key detail from the chunk that ENIAC \"was programmed by physically rewiring connections,\" which is relevant context. The answer also describes the heat and unreliability as \"practical limitations\" \u2014 which is supported. The phrase \"paving the way for all modern computers\" is an interpretive leap not found in the chunks. This is a minor unsupported addition, but the bulk of the answer is well-grounded in the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.5652173913043478
+      }
+    },
+    {
+      "case": "compiler_vs_interpreter",
+      "question": "What is the difference between a compiler and an interpreter?",
+      "metadata": {
+        "expected_section": "lesson-05-programming-languages#compilers",
+        "answer_keywords": [
+          "before",
+          "line by line",
+          "line-by-line"
+        ]
+      },
+      "output": {
+        "answer": "A **compiler** translates your entire source code into machine code (or another target language) all at once, producing an executable file that can be run later. An **interpreter**, on the other hand, reads and executes the source code line-by-line at runtime, without producing a separate executable. This means compiled programs generally run faster, while interpreted programs offer more flexibility and easier debugging during development.",
+        "citations": [
+          "lesson-05-programming-languages#compilers-and-interpreters",
+          "lesson-02-data-and-binary#binary-numbers"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field in the output is an empty array (`[]`), meaning no chunks were retrieved to support the answer. However, the `answer` field contains several factual claims (e.g., compilers translate entire source code into machine code, interpreters execute line-by-line, compiled programs run faster, interpreted programs offer more flexibility and easier debugging). None of these claims are supported by any text in `retrieved_chunks` because there are none. According to the rubric, the answer must be fully supported by the text in `retrieved_chunks`, and an answer stating the material could not be found would be acceptable only if `retrieved_chunks` genuinely does not answer the question. Since `retrieved_chunks` is empty and the answer makes specific factual claims rather than indicating the material could not be found, the output fails the rubric."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "binary_search_sorted",
+      "question": "Why does binary search need the list to be sorted?",
+      "metadata": {
+        "expected_section": "lesson-04-algorithms#binary-search",
+        "answer_keywords": [
+          "half",
+          "halv",
+          "middle"
+        ]
+      },
+      "output": {
+        "answer": "Binary search needs the list to be sorted because it works by repeatedly comparing the target value to the **middle element** of the list and then eliminating half of the remaining elements. If the target is less than the middle element, it searches the left half; if greater, the right half. This \"eliminate half\" logic only works correctly when elements are in order \u2014 if the list were unsorted, discarding a half could accidentally throw away the target value, making the result unreliable.",
+        "citations": [
+          "lesson-04-algorithms#binary-search"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": true,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The output's `retrieved_chunks` is an empty array `[]`, meaning no chunks were retrieved to support the answer. However, the `answer` field contains a detailed explanation of why binary search requires a sorted list, stating specific facts (e.g., \"comparing the target value to the middle element,\" \"eliminating half of the remaining elements,\" \"if the target is less than the middle element, it searches the left half\"). These facts are not present in or supported by the retrieved chunks (since there are none). The answer should either be unsupported and therefore fail the rubric, or the model should have stated that the material could not be found. Since the answer makes factual claims unsupported by the retrieved chunks, it fails the rubric."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "dns_purpose",
+      "question": "What does the Domain Name System actually do?",
+      "metadata": {
+        "expected_section": "lesson-06-networks#the-domain-name-system",
+        "answer_keywords": [
+          "ip address"
+        ]
+      },
+      "output": {
+        "answer": "The Domain Name System (DNS) acts like a phone book for the internet \u2014 it translates human-readable domain names (like `www.example.com`) into numerical IP addresses (like `93.184.216.34`) that computers use to identify and communicate with each other. Without DNS, users would have to memorize the IP address of every website they wanted to visit. When you type a URL into your browser, a DNS resolver queries a hierarchy of DNS servers to look up the corresponding IP address and return it to your machine.",
+        "citations": [
+          "lesson-07-networking#domain-name-system",
+          "lesson-07-networking#ip-addresses"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field in the output is an empty array (`[]`), meaning no chunks were actually retrieved to support the answer. However, the `answer` field contains detailed factual claims about DNS (e.g., it translates domain names to IP addresses, acts like a phone book, gives the example of `www.example.com` resolving to `93.184.216.34`, describes a hierarchy of DNS servers, etc.). Since the answer contains specific factual statements that are not supported by any content in `retrieved_chunks` (which is empty), the answer fails the rubric. The answer should either say the material could not be found, or the facts must be present in the retrieved chunks."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "moores_law",
+      "question": "What is Moore's law?",
+      "metadata": {
+        "expected_section": "lesson-03-hardware#moores-law",
+        "answer_keywords": [
+          "transistor"
+        ]
+      },
+      "output": {
+        "answer": "Moore's Law is the observation made by Intel co-founder Gordon Moore in 1965 that the number of transistors on a microchip doubles approximately every two years, while the cost of computers is halved. This trend has held remarkably well for decades, driving exponential improvements in computing power and miniaturization. However, physical limitations are making it increasingly difficult to sustain this rate of growth today.",
+        "citations": [
+          "lesson-01-introduction#moores-law",
+          "lesson-02-data-and-binary#computer-hardware"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field in the output is an empty array (`[]`), meaning no source text was retrieved to support the answer. Despite this, the `answer` field contains several specific factual claims about Moore's Law (e.g., it was made by Intel co-founder Gordon Moore in 1965, transistors double every two years, costs are halved, it held for decades, physical limitations are now a challenge). None of these facts are supported by any text in `retrieved_chunks` because it is empty. The answer should either be unsupported/inadmissible, or the system should have stated that the material could not be found. Instead, it provides a detailed answer with no grounding in the retrieved content."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "ascii_capital_a",
+      "question": "What number represents the capital letter A in ASCII?",
+      "metadata": {
+        "expected_section": "lesson-02-data-and-binary#representing-text",
+        "answer_keywords": [
+          "65"
+        ]
+      },
+      "output": {
+        "answer": "The capital letter 'A' is represented by the decimal number **65** in ASCII (which is 01000001 in binary and 41 in hexadecimal). ASCII (American Standard Code for Information Interchange) assigns a unique numeric value to each character so computers can store and process text.",
+        "citations": [
+          "lesson-02-data-and-binary#ascii-encoding"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field is an empty array (`[]`), meaning no supporting text was retrieved. However, the `answer` field contains specific factual claims: that 'A' is represented by decimal 65, binary 01000001, and hexadecimal 41 in ASCII. These facts are not present in any retrieved chunk, as there are none. The rubric states the answer must be fully supported by the text in `retrieved_chunks`, and that an answer saying the material could not be found is acceptable only if retrieved_chunks genuinely does not answer the question. Since retrieved_chunks is empty and does not contain the information, the output should have stated that the material could not be found rather than providing specific facts unsupported by any retrieved content."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "ram_vs_ssd",
+      "question": "What is the difference between RAM and an SSD?",
+      "metadata": {
+        "expected_section": "lesson-03-hardware#memory-and-the-storage-hierarchy",
+        "answer_keywords": [
+          "volatile",
+          "power",
+          "persistent"
+        ]
+      },
+      "output": {
+        "answer": "RAM (Random Access Memory) and an SSD (Solid-State Drive) are both types of storage, but they serve very different purposes. RAM is **volatile, short-term memory** \u2014 it holds data that the CPU is actively using right now, and its contents are lost when the computer powers off. An SSD, on the other hand, is **non-volatile, long-term storage** \u2014 it permanently holds your operating system, files, and programs even when the power is off. RAM is significantly faster than an SSD but is also much more expensive per gigabyte, which is why computers typically have far less RAM than SSD storage.",
+        "citations": [
+          "lesson-02-hardware-basics#memory-and-storage",
+          "lesson-02-hardware-basics#ram-vs-secondary-storage"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field in the output is an empty array (`[]`), meaning no chunks were retrieved. However, the `answer` field contains detailed factual claims about RAM and SSDs (e.g., RAM is volatile, SSDs are non-volatile, RAM is faster but more expensive per gigabyte, etc.). Since the answer contains substantive factual content that is not supported by any text in `retrieved_chunks` (which is empty), the answer fails the rubric. The correct behavior when `retrieved_chunks` is empty would be to state that the material could not be found, not to provide an unsupported detailed answer."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "first_programmer",
+      "question": "Who is often called the first computer programmer?",
+      "metadata": {
+        "expected_section": "lesson-01-history-of-computing#the-mechanical-era",
+        "answer_keywords": [
+          "lovelace"
+        ]
+      },
+      "output": {
+        "answer": "Ada Lovelace is often called the first computer programmer. She worked alongside Charles Babbage in the 19th century and wrote what is considered the first algorithm intended to be processed by a machine \u2014 specifically for Babbage's proposed Analytical Engine. Her visionary notes went beyond Babbage's own understanding of the machine's potential.",
+        "citations": [
+          "lesson-01-history-of-computing#early-pioneers",
+          "lesson-01-history-of-computing#ada-lovelace"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field is an empty array, meaning no source material was retrieved to support the answer. However, the `answer` field contains multiple specific factual claims (e.g., Ada Lovelace worked with Charles Babbage, she wrote the first algorithm for the Analytical Engine, her notes went beyond Babbage's understanding). None of these facts are grounded in the `retrieved_chunks`, as there are none. The rubric requires that the answer be fully supported by the text in `retrieved_chunks`. Since `retrieved_chunks` is empty, the answer is entirely unsupported. An acceptable response would have been to state that the material could not be found."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    },
+    {
+      "case": "https_protection",
+      "question": "What protection does HTTPS give you that plain HTTP doesn't?",
+      "metadata": {
+        "expected_section": "lesson-06-networks#encryption-and-https",
+        "answer_keywords": [
+          "encrypt"
+        ]
+      },
+      "output": {
+        "answer": "HTTPS (HyperText Transfer Protocol Secure) adds a layer of encryption using TLS (Transport Layer Security) on top of standard HTTP. This means that data transmitted between your browser and the server is encrypted, so eavesdroppers on the network cannot read it. HTTPS also provides authentication, verifying that you are actually communicating with the intended server and not an impostor \u2014 this protects against \"man-in-the-middle\" attacks. Plain HTTP sends everything in cleartext, making it vulnerable to interception and tampering.",
+        "citations": [
+          "lesson-07-networking#http-and-https",
+          "lesson-07-networking#encryption-and-tls"
+        ],
+        "retrieved_section_ids": [],
+        "retrieved_chunks": []
+      },
+      "assertions": {
+        "CitationsGrounded": {
+          "passed": false,
+          "reason": null
+        },
+        "ExpectedSectionCited": {
+          "passed": false,
+          "reason": null
+        },
+        "AnswerHasFact": {
+          "passed": true,
+          "reason": null
+        },
+        "LLMJudge": {
+          "passed": false,
+          "reason": "The `retrieved_chunks` field in the output is empty (`[]`). However, the `answer` field contains detailed factual claims about HTTPS, TLS, encryption, authentication, man-in-the-middle attacks, and HTTP sending cleartext. Since there are no retrieved chunks to support any of these claims, the answer is entirely unsupported by the retrieved content. The rubric requires that the answer be fully supported by the text in `retrieved_chunks`, and an answer stating the material could not be found would only be acceptable if the chunks genuinely don't answer the question \u2014 but instead, a detailed answer was fabricated without any chunk support."
+        }
+      },
+      "scores": {
+        "AnswerGroundedness": 0.0
+      }
+    }
+  ]
+}
