@@ -4,13 +4,18 @@ Local development tool — runs on localhost for a single user. Not hardened for
 public deployment; do not expose it to untrusted networks as-is.
 """
 
-from pathlib import Path
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from .agent import ask
-from .models import ChatRequest, ChatResponse, SuggestResponse
+from .models import (
+    ChatRequest,
+    ChatResponse,
+    QuizRequest,
+    QuizResponse,
+    SuggestResponse,
+)
+from .quiz import UnsupportedQuizTopic, generate_quiz
 from .retrieval import MATERIALS_DIR, best_section, load_sections
 
 app = FastAPI(title="Study Coach")
@@ -33,6 +38,14 @@ async def chat(request: ChatRequest) -> ChatResponse:
     return await ask(request.message)
 
 
+@app.post("/api/quiz")
+async def quiz(request: QuizRequest) -> QuizResponse:
+    try:
+        return await generate_quiz(request.topic)
+    except UnsupportedQuizTopic as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
 @app.get("/api/suggest")
 def suggest(topic: str) -> SuggestResponse:
     """The single best section to study for a topic."""
@@ -51,7 +64,13 @@ def list_materials() -> list[str]:
 
 @app.get("/api/materials/{name:path}")
 def get_material(name: str) -> dict:
-    path = MATERIALS_DIR / name
-    if not path.is_file():
+    materials_root = MATERIALS_DIR.resolve()
+    try:
+        path = (materials_root / name).resolve()
+        path.relative_to(materials_root)
+    except (OSError, RuntimeError, ValueError):
+        raise HTTPException(status_code=404, detail="Unknown material.") from None
+
+    if path.suffix.lower() != ".md" or not path.is_file():
         raise HTTPException(status_code=404, detail="Unknown material.")
     return {"name": name, "content": path.read_text()}
