@@ -29,7 +29,8 @@ from app.quiz_review import (  # noqa: E402
     QuizEvidence,
     QuizOptionEvidence,
     QuizReviewQuestion,
-    quiz_review_agent as quiz_evidence_agent,
+    quiz_item_review_agent,
+    review_quiz_questions,
     validate_quiz_evidence as _validate_quiz_evidence,
 )
 
@@ -171,11 +172,10 @@ class QuizEvidenceJudge(Evaluator[str, QuizResponse]):
 
         evidence: QuizEvidence | None = None
         if not errors:
-            result = await quiz_evidence_agent.run(
-                json.dumps({"questions": payload}, ensure_ascii=False),
+            evidence = await review_quiz_questions(
+                payload,
                 model=get_model_name(),
             )
-            evidence = result.output
             errors.extend(_validate_quiz_evidence(evidence, payload))
 
         reason = json.dumps(

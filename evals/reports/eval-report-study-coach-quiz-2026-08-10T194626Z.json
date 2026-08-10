@@ -1,0 +1,330 @@
+{
+  "run_at": "2026-08-10T19:46:26+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-quiz",
+  "summary": {
+    "cases": 3,
+    "assertions_passed": 13,
+    "assertions_total": 15
+  },
+  "cases": [
+    {
+      "case": "computer_hardware",
+      "question": "computer hardware",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "computer hardware",
+        "questions": [
+          {
+            "question": "What is the correct order of steps in the CPU's fetch-decode-execute cycle?",
+            "options": [
+              "Decode, fetch, execute",
+              "Execute, decode, fetch",
+              "Fetch, decode, execute",
+              "Fetch, execute, decode"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#the-central-processing-unit"
+          },
+          {
+            "question": "Which storage type is described as volatile, meaning its contents are lost when power is removed?",
+            "options": [
+              "Solid-state drive (SSD)",
+              "Hard disk drive (HDD)",
+              "Cache memory",
+              "Random access memory (RAM)"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "In 1965, Gordon Moore observed that the number of transistors on a chip doubled roughly every how many years?",
+            "options": [
+              "Five years",
+              "Two years",
+              "Four years",
+              "One year"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#moores-law"
+          },
+          {
+            "question": "What is the primary role of device drivers in a computer system?",
+            "options": [
+              "Software components that let the operating system communicate with specific hardware",
+              "Software components that manage traffic between the CPU and memory",
+              "Software components that render images and video on a monitor",
+              "Software components that fetch and decode CPU instructions"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#input-and-output-devices"
+          },
+          {
+            "question": "What was the original purpose for which GPUs were created, before their parallel design made them well suited to scientific computing?",
+            "options": [
+              "To store and retrieve data from spinning magnetic platters",
+              "To manage communication between the CPU, memory, and devices",
+              "To execute complex instructions sequentially using a few large cores",
+              "To render images and video"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#the-graphics-processing-unit"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": false,
+          "reason": "{\"errors\": [\"question 3 distractor 1 must be contradicted or inapplicable, got not_proven: The excerpt defines device drivers as enabling OS-to-hardware communication generally, not as managing traffic between the CPU and memory. There is no mention of CPU-to-memory traffic management in the cited chunk, so this cannot be contradicted \u2014 only not proven.\", \"question 3 distractor 3 must be contradicted or inapplicable, got not_proven: The excerpt says nothing about fetching and decoding CPU instructions; that is a CPU microarchitecture concept entirely absent from the cited chunk. There is no basis in the excerpt to contradict or rule out this option beyond it simply not being mentioned.\"], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt clearly establishes the order as fetch \u2192 decode \u2192 execute. 'Decode, fetch, execute' places decode before fetch, which directly contradicts the stated order.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt clearly establishes the order as fetch \u2192 decode \u2192 execute. 'Execute, decode, fetch' reverses the entire sequence, directly contradicting the stated order.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt explicitly names and describes the cycle in the order fetch \u2192 decode \u2192 execute, directly supporting this option as correct.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt clearly establishes the order as fetch \u2192 decode \u2192 execute. 'Fetch, execute, decode' swaps the positions of decode and execute, directly contradicting the stated order.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests knowledge of the CPU's fetch-decode-execute cycle, which is a core subtopic of computer hardware as established by the cited excerpt from a hardware lesson about the central processing unit.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly categorizes SSDs as 'persistent storage' that retains data without power, directly contradicting the claim that SSDs are volatile.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly categorizes HDDs as 'persistent storage' that retains data without power, directly contradicting the claim that HDDs are volatile.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt describes cache memory as sitting next to CPU cores and holding recently used data, but never characterizes it as volatile or as losing its contents when power is removed. The volatile label is specifically and exclusively applied to RAM in this excerpt, ruling cache memory out as the answer to this question.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly and explicitly states that RAM's contents are lost when power is removed and labels RAM as volatile, fully supporting this option as the correct answer.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests knowledge of computer hardware storage types and their volatility characteristics, which is a core subtopic of the cited excerpt on memory and the storage hierarchy \u2014 a clear subtopic of computer hardware.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years\", \"explanation\": \"The excerpt explicitly states the doubling period is two years, directly contradicting 'Five years' as the answer.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years\", \"explanation\": \"The excerpt directly and unambiguously supports 'Two years' as the correct doubling period observed by Moore in 1965.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years\", \"explanation\": \"The excerpt explicitly states the doubling period is two years, directly contradicting 'Four years' as the answer.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years\", \"explanation\": \"The excerpt explicitly states the doubling period is two years, directly contradicting 'One year' as the answer.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests knowledge of Moore's Law as described in the cited hardware lesson excerpt, which is a foundational concept in computer hardware regarding transistor density growth on chips.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Device drivers are software components that let the operating system communicate with specific hardware.\", \"explanation\": \"The excerpt directly and verbatim defines device drivers as software components that let the operating system communicate with specific hardware, which exactly matches option 0.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Device drivers are software components that let the operating system communicate with specific hardware.\", \"explanation\": \"The excerpt defines device drivers as enabling OS-to-hardware communication generally, not as managing traffic between the CPU and memory. There is no mention of CPU-to-memory traffic management in the cited chunk, so this cannot be contradicted \u2014 only not proven.\", \"option_index\": 1, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"Output devices present results: monitors, speakers, and printers.\", \"explanation\": \"Rendering images and video on a monitor is a function associated with output devices (and by extension display/GPU hardware), not with device drivers. The excerpt establishes device drivers as OS-to-hardware communication components, ruling out a display-rendering role for them.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Device drivers are software components that let the operating system communicate with specific hardware.\", \"explanation\": \"The excerpt says nothing about fetching and decoding CPU instructions; that is a CPU microarchitecture concept entirely absent from the cited chunk. There is no basis in the excerpt to contradict or rule out this option beyond it simply not being mentioned.\", \"option_index\": 3, \"ruling\": \"not_proven\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question asks about device drivers, which are explicitly defined in the cited chunk as part of a lesson on computer hardware (specifically input/output devices and peripherals). Device drivers are a core hardware-related concept directly addressed in the excerpt.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"The graphics processing unit (GPU) contains thousands of small cores designed to perform many simple calculations simultaneously.\", \"explanation\": \"The excerpt defines GPUs in terms of many small cores for parallel calculations. Storing and retrieving data from spinning magnetic platters describes a hard disk drive, a completely different hardware component. The GPU's defined characteristics rule out this description.\", \"option_index\": 0, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"The graphics processing unit (GPU) contains thousands of small cores designed to perform many simple calculations simultaneously.\", \"explanation\": \"Managing communication between the CPU, memory, and devices describes a chipset or bus controller, not a GPU. The excerpt's characterization of GPUs as parallel processors with thousands of small cores rules out this option.\", \"option_index\": 1, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"The graphics processing unit (GPU) contains thousands of small cores designed to perform many simple calculations simultaneously.\", \"explanation\": \"The excerpt explicitly states GPUs have thousands of small cores for simple, simultaneous (parallel) calculations \u2014 directly contradicting the claim that GPUs execute complex instructions sequentially using a few large cores.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"The excerpt directly states that GPUs were originally created to render images and video, which matches this option exactly and identifies it as the correct answer.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests knowledge of GPU hardware, which is a clearly identified subtopic of computer hardware, as established by the cited excerpt from a hardware lesson.\", \"topic_relevant\": true}]}, \"passed\": false}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "networks_and_internet",
+      "question": "networks and the internet",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "networks and the internet",
+        "questions": [
+          {
+            "question": "Which statement correctly describes the geographic scope that distinguishes a LAN from a WAN?",
+            "options": [
+              "A WAN covers a small area such as a home or office, while a LAN spans cities or continents.",
+              "A LAN covers a small area such as a home or office, while a WAN spans cities or continents.",
+              "Both a LAN and a WAN span cities or continents, differing only in speed.",
+              "Both a LAN and a WAN cover only small areas such as a home or office."
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#what-is-a-network"
+          },
+          {
+            "question": "What information does a packet's header record?",
+            "options": [
+              "Source address, destination address, and sequence position.",
+              "Source address, destination address, and encryption key.",
+              "Destination address, sequence position, and file size.",
+              "Source address, sequence position, and checksum."
+            ],
+            "correct_index": 0,
+            "citation": "lesson-06-networks#packets"
+          },
+          {
+            "question": "What format do IPv4 addresses take?",
+            "options": [
+              "Eight numbers between 0 and 255, such as 192.168.4.12.1.0.0.1.",
+              "Four numbers between 0 and 512, such as 192.168.4.12.",
+              "Four numbers between 0 and 255, such as 192.168.4.12.",
+              "Four letters between A and Z, such as A.B.C.D."
+            ],
+            "correct_index": 2,
+            "citation": "lesson-06-networks#ip-addresses-and-routing"
+          },
+          {
+            "question": "Which best describes the Domain Name System (DNS) in terms of its structure and role?",
+            "options": [
+              "A centralized registry that holds every domain name on one server and assigns IP addresses.",
+              "A packet-routing protocol that moves data one hop closer to its destination address.",
+              "An encryption layer that secures domain names so they cannot be read in transit.",
+              "A distributed, hierarchical directory that translates human-readable domain names into IP addresses."
+            ],
+            "correct_index": 3,
+            "citation": "lesson-06-networks#the-domain-name-system"
+          },
+          {
+            "question": "According to the course material, what does an eavesdropper observe when HTTPS is used instead of HTTP?",
+            "options": [
+              "Nothing at all, because HTTPS stores requests on the sender's device only.",
+              "Only scrambled bytes, because every request and response is encrypted.",
+              "The full request and response, but compressed so it transfers faster.",
+              "The full request and response, because certificates replace the need for encryption."
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#encryption-and-https"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#what-is-a-network",
+          "lesson-06-networks#packets",
+          "lesson-06-networks#ip-addresses-and-routing",
+          "lesson-06-networks#the-domain-name-system",
+          "lesson-06-networks#the-web-and-http",
+          "lesson-06-networks#encryption-and-https"
+        ],
+        "retrieved_chunks": [
+          "A computer network connects devices so they can exchange data. A local area network\n(LAN) covers a small area such as a home or office; a wide area network (WAN) spans\ncities or continents. The internet is a global network of networks: independent\nnetworks agree to exchange traffic using shared protocols, so any connected device can\nreach any other.",
+          "Data travels across networks in packets. A packet is a small chunk of data \u2014 typically\naround a kilobyte \u2014 carrying headers that record its source address, destination\naddress, and sequence position. A large file is split into many packets that may take\ndifferent routes across the network and arrive out of order; the receiving device\nreassembles them into the original data. Packet switching makes networks resilient:\nif one route fails, packets flow around the failure.",
+          "Every device on the internet has an IP address that identifies it, much as a street\naddress identifies a building. IPv4 addresses are four numbers between 0 and 255, such\nas 192.168.4.12; because IPv4 addresses are running out, the newer IPv6 provides a\nvastly larger address space. Routers are devices that read each packet's destination\naddress and forward the packet one step closer to it. A packet typically crosses many\nrouters between source and destination.",
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name.",
+          "The World Wide Web runs on top of the internet. A browser requests a page using the\nHypertext Transfer Protocol (HTTP): it sends a request to a web server, and the server\nresponds with the page content, usually written in HTML. Each request-response pair is\nindependent, which keeps the protocol simple. URLs identify resources: the scheme\n(https), the domain name, and the path together tell the browser what to fetch and how.",
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": false,
+          "reason": "{\"errors\": [\"question 3 distractor 2 must be contradicted or inapplicable, got not_proven: The excerpt makes no mention of encryption or securing domain names in transit. There is no evidence in the cited chunk to support or contradict the encryption claim; it simply isn't addressed.\"], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"This option reverses the definitions: it incorrectly assigns the small-area scope to WAN and the large-area scope to LAN. The excerpt directly contradicts this by stating the opposite.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"This option matches the excerpt verbatim: LAN = small area (home or office), WAN = cities or continents. It is directly supported as the correct answer.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"The excerpt explicitly distinguishes LAN and WAN by geographic scope (not merely speed), and does not describe both as spanning cities or continents. This option is directly contradicted.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"The excerpt clearly states that WAN spans cities or continents, not small areas. The claim that both LAN and WAN cover only small areas is directly contradicted.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests knowledge of networks and the internet, specifically the geographic scope distinctions between LAN and WAN, which is a core subtopic of \\\"networks and the internet\\\" as established by the cited excerpt from lesson-06-networks#what-is-a-network.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt explicitly states that packet headers record source address, destination address, and sequence position \u2014 exactly matching this option.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt lists the three items recorded in a header as source address, destination address, and sequence position \u2014 not an encryption key. Replacing 'sequence position' with 'encryption key' directly contradicts the cited content.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt states headers record source address, destination address, and sequence position. This option omits source address and substitutes 'file size', which directly contradicts the cited content.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt states headers record source address, destination address, and sequence position. This option omits destination address and substitutes 'checksum', which directly contradicts the cited content.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests knowledge of packet structure and headers, which is a core subtopic of networks and the internet, as established by the cited excerpt from lesson-06-networks#packets.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt explicitly states IPv4 addresses consist of FOUR numbers (not eight), and the example 192.168.4.12 has only four octets, directly contradicting the claim of eight numbers.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt states the numbers are between 0 and 255, not 0 and 512, directly contradicting this option's upper bound of 512.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt directly and verbatim supports this option: four numbers between 0 and 255, with 192.168.4.12 as the example, matching the option exactly.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt specifies IPv4 addresses are numbers (not letters), and the example 192.168.4.12 consists entirely of numerals, directly contradicting the claim that they are letters between A and Z.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests knowledge of IPv4 address format, which is a core subtopic of \\\"networks and the internet\\\" as established by the cited chunk from lesson-06-networks covering IP addresses and routing.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"DNS is a distributed, hierarchical directory \u2014 no single server holds every name.\", \"explanation\": \"Option 0 claims DNS is a centralized registry on one server. The excerpt directly contradicts this by stating no single server holds every name and that DNS is distributed.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The Domain Name System (DNS) translates human-readable domain names such as example.edu into IP addresses.\", \"explanation\": \"The excerpt establishes DNS as a name-translation directory, not a packet-routing protocol. The role described in option 1 (moving packets hop-by-hop) is categorically different from what DNS does, making this option inapplicable to what the excerpt defines DNS as.\", \"option_index\": 1, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"The Domain Name System (DNS) translates human-readable domain names such as example.edu into IP addresses.\", \"explanation\": \"The excerpt makes no mention of encryption or securing domain names in transit. There is no evidence in the cited chunk to support or contradict the encryption claim; it simply isn't addressed.\", \"option_index\": 2, \"ruling\": \"not_proven\"}, {\"evidence_quote\": \"DNS is a distributed, hierarchical directory \u2014 no single server holds every name.\", \"explanation\": \"Option 3 describes DNS as a 'distributed, hierarchical directory that translates human-readable domain names into IP addresses,' which matches the excerpt verbatim in structure ('distributed, hierarchical directory') and role ('translates human-readable domain names such as example.edu into IP addresses').\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests knowledge of the Domain Name System (DNS), which is a core component of how the internet works. The cited chunk is drawn from a lesson on networks, and DNS is a clearly identified subtopic of \\\"networks and the internet.\\\"\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"the browser and server agree on keys and encrypt every request and response, so an eavesdropper sees only scrambled bytes.\", \"explanation\": \"The excerpt states eavesdroppers see scrambled bytes, directly contradicting the claim that HTTPS stores requests only on the sender's device and that nothing at all is observable on the network.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"the browser and server agree on keys and encrypt every request and response, so an eavesdropper sees only scrambled bytes.\", \"explanation\": \"The excerpt directly supports this option: every request and response is encrypted and an eavesdropper sees only scrambled bytes, matching the answer exactly.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"the browser and server agree on keys and encrypt every request and response, so an eavesdropper sees only scrambled bytes.\", \"explanation\": \"The excerpt states the eavesdropper sees only scrambled bytes due to encryption, directly contradicting the claim that the full request and response is visible (merely compressed).\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\", \"explanation\": \"The excerpt explicitly states that certificates verify server identity but are separate from encryption, which protects confidentiality. This directly contradicts the claim that certificates replace the need for encryption, and the excerpt confirms encryption still occurs.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests knowledge of HTTPS encryption, a core subtopic of networks and the internet, as confirmed by the cited chunk from lesson-06-networks#encryption-and-https.\", \"topic_relevant\": true}]}, \"passed\": false}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "binary_search",
+      "question": "binary search",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "binary search",
+        "questions": [
+          {
+            "question": "What does binary search compare the target value to at each step?",
+            "options": [
+              "The first element of the remaining list",
+              "The last element of the remaining list",
+              "The middle element of the remaining list",
+              "Every element in the remaining list"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "If the target value is smaller than the middle element during a binary search, where does the search continue?",
+            "options": [
+              "In the right half",
+              "From the beginning of the full list",
+              "At the middle element again",
+              "In the left half"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "Approximately how many comparisons does binary search need at most to search a list of one million items?",
+            "options": [
+              "About ten comparisons",
+              "About twenty comparisons",
+              "About fifty comparisons",
+              "About one hundred comparisons"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What is the Big-O efficiency of binary search?",
+            "options": [
+              "O(n log n)",
+              "O(n\u00b2)",
+              "O(n)",
+              "O(log n)"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          },
+          {
+            "question": "According to the excerpt, what does binary search require of the list before it can be applied?",
+            "options": [
+              "The list must be sorted in advance",
+              "The list must be searched from right to left, not left to right",
+              "The list must be halved only once during the entire search",
+              "The list must be compared to the largest element first, then the smallest"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-04-algorithms#binary-search"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#what-is-an-algorithm",
+          "lesson-04-algorithms#pseudocode",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "An algorithm is a precise, step-by-step procedure for solving a problem. A recipe is a\nuseful analogy: given ingredients (input), following the steps produces a dish\n(output). For a procedure to be an algorithm, its steps must be unambiguous, it must\nfinish after a finite number of steps, and it must produce a correct result for every\nvalid input. The same algorithm can be expressed in English, in pseudocode, or in any\nprogramming language.",
+          "Pseudocode describes an algorithm in structured, language-neutral text. It uses\nconstructs such as IF/ELSE for decisions, WHILE and FOR for repetition, and variables\nfor storing values, without the exact syntax of any programming language. Pseudocode\nlets people design and discuss an algorithm before writing real code.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states the comparison is made against the middle element, not the first element of the remaining list. This directly contradicts option 0.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states the comparison is made against the middle element, not the last element of the remaining list. This directly contradicts option 1.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt directly and explicitly states that binary search compares the target to the middle element at each step, fully supporting option 2 as the correct answer.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements, so a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt makes clear that binary search eliminates half the elements with each comparison (comparing only to the middle element), which directly contradicts the claim that it compares against every element in the remaining list.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests how binary search operates at each step, and the cited chunk is explicitly about binary search, making it fully relevant to the requested topic.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states that searching the right half occurs when the target is LARGER, not smaller. This directly contradicts option 0, which claims the search continues in the right half when the target is smaller.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes binary search as repeatedly halving the search range, never restarting from the beginning of the full list. Restarting from the beginning directly contradicts the core mechanism described.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements.\", \"explanation\": \"The excerpt states that each comparison eliminates half the remaining elements, meaning the search never stays at the same middle element again. Repeating the comparison at the same middle element contradicts this elimination principle.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half.\", \"explanation\": \"The excerpt directly and explicitly states that when the target is smaller than the middle element, the search continues in the left half, which is exactly what option 3 claims.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests the mechanics of binary search \u2014 specifically what happens when the target is smaller than the middle element \u2014 which is a core subtopic of binary search as established by the cited excerpt.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons\", \"explanation\": \"The excerpt states the maximum is about twenty comparisons, which directly contradicts 'about ten comparisons' as the answer.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons\", \"explanation\": \"The excerpt explicitly states that one million items requires at most about twenty comparisons, directly supporting this option as correct.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons\", \"explanation\": \"The excerpt states the maximum is about twenty comparisons, which directly contradicts 'about fifty comparisons' as the answer.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons\", \"explanation\": \"The excerpt states the maximum is about twenty comparisons, which directly contradicts 'about one hundred comparisons' as the answer.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests binary search efficiency \u2014 specifically the maximum number of comparisons needed for a list of one million items \u2014 which is a core concept explicitly covered in the cited excerpt about binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"merge sort is O(n log n)\", \"explanation\": \"The excerpt attributes O(n log n) to merge sort, not binary search, directly contradicting this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2)\", \"explanation\": \"The excerpt attributes O(n\u00b2) to bubble sort, not binary search, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Linear search is O(n): doubling the list doubles the worst-case work.\", \"explanation\": \"The excerpt attributes O(n) to linear search, not binary search, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt explicitly and directly states that binary search is O(log n), fully supporting this option as the correct answer.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests knowledge of binary search's Big-O efficiency, and the cited excerpt explicitly discusses binary search's time complexity in its Big-O notation section.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Binary search requires the list to be sorted in advance.\", \"explanation\": \"The excerpt explicitly states this precondition, directly supporting option 0 as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt describes a middle-outward halving strategy (left or right half depending on comparison), not a right-to-left traversal, directly contradicting the claim in option 1.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt states the list is 'repeatedly' halved, meaning multiple halvings occur, not just one. This directly contradicts the claim that the list is halved only once.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt specifies comparison against the middle element, not the largest element first and then the smallest, directly contradicting option 3.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests knowledge of binary search \u2014 specifically its precondition \u2014 which is the exact topic requested and the subject of the cited excerpt.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    }
+  ]
+}

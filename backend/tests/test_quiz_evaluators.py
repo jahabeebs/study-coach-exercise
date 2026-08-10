@@ -18,7 +18,7 @@ from quiz_evaluators import (  # noqa: E402
     QUIZ_EVIDENCE_INSTRUCTIONS,
     QuizAnswerPositionsVaried,
     QuizOptionEvidence,
-    quiz_evidence_agent,
+    quiz_item_review_agent,
     quiz_quality_judge,
 )
 
@@ -116,11 +116,13 @@ def _evidence_model(
             if type(part).__name__ == "UserPromptPart"
         ]
         assert len(prompt_parts) == 1
+        prompt = json.loads(prompt_parts[0])
         if inspect_prompt:
-            inspect_prompt(json.loads(prompt_parts[0]))
+            inspect_prompt(prompt)
+        question_index = prompt["question"]["question_index"]
         output_tool = info.output_tools[0]
         return ModelResponse(
-            parts=[ToolCallPart(output_tool.name, evidence)]
+            parts=[ToolCallPart(output_tool.name, evidence["items"][question_index])]
         )
 
     return FunctionModel(run)
@@ -136,18 +138,17 @@ async def test_typed_quiz_judge_accepts_complete_cited_evidence():
     positions = [0, 1, 2, 3, 0]
     context = _context(positions)
 
-    def inspect_prompt(prompt: dict) -> None:
-        assert set(prompt) == {"questions"}
-        assert [item["question_index"] for item in prompt["questions"]] == list(
-            range(5)
-        )
-        for question_index, item in enumerate(prompt["questions"]):
-            assert "retrieved_chunks" not in item
-            assert item["cited_chunk"] == context.output.retrieved_chunks[
-                question_index
-            ]
+    observed_indices: list[int] = []
 
-    with quiz_evidence_agent.override(
+    def inspect_prompt(prompt: dict) -> None:
+        assert set(prompt) == {"question"}
+        item = prompt["question"]
+        question_index = item["question_index"]
+        observed_indices.append(question_index)
+        assert "retrieved_chunks" not in item
+        assert item["cited_chunk"] == context.output.retrieved_chunks[question_index]
+
+    with quiz_item_review_agent.override(
         model=_evidence_model(_valid_evidence(positions), inspect_prompt)
     ):
         result = await quiz_quality_judge().evaluate(context)
@@ -157,13 +158,14 @@ async def test_typed_quiz_judge_accepts_complete_cited_evidence():
     assert reason["passed"] is True
     assert reason["errors"] == []
     assert len(reason["evidence"]["items"]) == 5
+    assert sorted(observed_indices) == list(range(5))
 
 
 @pytest.mark.parametrize(
     "mutate",
     [
         lambda evidence: evidence["items"][0]["options"][1].update(
-            ruling="not_proven"
+            ruling="supported"
         ),
         lambda evidence: evidence["items"][0]["options"][1].update(
             evidence_quote="This sentence was never in the cited chunk."
@@ -178,7 +180,7 @@ async def test_typed_quiz_judge_accepts_complete_cited_evidence():
         lambda evidence: evidence["items"][0]["options"][3].update(option_index=2),
     ],
     ids=[
-        "distractor-not-proven",
+        "distractor-also-supported",
         "invented-quote",
         "topic-drift",
         "missing-question-index",
@@ -192,13 +194,25 @@ async def test_typed_quiz_judge_rejects_incomplete_or_unverifiable_evidence(
     evidence = _valid_evidence(positions)
     mutate(evidence)
 
-    with quiz_evidence_agent.override(model=_evidence_model(evidence)):
+    with quiz_item_review_agent.override(model=_evidence_model(evidence)):
         result = await quiz_quality_judge().evaluate(_context(positions))
 
     assert result.value is False
     reason = json.loads(result.reason)
     assert reason["passed"] is False
     assert reason["errors"]
+
+
+async def test_typed_quiz_judge_allows_an_unsupported_distractor():
+    """A choice absent from evidence is wrong, not a second defensible answer."""
+    positions = [0, 1, 2, 3, 0]
+    evidence = _valid_evidence(positions)
+    evidence["items"][0]["options"][1]["ruling"] = "not_proven"
+
+    with quiz_item_review_agent.override(model=_evidence_model(evidence)):
+        result = await quiz_quality_judge().evaluate(_context(positions))
+
+    assert result.value is True
 
 
 def test_quiz_judge_instructions_forbid_absence_and_outside_knowledge():
@@ -232,7 +246,7 @@ def test_typed_quiz_judge_is_runner_compatible():
         evaluators=[quiz_quality_judge()],
     )
 
-    with quiz_evidence_agent.override(
+    with quiz_item_review_agent.override(
         model=_evidence_model(_valid_evidence(positions))
     ):
         report = dataset.evaluate_sync(lambda _topic: context.output)

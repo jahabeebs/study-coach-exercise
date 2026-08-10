@@ -1,0 +1,436 @@
+{
+  "run_at": "2026-08-10T19:43:57+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-quiz",
+  "summary": {
+    "cases": 4,
+    "assertions_passed": 20,
+    "assertions_total": 20
+  },
+  "cases": [
+    {
+      "case": "computer_hardware",
+      "question": "computer hardware",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "computer hardware",
+        "questions": [
+          {
+            "question": "What is the correct order of the steps a CPU performs repeatedly to run a program?",
+            "options": [
+              "Fetch, execute, decode",
+              "Decode, fetch, execute",
+              "Fetch, decode, execute",
+              "Execute, decode, fetch"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#the-central-processing-unit"
+          },
+          {
+            "question": "Which characteristic describes RAM in the storage hierarchy?",
+            "options": [
+              "Its contents are lost when power is removed",
+              "It retains its contents after power is removed",
+              "It sits directly inside the CPU alongside registers",
+              "It uses flash memory with no moving parts"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "According to the course material, what was the original purpose of GPUs before they became widely used for machine learning?",
+            "options": [
+              "To replace CPUs for general-purpose computing tasks",
+              "To train machine learning models before graphics applications existed",
+              "To execute complex instructions faster than CPUs",
+              "To render images and video"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#the-graphics-processing-unit"
+          },
+          {
+            "question": "What did Gordon Moore observe in 1965 that became known as Moore's Law?",
+            "options": [
+              "The number of CPU cores doubled roughly every two years",
+              "The number of transistors on a chip doubled roughly every two years",
+              "CPU clock speeds doubled roughly every two years",
+              "Computing costs doubled roughly every two years"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#moores-law"
+          },
+          {
+            "question": "Compared to hard disk drives (HDDs), how do solid-state drives (SSDs) differ according to the storage hierarchy excerpt?",
+            "options": [
+              "SSDs store data on spinning magnetic platters, making them faster than HDDs",
+              "SSDs use flash memory with no moving parts but are much slower than HDDs",
+              "SSDs are slower than HDDs but retain data without power",
+              "SSDs use flash memory with no moving parts and are much faster than HDDs"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt clearly states the order is fetch \u2192 decode \u2192 execute. This option places 'execute' before 'decode', which directly contradicts the stated cycle order.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt names the cycle 'fetch-decode-execute', starting with 'fetch'. This option incorrectly places 'decode' first, directly contradicting the stated order.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt explicitly names and describes the cycle as fetch \u2192 decode \u2192 execute, which matches this option exactly.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt states the cycle begins with 'fetch' and ends with 'execute'. This option reverses the entire order, directly contradicting the described cycle.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question tests knowledge of how a CPU operates (the fetch-decode-execute cycle), which is a direct subtopic of computer hardware as established by the cited excerpt from a hardware lesson about the CPU.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly states that RAM's contents are lost when power is removed, directly supporting this option as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt attributes retaining data without power to persistent storage (SSDs and HDDs), not to RAM. RAM is described as volatile, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest. Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt places registers inside the CPU and cache next to CPU cores, but describes RAM separately as the computer's working memory \u2014 not as sitting directly inside the CPU alongside registers. This option incorrectly conflates RAM's location with that of registers.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt assigns flash memory with no moving parts as a characteristic of SSDs (persistent storage), not of RAM. This property belongs to a different category in the storage hierarchy, making it inapplicable to RAM.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests knowledge of computer hardware \u2014 specifically the characteristics of RAM within the storage hierarchy \u2014 which is a core subtopic of computer hardware as established by the cited excerpt from a hardware lesson.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"The excerpt states GPUs were created to render images and video, not to replace CPUs for general-purpose computing tasks. Their design is described as suited for parallel workloads, not general-purpose replacement of CPUs.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"The excerpt directly states GPUs were created to render images and video. It then describes machine learning as a later, secondary use case \u2014 directly contradicting the claim that GPUs were originally built to train machine learning models before graphics applications existed.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The graphics processing unit (GPU) contains thousands of small cores designed to perform many simple calculations simultaneously.\", \"explanation\": \"The excerpt specifies GPUs are designed to perform many *simple* calculations simultaneously, not complex instructions. Additionally, executing complex instructions faster than CPUs describes a CPU-like capability, not the GPU's stated original purpose.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"GPUs were created to render images and video, but their parallel design also makes them well suited to scientific computing and training machine learning models.\", \"explanation\": \"The excerpt directly and explicitly states that GPUs were created to render images and video, which matches this answer choice exactly.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question is about GPU hardware, which is a direct subtopic of \\\"computer hardware\\\" as confirmed by the cited chunk from a lesson explicitly titled \\\"hardware\\\" with a section on \\\"the-graphics-processing-unit.\\\"\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years\", \"explanation\": \"The excerpt states Moore's Law is about transistors on a chip, not CPU cores. The option's claim about CPU cores doubling is directly contradicted by the excerpt's specification of transistors.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt directly and verbatim supports this option as the correct answer, matching both the subject (transistors on a chip) and the timeframe (roughly every two years).\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years\", \"explanation\": \"The excerpt identifies transistors on a chip\u2014not CPU clock speeds\u2014as the subject of Moore's observation, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt states Moore's Law is about the doubling of transistors, not computing costs. While the excerpt does mention 'falling cost' as a consequence, it contradicts the claim that cost doubling was Moore's observation.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests knowledge of Moore's Law as it pertains to computer hardware (transistor density on chips), and the cited chunk is from a lesson explicitly about hardware (\\\"lesson-03-hardware\\\"). This is a core subtopic of computer hardware.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt directly contradicts this option on two counts: it is HDDs (not SSDs) that store data on spinning magnetic platters, and SSDs are faster than HDDs (not slower). The option reverses both facts.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"explanation\": \"The excerpt confirms that SSDs use flash memory with no moving parts, but directly contradicts the claim that they are 'much slower than HDDs' \u2014 the excerpt states they are much faster.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"explanation\": \"The excerpt directly contradicts the claim that SSDs are slower than HDDs; they are described as much faster. The second half ('retain data without power') is true of both SSDs and HDDs per the excerpt, but the speed claim is clearly wrong, making this option contradicted overall.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"explanation\": \"The excerpt directly and verbatim supports this option: SSDs use flash memory with no moving parts and are much faster than HDDs, which is exactly what option 3 states.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests knowledge of computer hardware components \u2014 specifically SSDs and HDDs as types of persistent storage \u2014 which is a core subtopic of computer hardware as established by the cited excerpt from a hardware lesson on the storage hierarchy.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "networks_and_internet",
+      "question": "networks and the internet",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "networks and the internet",
+        "questions": [
+          {
+            "question": "Which of the following best describes the role of the Domain Name System (DNS) in internet communication?",
+            "options": [
+              "A centralized directory that assigns IP addresses to physical hardware devices",
+              "A single authoritative server that holds every registered domain name",
+              "A distributed, hierarchical system that translates domain names into IP addresses",
+              "A protocol that stores domain names alongside their owners' billing addresses"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-06-networks#the-domain-name-system"
+          },
+          {
+            "question": "Which of the following correctly describes an IPv4 address according to the course material?",
+            "options": [
+              "Four numbers between 0 and 512, such as 192.168.4.12",
+              "Four numbers between 0 and 255, such as 192.168.4.12",
+              "Six numbers between 0 and 255, such as 192.168.4.12",
+              "Four numbers between 1 and 255, such as 192.168.4.12"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-06-networks#ip-addresses-and-routing"
+          },
+          {
+            "question": "What does the padlock icon displayed in a browser's address bar indicate about the connection?",
+            "options": [
+              "The connection is using standard, unencrypted HTTP",
+              "The server has blocked all eavesdroppers from the network",
+              "Data sent over the connection is compressed but not encrypted",
+              "The connection is encrypted and protected by HTTPS"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-06-networks#encryption-and-https"
+          },
+          {
+            "question": "What is a packet in the context of network data transmission?",
+            "options": [
+              "A small chunk of data carrying headers that record source address, destination address, and sequence position",
+              "A small chunk of data carrying headers that record only the destination address and file size",
+              "A large file that is reassembled before being sent across the network",
+              "A shared protocol that independent networks agree to use for exchanging traffic"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-06-networks#packets"
+          },
+          {
+            "question": "According to the course material, which statement correctly distinguishes a LAN from a WAN based on geographic scope?",
+            "options": [
+              "A LAN spans cities or continents, while a WAN covers a small area such as a home or office",
+              "A WAN covers a small area such as a home or office, while a LAN spans cities or continents",
+              "A LAN covers a small area such as a home or office, while a WAN spans cities or continents",
+              "A LAN spans continents, while a WAN spans cities"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-06-networks#what-is-a-network"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-06-networks#what-is-a-network",
+          "lesson-06-networks#packets",
+          "lesson-06-networks#ip-addresses-and-routing",
+          "lesson-06-networks#the-domain-name-system",
+          "lesson-06-networks#the-web-and-http",
+          "lesson-06-networks#encryption-and-https"
+        ],
+        "retrieved_chunks": [
+          "A computer network connects devices so they can exchange data. A local area network\n(LAN) covers a small area such as a home or office; a wide area network (WAN) spans\ncities or continents. The internet is a global network of networks: independent\nnetworks agree to exchange traffic using shared protocols, so any connected device can\nreach any other.",
+          "Data travels across networks in packets. A packet is a small chunk of data \u2014 typically\naround a kilobyte \u2014 carrying headers that record its source address, destination\naddress, and sequence position. A large file is split into many packets that may take\ndifferent routes across the network and arrive out of order; the receiving device\nreassembles them into the original data. Packet switching makes networks resilient:\nif one route fails, packets flow around the failure.",
+          "Every device on the internet has an IP address that identifies it, much as a street\naddress identifies a building. IPv4 addresses are four numbers between 0 and 255, such\nas 192.168.4.12; because IPv4 addresses are running out, the newer IPv6 provides a\nvastly larger address space. Routers are devices that read each packet's destination\naddress and forward the packet one step closer to it. A packet typically crosses many\nrouters between source and destination.",
+          "People remember names, not numbers. The Domain Name System (DNS) translates\nhuman-readable domain names such as example.edu into IP addresses. When a browser\nvisits a website, it first queries DNS to resolve the name, then connects to the\nreturned IP address. DNS is a distributed, hierarchical directory \u2014 no single server\nholds every name.",
+          "The World Wide Web runs on top of the internet. A browser requests a page using the\nHypertext Transfer Protocol (HTTP): it sends a request to a web server, and the server\nresponds with the page content, usually written in HTML. Each request-response pair is\nindependent, which keeps the protocol simple. URLs identify resources: the scheme\n(https), the domain name, and the path together tell the browser what to fetch and how.",
+          "Data crossing a network can be intercepted, so sensitive traffic is encrypted. HTTPS\nis HTTP protected by encryption: the browser and server agree on keys and encrypt\nevery request and response, so an eavesdropper sees only scrambled bytes. The padlock\nicon in a browser indicates an HTTPS connection. Encryption protects confidentiality\n(others cannot read the data) and integrity (tampering is detectable), and\ncertificates verify that the server is who it claims to be."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"The Domain Name System (DNS) translates human-readable domain names such as example.edu into IP addresses.\", \"explanation\": \"The excerpt defines DNS as a system that translates domain names into IP addresses, not as a centralized directory that assigns IP addresses to physical hardware devices. The word 'centralized' is also directly contradicted by 'DNS is a distributed, hierarchical directory.'\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"DNS is a distributed, hierarchical directory \u2014 no single server holds every name.\", \"explanation\": \"The excerpt explicitly states that no single server holds every name, directly contradicting the claim that DNS is a single authoritative server holding every registered domain name.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"DNS is a distributed, hierarchical directory \u2014 no single server holds every name.\", \"explanation\": \"The excerpt directly supports this option: DNS is described as distributed and hierarchical, and its core function is translating domain names into IP addresses, matching the option exactly.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"The Domain Name System (DNS) translates human-readable domain names such as example.edu into IP addresses.\", \"explanation\": \"The excerpt defines DNS as a name-to-IP-address translation system. There is no mention of billing addresses, and the described function directly contradicts the claim in this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests knowledge of the Domain Name System (DNS), which is a core subtopic of \\\"networks and the internet\\\" as confirmed by the cited excerpt from lesson-06-networks#the-domain-name-system.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt explicitly states the range is 0 to 255, not 0 to 512, directly contradicting this option.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt directly matches this option word-for-word: four numbers between 0 and 255, with the same example address.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt states there are four numbers, not six, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"IPv4 addresses are four numbers between 0 and 255, such as 192.168.4.12\", \"explanation\": \"The excerpt states the range starts at 0, not 1, directly contradicting this option's lower bound of 1.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests knowledge of IP addresses, which is a core subtopic of \\\"networks and the internet\\\" as established by the cited excerpt from lesson-06-networks#ip-addresses-and-routing.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"HTTPS is HTTP protected by encryption: the browser and server agree on keys and encrypt every request and response, so an eavesdropper sees only scrambled bytes.\", \"explanation\": \"The excerpt explicitly states that HTTPS (indicated by the padlock) involves encryption, directly contradicting the claim that the connection uses standard, unencrypted HTTP.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Encryption protects confidentiality (others cannot read the data) and integrity (tampering is detectable), and certificates verify that the server is who it claims to be.\", \"explanation\": \"The excerpt describes what encryption achieves (confidentiality and integrity) but does not support the idea that the server blocks all eavesdroppers from the network. In fact, the excerpt acknowledges eavesdroppers exist but can only see 'scrambled bytes,' which contradicts the notion that they are blocked entirely from the network.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"HTTPS is HTTP protected by encryption: the browser and server agree on keys and encrypt every request and response, so an eavesdropper sees only scrambled bytes.\", \"explanation\": \"The excerpt describes HTTPS as involving full encryption of every request and response, not merely compression. There is no mention of compression, and the padlock is explicitly linked to encryption, directly contradicting the claim that data is only compressed but not encrypted.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The padlock icon in a browser indicates an HTTPS connection.\", \"explanation\": \"The excerpt directly states that the padlock icon indicates an HTTPS connection, and HTTPS is defined as HTTP protected by encryption, fully supporting this answer choice.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests knowledge of HTTPS and browser security indicators, which is a subtopic of \\\"networks and the internet\\\" as established by the cited excerpt from lesson-06-networks under the \\\"encryption-and-https\\\" section.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt directly defines a packet as a small chunk of data with headers recording source address, destination address, and sequence position, which matches this option exactly.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"A packet is a small chunk of data \u2014 typically around a kilobyte \u2014 carrying headers that record its source address, destination address, and sequence position.\", \"explanation\": \"The excerpt states that packet headers record source address, destination address, AND sequence position \u2014 not only destination address and file size. The claim of 'only destination address and file size' is directly contradicted.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A large file is split into many packets that may take different routes across the network and arrive out of order; the receiving device reassembles them into the original data.\", \"explanation\": \"The excerpt states the opposite: a large file is split into many packets before being sent, and reassembly happens at the receiving end \u2014 not before transmission. The option's claim that a large file is reassembled before being sent is directly contradicted.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Data travels across networks in packets.\", \"explanation\": \"The excerpt establishes that a packet is a unit of data, not a protocol. The concept of a 'shared protocol that independent networks agree to use' describes something categorically different (e.g., a communication standard), ruling this option out as a definition of a packet.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests knowledge of packets in network data transmission, which is a core subtopic of \\\"networks and the internet\\\" as confirmed by the cited chunk from lesson-06-networks#packets.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"This option reverses the definitions: it claims a LAN spans cities or continents and a WAN covers a small area, which directly contradicts the excerpt's definitions of LAN and WAN.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"This option again reverses the definitions, attributing WAN's characteristics to LAN and vice versa, directly contradicting the excerpt.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"This option exactly matches the excerpt's definitions: LAN covers a small area such as a home or office, and WAN spans cities or continents.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"A local area network (LAN) covers a small area such as a home or office; a wide area network (WAN) spans cities or continents.\", \"explanation\": \"This option incorrectly states that a LAN spans continents and a WAN spans cities, which contradicts the excerpt. According to the excerpt, it is the WAN (not LAN) that spans cities or continents, and the LAN covers only a small area.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests knowledge of networks and the internet \u2014 specifically the geographic distinction between LAN and WAN \u2014 which is a core subtopic of \\\"networks and the internet\\\" as established by the cited excerpt from the \\\"what-is-a-network\\\" section.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "binary_search",
+      "question": "binary search",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "binary search",
+        "questions": [
+          {
+            "question": "What does binary search compare the target value to at each step of the search?",
+            "options": [
+              "The first element of the remaining list",
+              "The last element of the remaining list",
+              "The middle element of the remaining list",
+              "Every element of the remaining list"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "When the target value is larger than the middle element in a binary search, where does the search continue?",
+            "options": [
+              "In the left half",
+              "From the beginning of the full list",
+              "In the right half",
+              "At the middle element again"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "According to the course material, approximately how many comparisons does binary search need at most for a list of one million items?",
+            "options": [
+              "About ten comparisons",
+              "About twenty comparisons",
+              "About fifty comparisons",
+              "About one hundred comparisons"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What is the Big-O efficiency classification of binary search?",
+            "options": [
+              "O(n\u00b2)",
+              "O(n log n)",
+              "O(n)",
+              "O(log n)"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          },
+          {
+            "question": "Binary search requires the list to be sorted in advance. Which of the following describes what binary search does if the target is smaller than the middle element?",
+            "options": [
+              "The search continues in the left half",
+              "The search continues in the right half",
+              "The search restarts from the beginning",
+              "The search expands to the full list"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-04-algorithms#binary-search"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#what-is-an-algorithm",
+          "lesson-04-algorithms#pseudocode",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "An algorithm is a precise, step-by-step procedure for solving a problem. A recipe is a\nuseful analogy: given ingredients (input), following the steps produces a dish\n(output). For a procedure to be an algorithm, its steps must be unambiguous, it must\nfinish after a finite number of steps, and it must produce a correct result for every\nvalid input. The same algorithm can be expressed in English, in pseudocode, or in any\nprogramming language.",
+          "Pseudocode describes an algorithm in structured, language-neutral text. It uses\nconstructs such as IF/ELSE for decisions, WHILE and FOR for repetition, and variables\nfor storing values, without the exact syntax of any programming language. Pseudocode\nlets people design and discuss an algorithm before writing real code.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states the comparison is made against the middle element, not the first element of the remaining list. This directly contradicts option 0.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states the comparison is made against the middle element, not the last element of the remaining list. This directly contradicts option 1.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt directly and unambiguously states that binary search compares the target to the middle element at each step, fully supporting option 2 as the correct answer.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements, so a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt makes clear that binary search eliminates half the elements with each comparison (rather than checking every element), directly contradicting the notion that it compares against every element of the remaining list.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests the mechanics of binary search \u2014 specifically what element is compared at each step \u2014 which is the core concept described in the cited excerpt about binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"if the target is smaller, the search continues in the left half\", \"explanation\": \"The excerpt states the left half is used when the target is SMALLER than the middle element, directly contradicting this option which claims the left half is used when the target is larger.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt establishes that binary search works by repeatedly halving the search range, never by restarting from the beginning of the full list. This mechanism rules out option 1 entirely.\", \"option_index\": 1, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"if larger, in the right half\", \"explanation\": \"The excerpt directly and explicitly states that when the target is larger than the middle element, the search continues in the right half, fully supporting this option as the correct answer.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements\", \"explanation\": \"The excerpt establishes that each comparison eliminates half the remaining elements, meaning the search never stays at the same middle element again \u2014 making this option inapplicable to how binary search operates.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests the mechanics of binary search \u2014 specifically where the search continues when the target is larger than the middle element \u2014 which is a core subtopic explicitly covered in the cited excerpt about binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states the maximum is about twenty comparisons, directly contradicting the claim of 'about ten comparisons'.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly and explicitly states that a list of one million items needs at most about twenty comparisons, fully supporting this option as the correct answer.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states the maximum is about twenty comparisons, directly contradicting the claim of 'about fifty comparisons'.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states the maximum is about twenty comparisons, directly contradicting the claim of 'about one hundred comparisons'.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests binary search \u2014 specifically its efficiency in terms of number of comparisons \u2014 which is a core concept explicitly covered in the cited excerpt about binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt assigns O(n\u00b2) to bubble sort, not to binary search. This directly contradicts the claim that binary search is O(n\u00b2).\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt assigns O(n log n) to merge sort, not to binary search. This directly contradicts the claim that binary search is O(n log n).\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Linear search is O(n): doubling the list doubles the worst-case work.\", \"explanation\": \"The excerpt assigns O(n) to linear search, not to binary search. This directly contradicts the claim that binary search is O(n).\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt explicitly states that binary search is O(log n), directly supporting this option as the correct answer.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly asks about the Big-O efficiency classification of binary search, and the cited excerpt explicitly discusses binary search's Big-O notation \u2014 this is a direct test of the requested topic.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"if the target is smaller, the search continues in the left half\", \"explanation\": \"The excerpt explicitly states that when the target is smaller than the middle element, the search continues in the left half, directly supporting this option as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half\", \"explanation\": \"The excerpt assigns right-half continuation to when the target is *larger*, not smaller. Claiming the search continues in the right half when the target is smaller directly contradicts the excerpt.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"Binary search works by repeatedly halving the search range, never restarting from the beginning. The concept of restarting contradicts the fundamental halving mechanism described in the excerpt.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements\", \"explanation\": \"The excerpt states that each comparison *eliminates* half the elements, meaning the search range narrows rather than expands. Expanding to the full list directly contradicts this behavior.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests binary search mechanics \u2014 specifically what happens when the target is smaller than the middle element \u2014 which is a core subtopic of binary search as described in the cited excerpt.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "casual_ram_power_loss",
+      "question": "working memory when power goes off",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "working memory when power goes off",
+        "questions": [
+          {
+            "question": "What happens to RAM's contents when power is removed from a computer?",
+            "options": [
+              "They are retained, because RAM is the computer's persistent storage",
+              "They are transferred automatically to cache memory next to the CPU",
+              "They are lost, because RAM is volatile working memory",
+              "They are saved to registers inside the CPU for later retrieval"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "What happens to RAM's contents when power is removed?",
+            "options": [
+              "They are compressed and stored on an SSD.",
+              "They are moved to cache memory for safekeeping.",
+              "They are transferred to registers inside the CPU.",
+              "They are lost."
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "What does the course excerpt say happens to RAM's contents when power is removed?",
+            "options": [
+              "They are lost, because RAM is volatile",
+              "They are retained, because RAM is persistent",
+              "They are preserved on spinning magnetic platters",
+              "They are cached in nearby CPU registers"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "Which type of storage retains data without power, unlike RAM?",
+            "options": [
+              "Cache memory",
+              "Persistent storage",
+              "CPU registers",
+              "Working memory"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "According to the course excerpt, what happens to RAM's contents when power is removed?",
+            "options": [
+              "They are lost, because RAM is volatile",
+              "They are retained, because RAM uses flash memory",
+              "They are transferred to cache memory near the CPU cores",
+              "They are saved automatically to a hard disk drive"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt clearly designates SSDs and HDDs (not RAM) as the persistent storage that retains data without power. RAM is described as volatile, directly contradicting the claim that RAM is the computer's persistent storage.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt describes cache as holding recently used data, not as a destination for RAM contents when power is removed. There is no mention of any automatic transfer from RAM to cache; in fact, RAM contents are stated to be lost when power is removed, contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly and explicitly states that RAM's contents are lost when power is removed and labels RAM as volatile, fully supporting this answer choice.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt describes registers only as fast, small storage inside the CPU with no mention of them receiving or saving RAM contents upon power loss. Combined with the explicit statement that RAM contents are lost when power is removed, the claim of saving to CPU registers for later retrieval is directly contradicted.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests what happens to RAM's contents when power is removed, which is precisely the \\\"working memory when power goes off\\\" topic. The cited chunk explicitly addresses RAM's volatile nature and what happens when power is removed.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt describes SSDs as persistent storage that retains data without power, not as a destination where RAM contents are compressed and stored when power is removed. RAM contents are lost, not moved to an SSD.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt defines cache memory as holding recently used data while the system is running \u2014 it is not described as a safekeeping destination for RAM contents when power is removed. RAM contents are lost, not moved to cache.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt describes registers as the fastest and smallest storage inside the CPU, not as a place where RAM contents are transferred when power is removed. RAM contents are lost, not transferred to registers.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly states that RAM's contents are lost when power is removed and that RAM is volatile, directly supporting this answer choice.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests what happens to RAM's contents when power is removed, which is precisely the concept of \\\"working memory when power goes off\\\" as described in the cited excerpt about RAM being volatile.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly states that RAM's contents are lost when power is removed and explicitly labels RAM as volatile, which matches this option exactly.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly contradicts this option: RAM is described as volatile (contents lost on power removal), not persistent. The excerpt reserves 'persistent' for SSDs and HDDs.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"Spinning magnetic platters are identified in the excerpt as a characteristic of HDDs (persistent storage), not RAM. This attribute belongs to a different category of storage entirely, making it inapplicable as a description of what happens to RAM's contents.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest. Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt distinguishes CPU registers and cache as separate, faster storage layers from RAM. There is no mention of RAM contents being cached in CPU registers; in fact, the hierarchy presented makes clear these are distinct components, directly contradicting this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests what happens to RAM's contents when power is removed, which is precisely the \\\"working memory when power goes off\\\" topic. The cited excerpt explicitly addresses RAM's volatility upon power removal.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt defines cache memory as holding recently used data near the CPU cores \u2014 it is never described as retaining data without power. Its defined role is a speed-layer buffer, not persistent retention, making it inapplicable as the answer to the question asked.\", \"option_index\": 0, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly states that persistent storage retains data without power, directly supporting this option as the correct answer.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt describes CPU registers as the fastest and smallest storage, positioned at the top of the speed hierarchy. They are not described as retaining data without power, and their role as an ultra-fast CPU-internal store makes them inapplicable to the question about power-independent retention.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Random access memory (RAM) is the computer's working memory: it holds running programs and their data, and its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly contradicts this option: working memory (RAM) explicitly loses its contents when power is removed (volatile), which is the opposite of what the question asks for.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests the concept of which storage type retains data when power is removed, which is the core subtopic of \\\"working memory when power goes off\\\" as established by the cited excerpt discussing RAM's volatility and persistent storage's ability to retain data without power.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly states that RAM's contents are lost when power is removed and explicitly labels RAM as volatile, which matches this option exactly.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"explanation\": \"The excerpt associates flash memory with SSDs (persistent storage), not with RAM. Additionally, RAM is described as volatile (contents lost on power loss), directly contradicting the claim that RAM retains data because it uses flash memory.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt establishes that cache memory holds recently used data and is a separate, faster layer in the hierarchy above RAM. There is no mechanism described by which RAM contents are transferred to cache on power loss; cache is a distinct storage tier, making this option inapplicable.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt describes hard disk drives as persistent storage that retains data without power, but says nothing about RAM contents being automatically saved there. Moreover, RAM is explicitly described as volatile (contents lost on power removal), directly contradicting the claim of automatic saving to an HDD.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests what happens to RAM (the computer's working memory) when power is removed, which maps precisely to the requested topic \\\"working memory when power goes off.\\\" The cited chunk explicitly discusses RAM as working memory and its behavior upon power loss.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    }
+  ]
+}

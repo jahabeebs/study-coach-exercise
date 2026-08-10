@@ -1,0 +1,330 @@
+{
+  "run_at": "2026-08-10T19:36:45+00:00",
+  "model": "anthropic:claude-sonnet-4-6",
+  "dataset": "study-coach-quiz",
+  "summary": {
+    "cases": 3,
+    "assertions_passed": 15,
+    "assertions_total": 15
+  },
+  "cases": [
+    {
+      "case": "computer_hardware",
+      "question": "computer hardware",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "computer hardware",
+        "questions": [
+          {
+            "question": "What is the correct order of the steps in the CPU's fetch-decode-execute cycle?",
+            "options": [
+              "Decode, fetch, execute",
+              "Fetch, execute, decode",
+              "Execute, decode, fetch",
+              "Fetch, decode, execute"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#the-central-processing-unit"
+          },
+          {
+            "question": "Which storage type is described as volatile, meaning its contents are lost when power is removed?",
+            "options": [
+              "Solid-state drive (SSD)",
+              "Hard disk drive (HDD)",
+              "Random access memory (RAM)",
+              "Cache memory"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "In what year did Gordon Moore first make the observation that became known as Moore's Law?",
+            "options": [
+              "1965",
+              "1975",
+              "1955",
+              "1985"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#moores-law"
+          },
+          {
+            "question": "According to the description of the motherboard, what is the specific role of the chipset?",
+            "options": [
+              "It provides expansion slots for additional cards such as graphics cards",
+              "It manages traffic between components",
+              "It carries data between the CPU, memory, and devices",
+              "It serves as the main circuit board that connects every component"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#the-motherboard-and-buses"
+          },
+          {
+            "question": "How do SSDs differ from HDDs according to the storage hierarchy lesson?",
+            "options": [
+              "SSDs retain data without power, while HDDs lose data when power is removed",
+              "SSDs store data on spinning magnetic platters, while HDDs use flash memory",
+              "SSDs use flash memory with no moving parts and are much faster than HDDs",
+              "SSDs are slower than HDDs but hold more data"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt establishes the order as fetch \u2192 decode \u2192 execute. 'Decode, fetch, execute' places decode before fetch, directly contradicting the stated sequence.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt establishes the order as fetch \u2192 decode \u2192 execute. 'Fetch, execute, decode' skips decode to second place and execute to last, directly contradicting the stated sequence.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt establishes the order as fetch \u2192 decode \u2192 execute. 'Execute, decode, fetch' reverses the sequence entirely, directly contradicting the stated order.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It repeatedly performs the fetch-decode-execute cycle: fetch the next instruction from memory, decode what it means, and execute it.\", \"explanation\": \"The excerpt explicitly names and describes the cycle in the order fetch \u2192 decode \u2192 execute, directly supporting this answer choice as correct.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests knowledge of CPU operation, which is a core subtopic of computer hardware, as confirmed by the cited excerpt from a hardware lesson about the central processing unit.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly classifies SSDs as persistent storage that retains data without power, directly contradicting the claim that SSDs are volatile.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly classifies HDDs as persistent storage that retains data without power, directly contradicting the claim that HDDs are volatile.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly and unambiguously states that RAM is volatile and loses its contents when power is removed, fully supporting this answer choice.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt describes cache memory as part of the storage hierarchy situated near the CPU cores, but it is categorized separately from RAM and is never described as volatile. The volatile property is explicitly assigned only to RAM, ruling out cache memory as the answer to this question.\", \"option_index\": 3, \"ruling\": \"inapplicable\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests knowledge of computer hardware storage types and their properties (volatile vs. non-volatile), which is a core subtopic of computer hardware as established by the cited excerpt from a hardware lesson on memory and the storage hierarchy.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"In 1965, Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt explicitly states that Gordon Moore made his observation in 1965, directly supporting this option as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"In 1965, Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt clearly states the year was 1965, not 1975, directly contradicting this option.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"In 1965, Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt clearly states the year was 1965, not 1955, directly contradicting this option.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"In 1965, Gordon Moore observed that the number of transistors on a chip doubled roughly every two years, an observation known as Moore's law.\", \"explanation\": \"The excerpt clearly states the year was 1965, not 1985, directly contradicting this option.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question tests knowledge of Moore's Law, which is explicitly discussed in the cited chunk under a hardware lesson (lesson-03-hardware). Moore's Law is a foundational concept in computer hardware, directly relevant to the requested topic.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Expansion slots allow additional cards, such as a dedicated graphics card, to be added.\", \"explanation\": \"The excerpt attributes the role of providing expansion slots for additional cards (like graphics cards) to 'expansion slots,' not to the chipset. This option incorrectly assigns that function to the chipset, directly contradicting the source.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The chipset manages traffic between components.\", \"explanation\": \"The excerpt explicitly states that the chipset manages traffic between components, directly supporting this option as the correct answer.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Buses are the communication pathways that carry data between the CPU, memory, and devices.\", \"explanation\": \"The excerpt assigns the role of carrying data between the CPU, memory, and devices to 'buses,' not to the chipset. Attributing this function to the chipset directly contradicts the source.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"The motherboard is the main circuit board that connects every component.\", \"explanation\": \"The excerpt assigns the role of being the main circuit board that connects every component to the 'motherboard,' not to the chipset. This option directly contradicts the source by misattributing that role to the chipset.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests knowledge of computer hardware components \u2014 specifically the role of the chipset on the motherboard \u2014 which is a clear subtopic of \\\"computer hardware\\\" as established by the cited excerpt from a hardware lesson.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt establishes that BOTH SSDs and HDDs retain data without power (they are both classified as persistent storage). The option incorrectly distinguishes them by claiming only SSDs retain data without power while HDDs lose data \u2014 this property belongs to RAM, not HDDs. The excerpt rules this option out as a distinguishing characteristic between SSDs and HDDs.\", \"option_index\": 0, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt directly contradicts this option by stating the opposite: SSDs use flash memory and HDDs store data on spinning magnetic platters \u2014 not the other way around as the option claims.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt directly and verbatim supports this option as the correct answer, confirming that SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs, which store data on spinning magnetic platters.\", \"explanation\": \"The excerpt directly contradicts this option by stating SSDs are much faster than HDDs, not slower. The excerpt makes no claim about relative storage capacity between the two.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests knowledge of computer hardware components (SSDs vs. HDDs), and the cited chunk is from a lesson on hardware and the storage hierarchy, making it a clear subtopic of computer hardware.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "binary_search",
+      "question": "binary search",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "binary search",
+        "questions": [
+          {
+            "question": "What does binary search compare the target value to at each step?",
+            "options": [
+              "The first element of the remaining range",
+              "The last element of the remaining range",
+              "The middle element of the remaining range",
+              "A randomly selected element of the remaining range"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "When the target value is larger than the middle element during a binary search, where does the search continue?",
+            "options": [
+              "In the left half",
+              "From the beginning of the full list",
+              "In the right half",
+              "On the middle element again"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "Approximately how many comparisons does binary search need at most to search a list of one million items?",
+            "options": [
+              "About ten comparisons",
+              "About twenty comparisons",
+              "About fifty comparisons",
+              "About one hundred comparisons"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "According to how binary search works, which of the following correctly describes what each comparison does?",
+            "options": [
+              "The list must be halved only once, since the first comparison always finds the target directly",
+              "Binary search starts from the rightmost element and works left, so the list need not be sorted",
+              "Each comparison checks every remaining element before moving to the middle, making sorting unnecessary",
+              "Each comparison eliminates half the remaining elements, so a list of one million items needs at most about twenty comparisons"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-04-algorithms#binary-search"
+          },
+          {
+            "question": "What is the Big-O efficiency classification of binary search?",
+            "options": [
+              "O(log n)",
+              "O(n)",
+              "O(n\u00b2)",
+              "O(n log n)"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-04-algorithms#comparing-algorithm-efficiency"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-04-algorithms#what-is-an-algorithm",
+          "lesson-04-algorithms#pseudocode",
+          "lesson-04-algorithms#linear-search",
+          "lesson-04-algorithms#binary-search",
+          "lesson-04-algorithms#sorting",
+          "lesson-04-algorithms#comparing-algorithm-efficiency"
+        ],
+        "retrieved_chunks": [
+          "An algorithm is a precise, step-by-step procedure for solving a problem. A recipe is a\nuseful analogy: given ingredients (input), following the steps produces a dish\n(output). For a procedure to be an algorithm, its steps must be unambiguous, it must\nfinish after a finite number of steps, and it must produce a correct result for every\nvalid input. The same algorithm can be expressed in English, in pseudocode, or in any\nprogramming language.",
+          "Pseudocode describes an algorithm in structured, language-neutral text. It uses\nconstructs such as IF/ELSE for decisions, WHILE and FOR for repetition, and variables\nfor storing values, without the exact syntax of any programming language. Pseudocode\nlets people design and discuss an algorithm before writing real code.",
+          "Linear search finds a target value in a list by checking each element one at a time,\nfrom the first to the last, until the target is found or the list is exhausted. In the\nworst case, linear search examines every element. Its advantage is simplicity: it\nworks on any list, sorted or not.",
+          "Binary search finds a target value in a sorted list by repeatedly halving the search\nrange. It compares the target to the middle element: if the target is smaller, the\nsearch continues in the left half; if larger, in the right half. Each comparison\neliminates half the remaining elements, so a list of one million items needs at most\nabout twenty comparisons. Binary search requires the list to be sorted in advance.",
+          "Sorting arranges a list into order. Bubble sort, a simple teaching algorithm,\nrepeatedly steps through the list and swaps adjacent elements that are out of order;\nit is easy to understand but slow on large lists. Merge sort divides the list in half,\nsorts each half, and merges the sorted halves; it is dramatically faster on large\ninputs. Efficient sorting matters because sorted data enables fast operations like\nbinary search.",
+          "Computer scientists compare algorithms by how their running time grows with input\nsize, written in Big-O notation. Linear search is O(n): doubling the list doubles the\nworst-case work. Binary search is O(log n): doubling a sorted list adds only one more\ncomparison. Bubble sort is O(n\u00b2), while merge sort is O(n log n). For small inputs the\ndifference barely matters, but at scale the growth rate dominates everything else."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states that binary search compares the target to the middle element, directly contradicting the claim that it compares to the first element of the remaining range.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt explicitly states that binary search compares the target to the middle element, directly contradicting the claim that it compares to the last element of the remaining range.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt directly and unambiguously states that binary search compares the target to the middle element at each step, fully supporting this option as the correct answer.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes a deterministic halving process centered on the middle element, directly contradicting the claim that a randomly selected element is used. Random selection is not mentioned anywhere in the excerpt.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The question directly tests knowledge of binary search \u2014 specifically how it operates at each step \u2014 which is the exact requested topic and is clearly covered by the cited excerpt on binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half\", \"explanation\": \"The excerpt directly contradicts this option: the left half is where the search continues when the target is *smaller* than the middle element, not larger.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt describes binary search as repeatedly *halving* the search range, never restarting from the beginning of the full list. Restarting from the beginning directly contradicts the halving mechanism.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"if the target is smaller, the search continues in the left half; if larger, in the right half\", \"explanation\": \"The excerpt explicitly states that when the target is larger than the middle element, the search continues in the right half, directly supporting this option as correct.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements\", \"explanation\": \"The excerpt states that each comparison eliminates half the remaining elements, meaning the search never stays on the same middle element \u2014 re-examining the middle element would contradict this elimination mechanism.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests the mechanics of binary search \u2014 specifically what happens when the target is larger than the middle element \u2014 which is a core subtopic explicitly covered in the cited excerpt about binary search.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states the maximum is about twenty comparisons, directly contradicting the claim of about ten comparisons.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly and explicitly states that a list of one million items needs at most about twenty comparisons, fully supporting this option as correct.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states the maximum is about twenty comparisons, directly contradicting the claim of about fifty comparisons.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt explicitly states the maximum is about twenty comparisons, directly contradicting the claim of about one hundred comparisons.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests knowledge of binary search's efficiency (number of comparisons for one million items), which is explicitly covered in the cited excerpt about binary search. This is a core subtopic of binary search performance.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Binary search finds a target value in a sorted list by repeatedly halving the search range.\", \"explanation\": \"The excerpt states that binary search works by *repeatedly* halving the search range, directly contradicting the claim that the list is halved only once and the first comparison always finds the target directly.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"It compares the target to the middle element: if the target is smaller, the search continues in the left half; if larger, in the right half.\", \"explanation\": \"The excerpt describes binary search as starting from the middle element and branching left or right, not starting from the rightmost element and working left. Additionally, the excerpt states 'Binary search requires the list to be sorted in advance,' directly contradicting the claim that the list need not be sorted.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements, so a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt makes clear that each comparison eliminates *half* the remaining elements (not every remaining element), and it also states 'Binary search requires the list to be sorted in advance,' directly contradicting the claim that sorting is unnecessary.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Each comparison eliminates half the remaining elements, so a list of one million items needs at most about twenty comparisons.\", \"explanation\": \"The excerpt directly and verbatim supports this option, stating that each comparison eliminates half the remaining elements and giving the concrete example of one million items requiring at most about twenty comparisons.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests understanding of how binary search works, and the cited chunk is explicitly about binary search \u2014 its mechanism, requirements, and efficiency. This is a direct match to the requested topic.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Binary search is O(log n): doubling a sorted list adds only one more comparison.\", \"explanation\": \"The excerpt directly states that binary search is O(log n), which matches this option exactly and confirms it as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Linear search is O(n): doubling the list doubles the worst-case work.\", \"explanation\": \"The excerpt explicitly assigns O(n) to linear search, not binary search, directly contradicting the claim that binary search is O(n).\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt explicitly assigns O(n\u00b2) to bubble sort, not binary search, directly contradicting the claim that binary search is O(n\u00b2).\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Bubble sort is O(n\u00b2), while merge sort is O(n log n).\", \"explanation\": \"The excerpt explicitly assigns O(n log n) to merge sort, not binary search, directly contradicting the claim that binary search is O(n log n).\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests the Big-O efficiency classification of binary search, and the cited excerpt explicitly discusses binary search's Big-O notation \u2014 a clearly identified subtopic of algorithm efficiency.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    },
+    {
+      "case": "casual_ram_power_loss",
+      "question": "working memory when power goes off",
+      "metadata": {
+        "expected_question_count": 5
+      },
+      "output": {
+        "topic": "working memory when power goes off",
+        "questions": [
+          {
+            "question": "What is RAM described as in the context of a computer's storage hierarchy?",
+            "options": [
+              "The computer's permanent storage",
+              "The computer's working memory",
+              "The computer's cache memory",
+              "The computer's register storage"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "What happens to the contents of RAM when power is removed?",
+            "options": [
+              "They are compressed and stored on the SSD",
+              "They are backed up to the CPU cache",
+              "They are transferred to the hard disk drive",
+              "They are lost"
+            ],
+            "correct_index": 3,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "According to the course material, what term describes RAM's characteristic of losing its stored contents when power is removed?",
+            "options": [
+              "Persistent, meaning data is retained without power",
+              "Volatile, meaning contents are lost when power is removed",
+              "Registered, meaning data is held inside the CPU itself",
+              "Solid-state, meaning data is stored in flash memory with no moving parts"
+            ],
+            "correct_index": 1,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "Which storage types retain data without power, unlike RAM?",
+            "options": [
+              "Registers and cache memory",
+              "Cache memory and RAM",
+              "Solid-state drives (SSD) and hard disk drives (HDD)",
+              "RAM and solid-state drives (SSD)"
+            ],
+            "correct_index": 2,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          },
+          {
+            "question": "According to the course material, what happens to RAM's contents when power is removed?",
+            "options": [
+              "They are lost, because RAM is volatile",
+              "They are saved automatically to cache memory next to the CPU",
+              "They are transferred to registers inside the CPU for safekeeping",
+              "They are retained without power, like an SSD or HDD"
+            ],
+            "correct_index": 0,
+            "citation": "lesson-03-hardware#memory-and-the-storage-hierarchy"
+          }
+        ],
+        "retrieved_section_ids": [
+          "lesson-03-hardware#the-central-processing-unit",
+          "lesson-03-hardware#memory-and-the-storage-hierarchy",
+          "lesson-03-hardware#the-motherboard-and-buses",
+          "lesson-03-hardware#input-and-output-devices",
+          "lesson-03-hardware#the-graphics-processing-unit",
+          "lesson-03-hardware#moores-law"
+        ],
+        "retrieved_chunks": [
+          "The central processing unit (CPU) executes instructions. It repeatedly performs the\nfetch-decode-execute cycle: fetch the next instruction from memory, decode what it\nmeans, and execute it. CPU speed is measured in gigahertz (GHz), billions of cycles\nper second. Modern CPUs contain multiple cores, each capable of executing instructions\nindependently, which allows a computer to make progress on several tasks at once.",
+          "Computers use a hierarchy of storage that trades speed against capacity and cost.\nRegisters inside the CPU are the fastest and smallest. Cache memory sits next to the\nCPU cores and holds recently used data. Random access memory (RAM) is the computer's\nworking memory: it holds running programs and their data, and its contents are lost\nwhen power is removed \u2014 RAM is volatile. Persistent storage \u2014 solid-state drives (SSD)\nand hard disk drives (HDD) \u2014 retains data without power. SSDs use flash memory with no\nmoving parts and are much faster than HDDs, which store data on spinning magnetic\nplatters.",
+          "The motherboard is the main circuit board that connects every component. Buses are the\ncommunication pathways that carry data between the CPU, memory, and devices. The\nchipset manages traffic between components. Expansion slots allow additional cards,\nsuch as a dedicated graphics card, to be added.",
+          "Input devices bring data into the computer: keyboards, mice, touchscreens, cameras,\nand microphones. Output devices present results: monitors, speakers, and printers.\nPorts such as USB provide standardized connections for peripherals. Device drivers are\nsoftware components that let the operating system communicate with specific hardware.",
+          "The graphics processing unit (GPU) contains thousands of small cores designed to\nperform many simple calculations simultaneously. GPUs were created to render images\nand video, but their parallel design also makes them well suited to scientific\ncomputing and training machine learning models.",
+          "In 1965, Gordon Moore observed that the number of transistors on a chip doubled\nroughly every two years, an observation known as Moore's law. For decades this drove\nexponential growth in computing power at falling cost. In recent years the pace has\nslowed as transistors approach physical limits, pushing the industry toward multi-core\ndesigns, specialized chips, and better software efficiency."
+        ]
+      },
+      "assertions": {
+        "QuizShapeValid": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizCitationsGrounded": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizAnswerPositionsVaried": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizDoesNotRevealAnswers": {
+          "passed": true,
+          "reason": null
+        },
+        "QuizEvidenceJudge": {
+          "passed": true,
+          "reason": "{\"errors\": [], \"evidence\": {\"items\": [{\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt reserves the concept of 'permanent storage' for persistent storage devices (SSDs/HDDs), not RAM. RAM is explicitly described as volatile, directly contradicting the claim that it is the computer's permanent storage.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Random access memory (RAM) is the computer's working memory: it holds running programs and their data, and its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly and directly defines RAM as 'the computer's working memory,' fully supporting this option as correct.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt identifies cache memory as a distinct layer in the storage hierarchy that sits next to CPU cores. RAM is defined separately as working memory, so calling RAM 'cache memory' is directly contradicted.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt identifies registers as a separate, distinct storage layer inside the CPU. RAM is defined as working memory, not register storage, making this option directly contradicted.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 0, \"topic_relevance_explanation\": \"The requested topic is \\\"working memory when power goes off,\\\" which directly maps to the cited chunk's description of RAM as the computer's working memory whose contents are lost when power is removed. The question tests exactly this concept.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt describes SSDs as persistent storage that retains data without power, not as a destination for compressed RAM contents when power is removed. There is no mechanism described where RAM contents are compressed and sent to an SSD.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"Cache memory is described as holding recently used data near the CPU \u2014 it is a separate, faster layer of the hierarchy. The excerpt makes no mention of RAM contents being backed up to CPU cache; in fact, cache is smaller and faster than RAM, making this directionally implausible per the hierarchy described.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt explicitly states that RAM contents are lost when power is removed. There is no transfer to a hard disk drive described; HDDs are simply listed as persistent storage, not as a target for RAM contents on power loss.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly and unambiguously states that RAM's contents are lost when power is removed, directly supporting this answer choice.\", \"option_index\": 3, \"ruling\": \"supported\"}], \"question_index\": 1, \"topic_relevance_explanation\": \"The question directly tests what happens to RAM (working memory) when power is removed, which is precisely the requested topic of \\\"working memory when power goes off.\\\" The cited excerpt explicitly addresses RAM's volatile nature in this exact context.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt directly contradicts this option: 'persistent' describes storage that retains data without power, not RAM. RAM is described as volatile (losing contents when power is removed), so calling RAM 'persistent' is directly contradicted.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly and explicitly supports this option, defining 'volatile' as the term for RAM's characteristic of losing its contents when power is removed.\", \"option_index\": 1, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt describes registers (not RAM) as being inside the CPU. RAM is described separately as working memory, so the claim that 'registered' means data is held inside the CPU itself is contradicted by the excerpt's own categorization.\", \"option_index\": 2, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"SSDs use flash memory with no moving parts and are much faster than HDDs.\", \"explanation\": \"The excerpt attributes 'solid-state' and flash memory with no moving parts to SSDs (a form of persistent storage), not to RAM. Applying this description to RAM is directly contradicted by the excerpt.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 2, \"topic_relevance_explanation\": \"The question directly tests the concept of RAM losing its contents when power is removed, which is explicitly addressed in the cited chunk under the memory hierarchy discussion. This is a direct subtopic of \\\"working memory when power goes off.\\\"\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest. Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt describes registers and cache as fast, small, and CPU-adjacent storage types, but does not state they retain data without power. In contrast, only SSDs and HDDs are described as retaining data without power, so this option is contradicted by the hierarchy described.\", \"option_index\": 0, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"RAM is explicitly described as volatile (loses data when power is removed), directly contradicting the claim that cache memory and RAM retain data without power.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt directly and explicitly states that SSDs and HDDs retain data without power, perfectly supporting this option as the correct answer.\", \"option_index\": 2, \"ruling\": \"supported\"}, {\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"RAM is explicitly labeled volatile in the excerpt, meaning it does NOT retain data without power. This directly contradicts including RAM in the answer to this question.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 3, \"topic_relevance_explanation\": \"The question directly tests which storage types retain data without power (i.e., non-volatile storage), which is the concept of \\\"working memory when power goes off\\\" as described in the cited excerpt \u2014 RAM loses data when power is removed, while SSDs and HDDs do not. This is a clear subtopic of the memory and storage hierarchy lesson.\", \"topic_relevant\": true}, {\"options\": [{\"evidence_quote\": \"its contents are lost when power is removed \u2014 RAM is volatile.\", \"explanation\": \"The excerpt directly states that RAM's contents are lost when power is removed and explicitly labels RAM as volatile, fully supporting this option as the correct answer.\", \"option_index\": 0, \"ruling\": \"supported\"}, {\"evidence_quote\": \"Cache memory sits next to the CPU cores and holds recently used data.\", \"explanation\": \"The excerpt describes cache as holding recently used data, not as a destination for saving RAM contents when power is removed. There is no automatic save mechanism described, and cache is itself a fast but temporary storage tier, not a safe haven for RAM on power loss.\", \"option_index\": 1, \"ruling\": \"contradicted\"}, {\"evidence_quote\": \"Registers inside the CPU are the fastest and smallest.\", \"explanation\": \"The excerpt establishes registers as the fastest and smallest storage unit inside the CPU. They are not described as receiving or safekeeping RAM contents on power removal; their role in the hierarchy makes this option inapplicable.\", \"option_index\": 2, \"ruling\": \"inapplicable\"}, {\"evidence_quote\": \"Persistent storage \u2014 solid-state drives (SSD) and hard disk drives (HDD) \u2014 retains data without power.\", \"explanation\": \"The excerpt explicitly attributes the property of retaining data without power to SSDs and HDDs (persistent storage), not to RAM. RAM is instead described as volatile (contents lost on power removal), directly contradicting the claim that RAM behaves like an SSD or HDD.\", \"option_index\": 3, \"ruling\": \"contradicted\"}], \"question_index\": 4, \"topic_relevance_explanation\": \"The question directly tests what happens to RAM (the computer's working memory) when power is removed, which is precisely the requested topic of \\\"working memory when power goes off.\\\" The cited excerpt explicitly addresses this scenario.\", \"topic_relevant\": true}]}, \"passed\": true}"
+        }
+      },
+      "scores": {}
+    }
+  ]
+}
